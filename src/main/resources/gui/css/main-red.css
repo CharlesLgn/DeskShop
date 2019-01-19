@@ -1,0 +1,21 @@
+@import url("main.css");
+
+* {
+    -first-color  : DarkRed;
+    -second-color : Crimson;
+    -third-color  : LavenderBlush;
+
+    -text-color                   : white;
+    -button-text-color            : white;
+    -button-text-color-OVER       : white;
+    -button-close-text-color-OVER : -third-color;
+
+    /*___ chat CSS ___*/
+    -text-field-color         : white;
+    -scroll-bar-color         : Crimson;
+
+    -separator-color : White;
+
+    -checkedcolor : #f5a72d;
+    -uncheckedcolor : lightgrey;
+}
