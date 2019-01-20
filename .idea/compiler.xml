@@ -2,9 +2,9 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="DeskShop" target="1.5" />
-      <module name="deskShop-front" target="1.5" />
-      <module name="deskShop-serv" target="1.5" />
+      <module name="DeskShop" target="1.8" />
+      <module name="deskShop-front" target="1.8" />
+      <module name="deskShop-serv" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
