@@ -1,4 +1,5 @@
-package com.front.controllers;
+package com.deskshop.front.controllers;
+import com.deskshop.serv.Utils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
@@ -7,7 +8,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
 public class ConnexionController {
-
     @FXML
     private VBox vbox;
 
@@ -26,5 +26,8 @@ public class ConnexionController {
     @FXML
     void Enter(KeyEvent event) {
 
+    }
+    public static void main(String[] args){
+        Utils.printHello();
     }
 }

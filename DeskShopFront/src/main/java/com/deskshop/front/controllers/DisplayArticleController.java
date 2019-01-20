@@ -1,4 +1,4 @@
-package com.front.controllers;
+package com.deskshop.front.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;

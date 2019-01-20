@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DeskShop.iml" filepath="$PROJECT_DIR$/DeskShop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DeskShopFront/deskShop-front.iml" filepath="$PROJECT_DIR$/DeskShopFront/deskShop-front.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DeskShopServ/deskShop-serv.iml" filepath="$PROJECT_DIR$/DeskShopServ/deskShop-serv.iml" />
     </modules>
   </component>
 </project>

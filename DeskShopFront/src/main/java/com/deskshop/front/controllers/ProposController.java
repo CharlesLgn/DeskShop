@@ -1,4 +1,4 @@
-package com.front.controllers;
+package com.deskshop.front.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
