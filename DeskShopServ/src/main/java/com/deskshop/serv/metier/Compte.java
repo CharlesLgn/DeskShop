@@ -13,7 +13,7 @@ public class Compte {
     public Compte(String name, double amount, Person client) {
         this.id = -1;
         this.name = name;
-        this.amount = amount;
+        setAmount(amount);
         this.client = client;
     }
 
@@ -47,6 +47,9 @@ public class Compte {
     }
 
     public void setAmount(double amount) {
+        if(amount < 0.){
+            throw new IllegalArgumentException("sum c'ant be negative");
+        }
         this.amount = amount;
     }
 
@@ -63,5 +66,13 @@ public class Compte {
     @Override
     public String toString() {
         return name + " de " + client + " : " + amount;
+    }
+
+    public void credit(double sum){
+        setAmount(getAmount()+sum);
+    }
+
+    public void debit(double sum){
+        setAmount(getAmount()-sum);
     }
 }
