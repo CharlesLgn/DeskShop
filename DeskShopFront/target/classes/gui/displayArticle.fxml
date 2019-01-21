@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox fx:id="vbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="370.0" prefWidth="310.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="imgProduit" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+         <VBox.margin>
+            <Insets top="25.0" />
+         </VBox.margin>
+      </ImageView>
+      <Label fx:id="lbNomProduit" prefHeight="16.0" prefWidth="338.0" text="Label" />
+      <Label fx:id="lbPrix" prefHeight="16.0" prefWidth="408.0" text="Label" />
+      <Hyperlink fx:id="linkAjouterPanier" alignment="CENTER_RIGHT" onAction="#linkAjouterPanierClick" prefHeight="24.0" prefWidth="326.0" text="Ajouter au panier" />
+   </children>
+   <padding>
+      <Insets left="10.0" right="10.0" />
+   </padding>
+</VBox>

@@ -1,0 +1,15 @@
+.btn-close{
+    -fx-border-radius: 0px;
+    -fx-border-width: 0px;
+    -fx-background-color: -first-color;
+    -fx-font-weight: bold;
+    -fx-font-size: 20;
+    -fx-padding: 0 0 0 0;
+    -fx-background-radius: 0;
+    -fx-text-fill: -button-text-color;
+}
+
+.btn-close:hover{
+    -fx-background-color: -third-color;
+    -fx-text-fill: -button-close-text-color-OVER;
+}

@@ -1,0 +1,8 @@
+com\deskshop\front\controllers\DashboardController.class
+com\deskshop\front\controllers\DisplayArticleController.class
+com\deskshop\front\controllers\ChoixTypeCompteController.class
+com\deskshop\front\controllers\ProposController.class
+com\deskshop\front\controllers\ConnexionController.class
+com\deskshop\front\controllers\SignupController.class
+com\deskshop\front\start\test.class
+com\deskshop\front\start\Main.class

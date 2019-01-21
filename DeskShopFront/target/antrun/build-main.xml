@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <taskdef classname="com.sun.javafx.tools.ant.DeployFXTask" name="jfxdeploy" classpathref="maven.plugin.classpath"/>
+  <taskdef classname="com.sun.javafx.tools.ant.FXSignJarTask" name="jfxsignjar" classpathref="maven.plugin.classpath"/>
+  <jfxdeploy nativeBundles="all" outfile="DeskShop" width="1024" height="768" outdir="C:\Users\Charles\IdeaProjects\DeskShop\DeskShopFront\target/deploy">
+    <info title="deskShop front"/>
+    <application mainClass="com.javafx.main.Main" name="deskShop front"/>
+    <resources>
+      <fileset includes="*.jar" dir="C:\Users\Charles\IdeaProjects\DeskShop\DeskShopFront\target"/>
+      <fileset includes="*.jar" dir="C:\Users\Charles\IdeaProjects\DeskShop\DeskShopFront\target/dependency"/>
+    </resources>
+    <platform javafx="8.0+">
+      <jvmarg value="-Xms512m"/>
+      <jvmarg value="-Xmx1024m"/>
+    </platform>
+  </jfxdeploy>
+</target>
+</project>

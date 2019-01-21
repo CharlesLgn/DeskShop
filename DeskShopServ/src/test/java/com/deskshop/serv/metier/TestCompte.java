@@ -80,7 +80,7 @@ public class TestCompte {
     double sum = -250;
     //when
     try{
-      compte.debit(sum);
+      compte.credit(sum);
       failBecauseExceptionWasNotThrown(IllegalArgumentException.class);
     } catch (IllegalArgumentException e){
       //then

@@ -1,0 +1,12 @@
+.progress-indicator {
+    -fx-skin: "com.sun.javafx.scene.control.skin.ProgressIndicatorSkin";
+    -fx-progress-color: -second-color;
+}
+
+.progress-indicator .indicator {
+    -fx-padding: 0.083333em; /* 1 */
+}
+
+.progress-indicator:indeterminate .spinner {
+    -fx-padding: 10; /* 10 */
+}
