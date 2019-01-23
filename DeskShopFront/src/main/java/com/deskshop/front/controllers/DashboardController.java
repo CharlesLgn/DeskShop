@@ -2,6 +2,7 @@ package com.deskshop.front.controllers;
 
 import com.deskshop.common.constant.ServerConstant;
 import com.deskshop.common.link.ClientInterface;
+import com.deskshop.common.metier.Article;
 import com.deskshop.common.metier.Magasin;
 import com.deskshop.front.util.ControllerUtils;
 import com.deskshop.front.util.MoveUtils;
@@ -21,10 +22,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -138,7 +136,7 @@ public class DashboardController implements Initializable {
             jfxButton.setPrefSize(Double.MAX_VALUE, 60);
             jfxButton.setOnAction(event -> {
                 // Vérifier à l'aide d'une requête la connexion au serveur
-                showShop(magasin.getId());
+                showShop(magasin);
                 lbTitre.setText(magasin.getName());
             });
 
@@ -198,10 +196,21 @@ public class DashboardController implements Initializable {
     /**
      * call when we need to show an IRC
      */
-    private void showShop(int nbServ) {
-        fadeout(pnZoneTravail);
-        fadeout(pnZoneTravail);
+    private void showShop(Magasin magasin) {
+        try {
+            fadeout(pnZoneTravail);
+            List<Article> articles = ServerConstant.SHOP.getArticleByMagasin(magasin);
+            FlowPane flowPane = new FlowPane();
+            for (Article article: articles) {
+                Pane carteArticle = ControllerUtils.loadDisplayArticle(article.getPicture(), article.getName(), article.getPrice()+"");
+                flowPane.getChildren().add(carteArticle);
+            }
 
+            pnZoneTravail.getChildren().add(flowPane);
+            fadeout(pnZoneTravail);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     /**

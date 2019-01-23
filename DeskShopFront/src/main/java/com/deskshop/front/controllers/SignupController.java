@@ -9,6 +9,7 @@ import com.deskshop.utils.XMLDataFinder;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -82,8 +83,6 @@ public class SignupController implements Initializable {
                 XMLDataFinder.setPassword(user.getPsw());
 
                 ControllerUtils.loadChoix(id);
-
-                //ControllerUtils.loadDashBoard(id);
                 ((Stage) vbox.getScene().getWindow()).close();
 
             } else {
@@ -102,5 +101,9 @@ public class SignupController implements Initializable {
         fieldMail.setUnFocusColor(melValidity ? Color.rgb(0, 255, 127) : Color.RED);
     }
 
+    @FXML
+    void bt_close_action(ActionEvent event) {
+        ((Stage) vbox.getScene().getWindow()).close();
+    }
 }
 

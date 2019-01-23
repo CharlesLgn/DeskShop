@@ -57,7 +57,7 @@ public class ShopImpl extends Observable implements ShopInterface {
     }
 
     @Override
-    public List<Article> getArticleByMagasin() {
+    public List<Article> getArticleByMagasin(Magasin magasin) {
         ArticleManager manager = new ArticleManager();
         return manager.getArticleByMagasin(magasin);
     }
