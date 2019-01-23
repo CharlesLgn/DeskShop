@@ -1,8 +1,8 @@
 package com.deskshop.front.controllers;
 
 import com.deskshop.common.constant.ServerConstant;
+import com.deskshop.common.link.ClientInterface;
 import com.deskshop.common.metier.Magasin;
-import com.deskshop.front.start.Start;
 import com.deskshop.front.util.ControllerUtils;
 import com.deskshop.front.util.MoveUtils;
 import com.deskshop.utils.XMLDataFinder;
@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,8 +21,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -31,8 +30,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -67,6 +68,12 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        try {
+            ClientInterface client = new ClientImpl();
+            ServerConstant.SERVER.addObserver(client);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         createDrawer();
         lblName.setText(XMLDataFinder.getMail());
         BorderPane.setAlignment(this.pnZoneTravail, Pos.CENTER);
@@ -102,7 +109,7 @@ public class DashboardController implements Initializable {
 
     private void addAllShop() {
         try {
-            addShop(ServerConstant.SERVER.findAllMagasin());
+            addShop(ServerConstant.SERVER.findAllMagasin(nbUser));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -131,7 +138,7 @@ public class DashboardController implements Initializable {
             jfxButton.setPrefSize(Double.MAX_VALUE, 60);
             jfxButton.setOnAction(event -> {
                 // Vérifier à l'aide d'une requête la connexion au serveur
-                AffichageIRCClick(magasin.getId());
+                showShop(magasin.getId());
                 lbTitre.setText(magasin.getName());
             });
 
@@ -191,7 +198,7 @@ public class DashboardController implements Initializable {
     /**
      * call when we need to show an IRC
      */
-    private void AffichageIRCClick(int nbServ) {
+    private void showShop(int nbServ) {
         fadeout(pnZoneTravail);
         fadeout(pnZoneTravail);
 
@@ -219,17 +226,6 @@ public class DashboardController implements Initializable {
         fadeTransition.setCycleCount(2);
         fadeTransition.setAutoReverse(true);
         fadeTransition.play();
-    }
-
-    /**
-     * maximized the window
-     */
-    private void mouseClicked(MouseEvent event) {
-        if (event.getButton().equals(MouseButton.PRIMARY)) {
-            if (event.getClickCount() == 2) {
-                Start.getPrimaryStage().setMaximized(!Start.getPrimaryStage().isMaximized());
-            }
-        }
     }
 
     /**
@@ -298,5 +294,22 @@ public class DashboardController implements Initializable {
     @FXML
     public void changeLanguage(ActionEvent event) {
 
+    }
+
+    class ClientImpl extends UnicastRemoteObject implements ClientInterface, Serializable {
+        ClientImpl() throws RemoteException {
+            super();
+        }
+
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public void update(Object observable, Object updateMsg) {
+            try {
+                Platform.runLater(DashboardController.this::addAllShop);
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 }

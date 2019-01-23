@@ -78,18 +78,44 @@ public class ServerImpl extends Observable implements ServerInterface {
     }
 
     @Override
-    public List<Magasin> findAllMagasin() throws RemoteException {
+    public int createShop(String name, int userId) {
+        try {
+            //get user
+            PersonManager personManager = new PersonManager();
+            Person user = personManager.read(userId);
+
+            //get magasin
+            MagasinManager manager = new MagasinManager();
+            Magasin magasin = new Magasin();
+            magasin.setCreator(user);
+            magasin.setName(name);
+            magasin = manager.create(magasin);
+            setChanged();
+            notifyObservers("0");
+            return magasin.getId();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    @Override
+    public List<Magasin> findAllMagasin(int userId) {
+        Person person = getUser(userId);
         MagasinManager magasinManager = new MagasinManager();
-        return magasinManager.findAllMagasin();
+        return magasinManager.findAllMagasin(person);
     }
 
     @Override
     public List<Magasin> findMagasinByUser(int userId) throws RemoteException {
-        Person person;
-        PersonManager personManager = new PersonManager();
-        person = personManager.read(userId);
+        Person person = getUser(userId);
         MagasinManager magasinManager = new MagasinManager();
         return magasinManager.findMagasinByUser(person);
+    }
+
+    public Person getUser(int id){
+        PersonManager personManager = new PersonManager();
+        return personManager.read(id);
     }
 
     public ServerImpl() {
