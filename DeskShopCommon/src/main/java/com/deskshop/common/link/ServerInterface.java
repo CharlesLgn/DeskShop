@@ -12,6 +12,7 @@ public interface ServerInterface extends Remote {
     void credit(double sum) throws RemoteException;
     int login(String mail, String psw) throws RemoteException;
     int createUser(Person user) throws RemoteException;
+    int createShop(String name, int userId) throws RemoteException;
 
     List<Magasin> findAllMagasin()  throws RemoteException;
 }

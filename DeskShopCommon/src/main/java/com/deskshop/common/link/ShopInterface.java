@@ -1,4 +1,12 @@
 package com.deskshop.common.link;
 
+import com.deskshop.common.metier.Article;
+
+import java.rmi.RemoteException;
+import java.util.List;
+
 public interface ShopInterface {
+    void addObserver(ClientInterface o) throws RemoteException;
+    void addArticle(String name, String desc, double price) throws RemoteException;
+    List<Article> getArticleByMagasin() throws RemoteException;
 }

@@ -1,6 +1,7 @@
 package com.deskshop.front.controllers;
 
 import com.deskshop.common.constant.ServerConstant;
+import com.deskshop.common.link.ClientInterface;
 import com.deskshop.common.metier.Magasin;
 import com.deskshop.front.start.Start;
 import com.deskshop.front.util.ControllerUtils;
@@ -11,6 +12,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,8 +22,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -33,8 +33,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -67,6 +69,12 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        try {
+            ClientInterface client = new ClientImpl();
+            ServerConstant.SERVER.addObserver(client);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         createDrawer();
         lblName.setText(XMLDataFinder.getMail());
         BorderPane.setAlignment(this.pnZoneTravail, Pos.CENTER);
@@ -80,6 +88,7 @@ public class DashboardController implements Initializable {
     }
 
     private void addShop() {
+
         List<Magasin> magasinList;
         try {
             magasinList = ServerConstant.SERVER.findAllMagasin();
@@ -115,6 +124,7 @@ public class DashboardController implements Initializable {
             slider.getChildren().add(scrollPane);
 
             //drawer.setSidePane(scrollPane);
+            drawer.getSidePane().clear();
             drawer.setSidePane(slider);
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -267,5 +277,22 @@ public class DashboardController implements Initializable {
     @FXML
     public void changeLanguage(ActionEvent event) {
 
+    }
+
+    class ClientImpl extends UnicastRemoteObject implements ClientInterface, Serializable {
+        ClientImpl() throws RemoteException {
+            super();
+        }
+
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public void update(Object observable, Object updateMsg) {
+            try {
+                Platform.runLater(DashboardController.this::addShop);
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 }
