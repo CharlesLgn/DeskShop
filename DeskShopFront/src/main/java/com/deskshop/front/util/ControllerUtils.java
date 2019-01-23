@@ -1,5 +1,6 @@
 package com.deskshop.front.util;
 
+import com.deskshop.front.controllers.ChoixTypeCompteController;
 import com.deskshop.front.controllers.DashboardController;
 import com.deskshop.front.start.Start;
 import com.deskshop.utils.ResizeHelper;
@@ -33,9 +34,20 @@ public class ControllerUtils {
         loadFX(loader, 1);
     }
 
-    public static void loadDashBoard(int userId) {
+    public static void loadChoix(int userId){
         try {
-            DashboardController dashboardController = new DashboardController(userId);
+            ChoixTypeCompteController choixTypeCompteController= new ChoixTypeCompteController(userId);
+            FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/choixtypecompte.fxml"));
+            loader.setController(choixTypeCompteController);
+            loadFX(loader, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadDashBoard(int userId, int indexComboBox) {
+        try {
+            DashboardController dashboardController = new DashboardController(userId, indexComboBox);
             FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/dashboard.fxml"));
             loader.setController(dashboardController);
             loadFX(loader, 1);

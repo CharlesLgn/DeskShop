@@ -83,6 +83,15 @@ public class ServerImpl extends Observable implements ServerInterface {
         return magasinManager.findAllMagasin();
     }
 
+    @Override
+    public List<Magasin> findMagasinByUser(int userId) throws RemoteException {
+        Person person;
+        PersonManager personManager = new PersonManager();
+        person = personManager.read(userId);
+        MagasinManager magasinManager = new MagasinManager();
+        return magasinManager.findMagasinByUser(person);
+    }
+
     public ServerImpl() {
         compte = new Compte();
         compte.setName("compte courant");

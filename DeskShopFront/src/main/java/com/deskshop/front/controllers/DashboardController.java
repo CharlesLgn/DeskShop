@@ -20,8 +20,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -60,9 +58,11 @@ public class DashboardController implements Initializable {
     private JFXDrawer drawer;
 
     private int nbUser;
+    private int indexComboBox;
 
-    public DashboardController(int nbUser) {
+    public DashboardController(int nbUser, int indexComboBox) {
         this.nbUser = nbUser;
+        this.indexComboBox = indexComboBox;
     }
 
     @Override
@@ -70,20 +70,54 @@ public class DashboardController implements Initializable {
         createDrawer();
         lblName.setText(XMLDataFinder.getMail());
         BorderPane.setAlignment(this.pnZoneTravail, Pos.CENTER);
-        addShop();
+        //addShop();
         //Si l'utilisateur clique sur la zone d'irc, le drawer se fermera
         pnZoneTravail.setOnMouseClicked(e -> drawer.close());
         //windows move management
         MoveUtils.moveEvent(mnuBar);
         pnPrincipal.getStylesheets().clear();
         pnPrincipal.getStylesheets().add(getClass().getResource("/gui/css/main-orange.css").toExternalForm());
+
+        obtenirContexte(indexComboBox);
     }
 
-    private void addShop() {
-        List<Magasin> magasinList;
+    private void obtenirContexte(int indexComboBox) {
+        switch (indexComboBox) {
+            case 0:
+                // Consulter les magasins
+                addAllShop();
+                break;
+            case 1:
+                // Gérer mes magasins
+                addMyShop();
+                break;
+            case 2:
+                // Gérer mes comptes
+                break;
+            case 3:
+                // Consulter les comptes clients
+                break;
+        }
+    }
+
+    private void addAllShop() {
         try {
-            magasinList = ServerConstant.SERVER.findAllMagasin();
-            VBox vBox = ControllerUtils.createVBox();
+            addShop(ServerConstant.SERVER.findAllMagasin());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void addMyShop() {
+        try {
+            addShop(ServerConstant.SERVER.findMagasinByUser(nbUser));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void addShop(List<Magasin> magasinList) {
+        VBox vBox = ControllerUtils.createVBox();
 
             /*ImageView iw = new ImageView();
             Image logo = new Image("image/logov4.png", true);
@@ -91,34 +125,31 @@ public class DashboardController implements Initializable {
             iw.setFitHeight(34.5);
             iw.setFitWidth(150);
 */
-            for (Magasin magasin : magasinList) {
-                JFXButton jfxButton = new JFXButton(magasin.getName());
-                jfxButton.getStyleClass().add("button");
-                jfxButton.setPrefSize(Double.MAX_VALUE, 60);
-                jfxButton.setOnAction(event -> {
-                    // Vérifier à l'aide d'une requête la connexion au serveur
-                    AffichageIRCClick(magasin.getId());
-                    lbTitre.setText(magasin.getName());
-                });
+        for (Magasin magasin : magasinList) {
+            JFXButton jfxButton = new JFXButton(magasin.getName());
+            jfxButton.getStyleClass().add("button");
+            jfxButton.setPrefSize(Double.MAX_VALUE, 60);
+            jfxButton.setOnAction(event -> {
+                // Vérifier à l'aide d'une requête la connexion au serveur
+                AffichageIRCClick(magasin.getId());
+                lbTitre.setText(magasin.getName());
+            });
 
-                vBox.getChildren().add(jfxButton);
-            }
-
-            ScrollPane scrollPane = new ScrollPane();
-            scrollPane.getStyleClass().add("menu-bar-2");
-            scrollPane.setFitToWidth(true);
-            scrollPane.setContent(vBox);
-
-            VBox slider = ControllerUtils.createVBox();
-
-            //slider.getChildren().add(iw);
-            slider.getChildren().add(scrollPane);
-
-            //drawer.setSidePane(scrollPane);
-            drawer.setSidePane(slider);
-        } catch (RemoteException e) {
-            e.printStackTrace();
+            vBox.getChildren().add(jfxButton);
         }
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.getStyleClass().add("menu-bar-2");
+        scrollPane.setFitToWidth(true);
+        scrollPane.setContent(vBox);
+
+        VBox slider = ControllerUtils.createVBox();
+
+        //slider.getChildren().add(iw);
+        slider.getChildren().add(scrollPane);
+
+        //drawer.setSidePane(scrollPane);
+        drawer.setSidePane(slider);
     }
 
     /**

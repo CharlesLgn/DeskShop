@@ -14,4 +14,5 @@ public interface ServerInterface extends Remote {
     int createUser(Person user) throws RemoteException;
 
     List<Magasin> findAllMagasin()  throws RemoteException;
+    List<Magasin> findMagasinByUser(int UserId)  throws RemoteException;
 }
