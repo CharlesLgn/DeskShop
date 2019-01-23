@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox fx:id="vbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" spacing="40.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label text="Se connecter sur votre compte :">
@@ -18,7 +17,7 @@
             <Insets top="10.0" />
          </VBox.margin>
       </Label>
-      <JFXComboBox fx:id="checkboxChoix" prefWidth="200.0" />
+      <JFXComboBox fx:id="comboBoxChoix" prefWidth="200.0" />
       <JFXButton fx:id="btSelection" onAction="#btSelectionClick" prefHeight="40.0" prefWidth="175.0" text="Sélectionner" />
    </children>
 </VBox>

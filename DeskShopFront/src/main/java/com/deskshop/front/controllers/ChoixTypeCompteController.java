@@ -1,24 +1,57 @@
 package com.deskshop.front.controllers;
+
+import com.deskshop.front.util.ControllerUtils;
+import com.deskshop.front.util.MoveUtils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 
-public class ChoixTypeCompteController {
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class ChoixTypeCompteController implements Initializable {
 
     @FXML
     private VBox vbox;
 
     @FXML
-    private JFXComboBox<?> checkboxChoix;
+    private JFXComboBox comboBoxChoix;
 
     @FXML
     private JFXButton btSelection;
 
+    private int nbUser;
+
+    public ChoixTypeCompteController(int nbUser) {
+        this.nbUser = nbUser;
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            MoveUtils.moveEvent(vbox);
+            List<String> actions = new ArrayList<>();
+            actions.add("Consulter mes magasin");
+            actions.add("Gérer mes magasins");
+            actions.add("Gérer mes comptes");
+            actions.add("Gérer mes comptes client");
+            this.comboBoxChoix.setItems(FXCollections.observableArrayList(actions));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
     @FXML
     void btSelectionClick(ActionEvent event) {
-
+        ControllerUtils.loadDashBoard(nbUser, this.comboBoxChoix.getSelectionModel().getSelectedIndex());
     }
 
 }

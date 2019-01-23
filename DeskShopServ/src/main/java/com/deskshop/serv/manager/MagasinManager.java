@@ -12,9 +12,17 @@ public class MagasinManager extends HibernateFactory<Magasin> {
         super(Magasin.class);
     }
 
-    public List<Magasin> findAllMagasin() {
+    public List<Magasin> findAllMagasin(Person person) {
         Session session = getSession();
-        Query query = session.createQuery("from Magasin as magasin");
+        Query query = session.createQuery("from Magasin as magasin where magasin.creator <> :person ");
+        query.setParameter("person", person);
+        return query.list();
+    }
+
+    public List<Magasin> findMagasinByUser(Person person) {
+        Session session = getSession();
+        Query query = session.createQuery("from Magasin as magasin where magasin.creator = :person ");
+        query.setParameter("person", person);
         return query.list();
     }
 }

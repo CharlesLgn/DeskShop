@@ -81,7 +81,9 @@ public class SignupController implements Initializable {
                 XMLDataFinder.setMail(user.getMel());
                 XMLDataFinder.setPassword(user.getPsw());
 
-                ControllerUtils.loadDashBoard(id);
+                ControllerUtils.loadChoix(id);
+
+                //ControllerUtils.loadDashBoard(id);
                 ((Stage) vbox.getScene().getWindow()).close();
 
             } else {

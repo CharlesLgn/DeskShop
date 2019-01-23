@@ -98,7 +98,7 @@ public class ConnexionController implements Initializable {
     }
 
     private void loadIRC(int userId) {
-        ControllerUtils.loadDashBoard(userId);
+        ControllerUtils.loadChoix(userId);
         ((Stage) vbox.getScene().getWindow()).close();
     }
 }
