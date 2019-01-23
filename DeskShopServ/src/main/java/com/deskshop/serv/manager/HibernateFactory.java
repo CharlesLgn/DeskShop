@@ -61,5 +61,4 @@ public abstract class HibernateFactory<T> {
         session.getTransaction().commit();
         session.close();
     }
-
 }

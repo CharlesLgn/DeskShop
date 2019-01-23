@@ -1,6 +1,8 @@
 com\deskshop\front\controllers\DashboardController.class
 com\deskshop\front\controllers\DisplayArticleController.class
 com\deskshop\front\start\Start.class
+com\deskshop\front\util\ControllerUtils.class
+com\deskshop\front\util\MoveUtils.class
 com\deskshop\front\controllers\ConnexionController$ClientImpl.class
 com\deskshop\front\controllers\ChoixTypeCompteController.class
 com\deskshop\front\controllers\ProposController.class

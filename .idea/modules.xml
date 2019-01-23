@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/DeskShopCommon/deskShop-common.iml" filepath="$PROJECT_DIR$/DeskShopCommon/deskShop-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/DeskShopFront/deskShop-front.iml" filepath="$PROJECT_DIR$/DeskShopFront/deskShop-front.iml" />
       <module fileurl="file://$PROJECT_DIR$/DeskShopServ/deskShop-serv.iml" filepath="$PROJECT_DIR$/DeskShopServ/deskShop-serv.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DeskShopUtils/deskShop-utils.iml" filepath="$PROJECT_DIR$/DeskShopUtils/deskShop-utils.iml" />
     </modules>
   </component>
 </project>

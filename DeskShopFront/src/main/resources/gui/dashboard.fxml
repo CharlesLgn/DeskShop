@@ -39,15 +39,6 @@
                <menus>
                   <Menu fx:id="mnuMenu" mnemonicParsing="false" text="Menu">
                      <items>
-                        <Menu fx:id="mnuStyle" mnemonicParsing="false" text="style">
-                           <items>
-                              <MenuItem fx:id="whiteTheme" mnemonicParsing="false" onAction="#changeTheme" text="Blanc" userData="white" />
-                              <MenuItem fx:id="blackTheme" mnemonicParsing="false" onAction="#changeTheme" text="Noir" userData="black" />
-                              <MenuItem fx:id="blueTheme" mnemonicParsing="false" onAction="#changeTheme" text="Bleu" userData="blue" />
-                               <MenuItem fx:id="greenTheme" mnemonicParsing="false" onAction="#changeTheme" text="Vert" userData="green" />
-                               <MenuItem fx:id="pinkTheme" mnemonicParsing="false" onAction="#changeTheme" text="Rose" userData="pink" />
-                           </items>
-                        </Menu>
                         <Menu fx:id="mnuLanguage" mnemonicParsing="false" text="Langue">
                            <items>
                                <MenuItem fx:id="mnuDe" mnemonicParsing="false" onAction="#changeLanguage" text="Deutsch" userData="DE" />

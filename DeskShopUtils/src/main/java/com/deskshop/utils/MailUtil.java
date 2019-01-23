@@ -1,4 +1,4 @@
-package com.deskshop.serv;
+package com.deskshop.utils;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -6,16 +6,12 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
 import java.util.Properties;
 
-public class SendMail {
-
+public class MailUtil {
     public static void sendWelcomeMail(String recipent) {
         String subject = "Bienvenue sur DeskShop";
         String body = getMail("welcome-message");
@@ -28,7 +24,7 @@ public class SendMail {
         String userName = "okya.corp@gmail.com";
         // GMail password
         String password = "azerty.1234";
-        String[] to = { recipent };
+        String[] to = {recipent};
 
         sendFromGMail(userName, password, to, subject, body);
     }
@@ -51,7 +47,7 @@ public class SendMail {
             InternetAddress[] toAddress = new InternetAddress[to.length];
 
             // To get the array of addresses
-            for( int i = 0; i < to.length; i++ ) {
+            for (int i = 0; i < to.length; i++) {
                 toAddress[i] = new InternetAddress(to[i]);
             }
 
@@ -74,12 +70,14 @@ public class SendMail {
     private static String getMail(String type) {
         StringBuilder sb = new StringBuilder();
         try {
-            Path wiki_path = Paths.get("resources/"+type+".html");
-            Charset charset = Charset.forName("ISO-8859-1");
-            List<String> lines = Files.readAllLines(wiki_path, charset);
-            for (String line : lines) {
+            BufferedReader reader;
+            reader = new BufferedReader(new FileReader(MailUtil.class.getResource("/"+type + ".html").toExternalForm().substring(6)));
+            String line = reader.readLine();
+            while (line != null) {
                 sb.append(line);
+                line = reader.readLine();
             }
+            reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

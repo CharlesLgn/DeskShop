@@ -63,17 +63,17 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.deskshop.common.metier.TestCompte" name="testCompteCredit_casStandart" time="0.079"/>
-  <testcase classname="com.deskshop.common.metier.TestCompte" name="testCompteDebit_casTrop" time="0.001"/>
+  <testcase classname="com.deskshop.common.metier.TestCompte" name="testCompteCredit_casStandart" time="0.076"/>
+  <testcase classname="com.deskshop.common.metier.TestCompte" name="testCompteDebit_casTrop" time="0.003"/>
   <testcase classname="com.deskshop.common.metier.TestCompte" name="testCompteCredit_casNegatifStandart" time="0.001"/>
   <testcase classname="com.deskshop.common.metier.TestCompte" name="testCompteDebit_casNegatif0" time="0"/>
-  <testcase classname="com.deskshop.common.metier.TestCompte" name="testCompteCredit_casNegatifDecimal" time="0.001"/>
-  <testcase classname="com.deskshop.common.metier.TestCompte" name="testCompteDebit_casStandart" time="0"/>
+  <testcase classname="com.deskshop.common.metier.TestCompte" name="testCompteCredit_casNegatifDecimal" time="0"/>
+  <testcase classname="com.deskshop.common.metier.TestCompte" name="testCompteDebit_casStandart" time="0.001"/>
   <testcase classname="com.deskshop.common.metier.TestCompte" name="testCompteCredit_cas0" time="0"/>
   <testcase classname="com.deskshop.common.metier.TestCompte" name="testCompteDebit_casNegatifDecimal" time="0"/>
   <testcase classname="com.deskshop.common.metier.TestCompte" name="testCompteCredit_casNegatifTrop" time="0.001"/>
   <testcase classname="com.deskshop.common.metier.TestCompte" name="testCompteDebit_casNegatifStandart" time="0"/>
-  <testcase classname="com.deskshop.common.metier.TestCompte" name="testCompteCredit_casDecimal" time="0"/>
+  <testcase classname="com.deskshop.common.metier.TestCompte" name="testCompteCredit_casDecimal" time="0.001"/>
   <testcase classname="com.deskshop.common.metier.TestCompte" name="testCompteDebit_cas0" time="0"/>
   <testcase classname="com.deskshop.common.metier.TestCompte" name="testCompteDebit_casDecimal" time="0"/>
   <testcase classname="com.deskshop.common.metier.TestCompte" name="testCompteCredit_casNegatif0" time="0"/>

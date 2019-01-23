@@ -22,6 +22,7 @@
         <module>DeskShopFront</module>
         <module>DeskShopServ</module>
         <module>DeskShopCommon</module>
+        <module>DeskShopUtils</module>
     </modules>
 
     <dependencies>

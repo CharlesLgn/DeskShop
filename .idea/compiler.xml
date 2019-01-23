@@ -9,6 +9,7 @@
         <module name="deskShop-common" />
         <module name="deskShop-front" />
         <module name="deskShop-serv" />
+        <module name="deskShop-utils" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -16,6 +17,7 @@
       <module name="deskShop-common" target="1.8" />
       <module name="deskShop-front" target="1.8" />
       <module name="deskShop-serv" target="1.8" />
+      <module name="deskShop-utils" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
