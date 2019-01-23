@@ -1,12 +1,13 @@
-package com.deskshop.serv.metier;
+package com.deskshop.common.metier;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
 @Table(name = "commande")
-public class Commande {
+public class Commande implements Serializable {
     private int id;
     private Timestamp date;
     private int quantity;

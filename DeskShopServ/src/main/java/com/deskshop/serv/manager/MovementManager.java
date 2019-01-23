@@ -1,6 +1,6 @@
 package com.deskshop.serv.manager;
 
-import com.deskshop.serv.metier.Movement;
+import com.deskshop.common.metier.Movement;
 
 public class MovementManager extends HibernateFactory<Movement> {
     MovementManager() {

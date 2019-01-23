@@ -11,13 +11,13 @@
         <property name="connection.password"/>
         <property name="show_sql">true</property>
 
-        <mapping class="com.deskshop.serv.metier.Administre"/>
-        <mapping class="com.deskshop.serv.metier.Article"/>
-        <mapping class="com.deskshop.serv.metier.Commande"/>
-        <mapping class="com.deskshop.serv.metier.Compte"/>
-        <mapping class="com.deskshop.serv.metier.Magasin"/>
-        <mapping class="com.deskshop.serv.metier.Movement"/>
-        <mapping class="com.deskshop.serv.metier.Person"/>
+        <mapping class="com.deskshop.common.metier.Administre"/>
+        <mapping class="com.deskshop.common.metier.Article"/>
+        <mapping class="com.deskshop.common.metier.Commande"/>
+        <mapping class="com.deskshop.common.metier.Compte"/>
+        <mapping class="com.deskshop.common.metier.Magasin"/>
+        <mapping class="com.deskshop.common.metier.Movement"/>
+        <mapping class="com.deskshop.common.metier.Person"/>
 
     </session-factory>
 </hibernate-configuration>

@@ -1,6 +1,6 @@
 package com.deskshop.serv.manager;
 
-import com.deskshop.serv.metier.Commande;
+import com.deskshop.common.metier.Commande;
 
 public class CommandeManager extends HibernateFactory<Commande> {
     CommandeManager() {

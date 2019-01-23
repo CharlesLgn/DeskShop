@@ -1,11 +1,12 @@
-package com.deskshop.serv.metier;
+package com.deskshop.common.metier;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "article")
-public class Article {
+public class Article implements Serializable {
     private int id;
     private String name;
     private String picture;

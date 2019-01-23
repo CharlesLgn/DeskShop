@@ -6,11 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="deskShop-common" />
+        <module name="deskShop-front" />
         <module name="deskShop-serv" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="DeskShop" target="1.8" />
+      <module name="deskShop-common" target="1.8" />
       <module name="deskShop-front" target="1.8" />
       <module name="deskShop-serv" target="1.8" />
     </bytecodeTargetLevel>

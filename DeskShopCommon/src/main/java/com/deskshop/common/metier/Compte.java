@@ -1,10 +1,11 @@
-package com.deskshop.serv.metier;
+package com.deskshop.common.metier;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "compte")
-public class Compte {
+public class Compte implements Serializable {
     private int id;
     private String name;
     private double amount;
@@ -65,7 +66,7 @@ public class Compte {
 
     @Override
     public String toString() {
-        return name + " de " + client + " : " + amount;
+        return name + " : " + amount;
     }
 
     public void credit(double sum){

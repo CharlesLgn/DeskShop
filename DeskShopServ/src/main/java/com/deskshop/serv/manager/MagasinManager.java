@@ -1,6 +1,6 @@
 package com.deskshop.serv.manager;
 
-import com.deskshop.serv.metier.Magasin;
+import com.deskshop.common.metier.Magasin;
 
 public class MagasinManager extends HibernateFactory<Magasin> {
     MagasinManager() {
