@@ -8,6 +8,7 @@ import com.deskshop.utils.XMLDataFinder;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -101,4 +102,10 @@ public class ConnexionController implements Initializable {
         ControllerUtils.loadChoix(userId);
         ((Stage) vbox.getScene().getWindow()).close();
     }
+
+    @FXML
+    void bt_close_action(ActionEvent event) {
+        ((Stage) vbox.getScene().getWindow()).close();
+    }
+
 }

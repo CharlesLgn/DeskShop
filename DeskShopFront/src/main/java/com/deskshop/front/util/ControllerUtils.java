@@ -2,6 +2,7 @@ package com.deskshop.front.util;
 
 import com.deskshop.front.controllers.ChoixTypeCompteController;
 import com.deskshop.front.controllers.DashboardController;
+import com.deskshop.front.controllers.DisplayArticleController;
 import com.deskshop.front.start.Start;
 import com.deskshop.utils.ResizeHelper;
 import com.deskshop.utils.XMLDataFinder;
@@ -43,6 +44,20 @@ public class ControllerUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static Pane loadDisplayArticle(String image, String nomProduit, String prix){
+        try {
+            DisplayArticleController displayArticleController = new DisplayArticleController(image, nomProduit, prix);
+            FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/displayArticle.fxml"));
+            loader.setController(displayArticleController);
+            Pane root = loader.load();
+            return root;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     public static void loadDashBoard(int userId, int indexComboBox) {

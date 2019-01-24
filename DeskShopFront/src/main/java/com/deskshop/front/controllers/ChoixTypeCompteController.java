@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class ChoixTypeCompteController implements Initializable {
         try {
             MoveUtils.moveEvent(vbox);
             List<String> actions = new ArrayList<>();
-            actions.add("Consulter mes magasin");
+            actions.add("Consulter mes magasins");
             actions.add("Gérer mes magasins");
             actions.add("Gérer mes comptes");
             actions.add("Gérer mes comptes client");
@@ -51,7 +52,12 @@ public class ChoixTypeCompteController implements Initializable {
     }
     @FXML
     void btSelectionClick(ActionEvent event) {
-        ControllerUtils.loadDashBoard(nbUser, this.comboBoxChoix.getSelectionModel().getSelectedIndex());
+        try {
+            ControllerUtils.loadDashBoard(nbUser, this.comboBoxChoix.getSelectionModel().getSelectedIndex());
+            ((Stage) vbox.getScene().getWindow()).close();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
 }
