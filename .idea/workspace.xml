@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="724edfb1-06a0-4496-ae9c-c603bccbd7fc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/link/ServerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/link/ServerInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/controllers/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/controllers/DashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/impl/ServerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/impl/ServerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/constant/ServerConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/constant/ServerConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/link/BankInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/link/ShopInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/start/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/start/test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/impl/ShopImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/impl/ShopImpl.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/DeskShopFront/target/" />
     <ignored path="$PROJECT_DIR$/DeskShopServ/target/" />
@@ -45,14 +46,14 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
+    <splitter split-orientation="horizontal" split-proportion="0.44319683">
       <split-first>
         <leaf>
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/controllers/DashboardController.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="549">
-                  <caret line="310" column="9" lean-forward="true" selection-start-line="310" selection-start-column="9" selection-end-line="310" selection-end-column="9" />
+                  <caret line="319" column="9" selection-start-line="319" selection-start-column="9" selection-end-line="319" selection-end-column="9" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="e#6515#6516#0" expanded="true" />
@@ -68,7 +69,19 @@
             <entry file="file://$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/impl/ShopImpl.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="200">
-                  <caret line="45" column="4" selection-start-line="45" selection-start-column="4" selection-end-line="62" selection-end-column="5" />
+                  <caret line="42" column="4" selection-start-line="42" selection-start-column="4" selection-end-line="59" selection-end-column="5" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/impl/ServerImpl.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="438">
+                  <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -77,13 +90,10 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/impl/ServerImpl.java">
+            <entry file="file://$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/start/test.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="260">
-                  <caret line="100" column="40" lean-forward="true" selection-start-line="100" selection-start-column="40" selection-end-line="100" selection-end-column="40" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
+                <state relative-caret-position="374">
+                  <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
                 </state>
               </provider>
             </entry>
@@ -116,8 +126,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/link/ServerInterface.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="425">
-                  <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+                <state relative-caret-position="442">
+                  <caret line="26" selection-start-line="26" selection-end-line="26" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -143,6 +153,7 @@
       <find>table</find>
       <find>img</find>
       <find>getResource</find>
+      <find>===</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -169,7 +180,6 @@
         <option value="$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/metier/Person.java" />
         <option value="$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/impl/ClientImpl.java" />
         <option value="$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/impl/ClientImpl.java" />
-        <option value="$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/start/test.java" />
         <option value="$PROJECT_DIR$/DeskShopUtils/src/main/java/com/deskshop/utils/MoveUtils.java" />
         <option value="$PROJECT_DIR$/DeskShopUtils/src/main/java/com/deskshop/utils/ControllerUtils.java" />
         <option value="$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/util/MoveUtils.java" />
@@ -202,6 +212,7 @@
         <option value="$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/controllers/DashboardController.java" />
         <option value="$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/link/ServerInterface.java" />
         <option value="$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/impl/ServerImpl.java" />
+        <option value="$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/start/test.java" />
       </list>
     </option>
   </component>
@@ -214,6 +225,12 @@
   </component>
   <component name="PhpServers">
     <servers />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="868" />
+    <option name="height" value="605" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -267,6 +284,26 @@
             <path>
               <item name="DeskShop" type="b2602c69:ProjectViewProjectNode" />
               <item name="DeskShop" type="462c0819:PsiDirectoryNode" />
+              <item name="DeskShopCommon" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="link" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeskShop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeskShop" type="462c0819:PsiDirectoryNode" />
+              <item name="DeskShopCommon" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="metier" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeskShop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeskShop" type="462c0819:PsiDirectoryNode" />
               <item name="DeskShopFront" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -298,6 +335,16 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="front" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeskShop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeskShop" type="462c0819:PsiDirectoryNode" />
+              <item name="DeskShopFront" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="front" type="462c0819:PsiDirectoryNode" />
+              <item name="start" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="DeskShop" type="b2602c69:ProjectViewProjectNode" />
@@ -354,7 +401,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548311084132" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548356713027" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/DeskShopServ/src/test/java" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../IRCServ" />
@@ -400,7 +447,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main (1)">
+  <component name="RunManager" selected="Application.test">
     <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.deskshop.front.start.Main" />
       <module name="deskShop-front" />
@@ -502,11 +549,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.test" />
         <item itemvalue="Application.Start" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main (1)" />
         <item itemvalue="Application.start" />
-        <item itemvalue="Application.test" />
       </list>
     </recent_temporary>
   </component>
@@ -522,7 +569,7 @@
       <updated>1547894961505</updated>
       <workItem from="1547894962990" duration="2482000" />
       <workItem from="1547995256749" duration="25000" />
-      <workItem from="1548002681826" duration="67072000" />
+      <workItem from="1548002681826" duration="69583000" />
     </task>
     <servers />
   </component>
@@ -553,7 +600,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5161000" />
+    <option name="totallyTimeSpent" value="7672000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -589,7 +636,7 @@
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32827735" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50373137" side_tool="true" weight="0.2426869" />
       <window_info anchor="bottom" id="Messages" order="13" sideWeight="0.4968017" weight="0.32827735" />
-      <window_info anchor="bottom" id="Run" order="14" sideWeight="0.49626866" visible="true" weight="0.2426869" />
+      <window_info anchor="bottom" id="Run" order="14" sideWeight="0.49626866" weight="0.2426869" />
       <window_info anchor="right" id="CDI" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -671,7 +718,7 @@
     <entry file="file://$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/impl/ShopImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
-          <caret line="45" column="4" selection-start-line="45" selection-start-column="4" selection-end-line="62" selection-end-column="5" />
+          <caret line="42" column="4" selection-start-line="42" selection-start-column="4" selection-end-line="59" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -691,7 +738,7 @@
     <entry file="file://$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/controllers/DashboardController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="549">
-          <caret line="310" column="9" lean-forward="true" selection-start-line="310" selection-start-column="9" selection-end-line="310" selection-end-column="9" />
+          <caret line="319" column="9" selection-start-line="319" selection-start-column="9" selection-end-line="319" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#6515#6516#0" expanded="true" />
@@ -716,23 +763,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/impl/ServerImpl.java">
+    <entry file="file://$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/link/ServerInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="100" column="40" lean-forward="true" selection-start-line="100" selection-start-column="40" selection-end-line="100" selection-end-column="40" />
+        <state relative-caret-position="459">
+          <caret line="28" column="97" selection-start-line="28" selection-start-column="97" selection-end-line="28" selection-end-column="97" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/link/ServerInterface.java">
+    <entry file="file://$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/impl/ServerImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+        <state relative-caret-position="438">
+          <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/start/test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
         </state>
       </provider>
     </entry>
