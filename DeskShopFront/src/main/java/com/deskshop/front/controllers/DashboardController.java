@@ -305,10 +305,8 @@ public class DashboardController implements Initializable {
 
         @Override
         public void update(Object observable, Object updateMsg) {
-            try {
+            if(observable.equals("shop")){
                 Platform.runLater(DashboardController.this::addAllShop);
-            } catch (Exception e){
-                e.printStackTrace();
             }
         }
     }

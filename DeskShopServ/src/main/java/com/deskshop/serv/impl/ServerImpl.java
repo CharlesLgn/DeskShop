@@ -2,15 +2,18 @@ package com.deskshop.serv.impl;
 
 import com.deskshop.common.link.ClientInterface;
 import com.deskshop.common.link.ServerInterface;
+import com.deskshop.common.metier.Article;
 import com.deskshop.common.metier.Compte;
 import com.deskshop.common.metier.Magasin;
 import com.deskshop.common.metier.Person;
+import com.deskshop.serv.manager.ArticleManager;
 import com.deskshop.serv.manager.MagasinManager;
 import com.deskshop.serv.manager.PersonManager;
 import com.deskshop.utils.MailUtil;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -47,14 +50,7 @@ public class ServerImpl extends Observable implements ServerInterface {
         System.out.println("Added observer:" + mo);
     }
 
-    @Override
-    public void credit(double sum) {
-        System.out.println();
-        compte.credit(sum);
-        setChanged();
-        notifyObservers(compte);
-    }
-
+    //__________________________ Manage user __________________________
     @Override
     public int login(String mail, String psw) {
         PersonManager personManager = new PersonManager();
@@ -77,6 +73,7 @@ public class ServerImpl extends Observable implements ServerInterface {
         }
     }
 
+    //_______________________ Shop on DashBoard _______________________
     @Override
     public int createShop(String name, int userId) {
         try {
@@ -91,7 +88,7 @@ public class ServerImpl extends Observable implements ServerInterface {
             magasin.setName(name);
             magasin = manager.create(magasin);
             setChanged();
-            notifyObservers("0");
+            notifyObservers("shop");
             return magasin.getId();
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,15 +104,53 @@ public class ServerImpl extends Observable implements ServerInterface {
     }
 
     @Override
-    public List<Magasin> findMagasinByUser(int userId) throws RemoteException {
+    public List<Magasin> findMagasinByUser(int userId) {
         Person person = getUser(userId);
         MagasinManager magasinManager = new MagasinManager();
         return magasinManager.findMagasinByUser(person);
     }
 
-    public Person getUser(int id){
+    private Person getUser(int id){
         PersonManager personManager = new PersonManager();
         return personManager.read(id);
+    }
+
+    //_________________________ Manage a Shop _________________________
+    @Override
+    public void addArticle(int idMagasin, String name, String desc, double price) {
+        Article article = new Article();
+        article.setName(name);
+        article.setDesc(desc);
+        article.setPrice(price);
+        article.setShop(getMagasin(idMagasin));
+        ArticleManager manager = new ArticleManager();
+        manager.create(article);
+        setChanged();
+        notifyObservers("article");
+    }
+
+    @Override
+    public List<Article> getArticleByMagasin(int id) {
+        ArticleManager manager = new ArticleManager();
+        return manager.getArticleByMagasin(getMagasin(id));
+    }
+
+    private Magasin getMagasin(int id){
+        MagasinManager magasinManager = new MagasinManager();
+        return magasinManager.read(id);
+    }
+
+    @Override
+    public void paid(HashMap<Article, Integer> cadie, int idUser, int idMagasin) throws RemoteException {
+
+    }
+
+    @Override
+    public void credit(double sum) {
+        System.out.println();
+        compte.credit(sum);
+        setChanged();
+        notifyObservers(compte);
     }
 
     public ServerImpl() {
