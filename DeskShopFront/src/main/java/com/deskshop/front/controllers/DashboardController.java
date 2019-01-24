@@ -23,6 +23,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -32,6 +33,7 @@ import java.io.Serializable;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -48,16 +50,19 @@ public class DashboardController implements Initializable {
     @FXML
     private GridPane pnPrincipal;
     @FXML
-    private BorderPane pnZoneTravail;
+    private ScrollPane pnZoneTravail;
     @FXML
     private Label lbTitre, lblName;
     @FXML
     private JFXHamburger hamburger;
     @FXML
     private JFXDrawer drawer;
+    @FXML
+    private JFXButton btPanier;
 
     private int nbUser;
     private int indexComboBox;
+    public static HashMap<Article, Integer> articleHashMap = new HashMap<>();
 
     public DashboardController(int nbUser, int indexComboBox) {
         this.nbUser = nbUser;
@@ -84,6 +89,15 @@ public class DashboardController implements Initializable {
         pnPrincipal.getStylesheets().add(getClass().getResource("/gui/css/main-orange.css").toExternalForm());
 
         obtenirContexte(indexComboBox);
+    }
+
+    /**
+     * Affiche le panier
+     * @param event
+     */
+    @FXML
+    void btPanierClick(ActionEvent event) {
+        ControllerUtils.loadPanier();
     }
 
     private void obtenirContexte(int indexComboBox) {
@@ -195,18 +209,26 @@ public class DashboardController implements Initializable {
 
     /**
      * call when we need to show an IRC
+     * Affiche les produits
      */
     private void showShop(Magasin magasin) {
         try {
+            // Les articles dans le panier sont retirés
+            articleHashMap.clear();
             fadeout(pnZoneTravail);
-            List<Article> articles = ServerConstant.SHOP.getArticleByMagasin(magasin);
+            pnZoneTravail.setFitToHeight(true);
+            pnZoneTravail.setFitToWidth(true);
+            List<Article> articles = ServerConstant.SERVER.getArticleByMagasin(magasin.getId());
             FlowPane flowPane = new FlowPane();
+            flowPane.setHgap(30);
+            flowPane.setVgap(50);
+            flowPane.setAlignment(Pos.CENTER);
             for (Article article: articles) {
-                Pane carteArticle = ControllerUtils.loadDisplayArticle(article.getPicture(), article.getName(), article.getPrice()+"");
+                Pane carteArticle = ControllerUtils.loadDisplayArticle(article);
                 flowPane.getChildren().add(carteArticle);
             }
 
-            pnZoneTravail.getChildren().add(flowPane);
+            pnZoneTravail.setContent(flowPane);
             fadeout(pnZoneTravail);
         }catch (Exception ex){
             ex.printStackTrace();
@@ -227,7 +249,7 @@ public class DashboardController implements Initializable {
      *
      * @param pane : Pane (Work Zone) where it will display the content
      */
-    private void fadeout(Pane pane) {
+    private void fadeout(ScrollPane pane) {
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(250), pane);
         fadeTransition.setNode(pane);
         fadeTransition.setFromValue(1);

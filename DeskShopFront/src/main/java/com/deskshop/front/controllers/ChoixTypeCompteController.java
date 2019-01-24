@@ -44,6 +44,7 @@ public class ChoixTypeCompteController implements Initializable {
             actions.add("Gérer mes comptes");
             actions.add("Gérer mes comptes client");
             this.comboBoxChoix.setItems(FXCollections.observableArrayList(actions));
+            this.comboBoxChoix.getSelectionModel().select(0);
         }
         catch (Exception e)
         {

@@ -36,15 +36,15 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                <children>
-                  <JFXTextField fx:id="fieldPrenom" maxWidth="-Infinity" onKeyPressed="#Enter" prefWidth="175.0" promptText="Prénom" />
-                  <JFXTextField fx:id="fieldNom" maxWidth="-Infinity" onKeyPressed="#Enter" prefWidth="175.0" promptText="Nom" />
+                  <JFXTextField fx:id="fieldPrenom" labelFloat="true" maxWidth="-Infinity" onKeyPressed="#Enter" prefWidth="175.0" promptText="Prénom" />
+                  <JFXTextField fx:id="fieldNom" labelFloat="true" maxWidth="-Infinity" onKeyPressed="#Enter" prefWidth="175.0" promptText="Nom" />
                </children>
             </HBox>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="40.0" GridPane.rowIndex="2">
                <children>
-                  <JFXTextField fx:id="fieldMail" maxWidth="-Infinity" onKeyPressed="#Enter" onKeyReleased="#validateEmail" prefWidth="375.0" promptText="Adresse mail" />
-                  <JFXPasswordField fx:id="fieldMDP" layoutX="48.0" layoutY="140.0" maxWidth="-Infinity" prefWidth="375.0" promptText="Mot de passe" />
-                  <JFXPasswordField fx:id="fieldMDPconfirm" maxWidth="-Infinity" prefWidth="375.0" promptText="Confirmer" />
+                  <JFXTextField fx:id="fieldMail" labelFloat="true" maxWidth="-Infinity" onKeyPressed="#Enter" onKeyReleased="#validateEmail" prefWidth="375.0" promptText="Adresse mail" />
+                  <JFXPasswordField fx:id="fieldMDP" labelFloat="true" layoutX="48.0" layoutY="140.0" maxWidth="-Infinity" prefWidth="375.0" promptText="Mot de passe" />
+                  <JFXPasswordField fx:id="fieldMDPconfirm" labelFloat="true" maxWidth="-Infinity" prefWidth="375.0" promptText="Confirmer" />
                   <JFXButton fx:id="btCreer" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#validate" prefHeight="40.0" prefWidth="125.0" text="Créer" />
                   <HBox alignment="CENTER">
                      <VBox.margin>

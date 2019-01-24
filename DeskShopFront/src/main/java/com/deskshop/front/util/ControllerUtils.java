@@ -1,8 +1,7 @@
 package com.deskshop.front.util;
 
-import com.deskshop.front.controllers.ChoixTypeCompteController;
-import com.deskshop.front.controllers.DashboardController;
-import com.deskshop.front.controllers.DisplayArticleController;
+import com.deskshop.common.metier.Article;
+import com.deskshop.front.controllers.*;
 import com.deskshop.front.start.Start;
 import com.deskshop.utils.ResizeHelper;
 import com.deskshop.utils.XMLDataFinder;
@@ -46,9 +45,31 @@ public class ControllerUtils {
         }
     }
 
-    public static Pane loadDisplayArticle(String image, String nomProduit, String prix){
+    public static void loadPopupArticle(Article article){
         try {
-            DisplayArticleController displayArticleController = new DisplayArticleController(image, nomProduit, prix);
+            PopupArticleController displayArticleController = new PopupArticleController(article);
+            FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/popupArticle.fxml"));
+            loader.setController(displayArticleController);
+            loadFX(loader, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadPanier(){
+        try {
+            PanierController panierController = new PanierController();
+            FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/panier.fxml"));
+            loader.setController(panierController);
+            loadFX(loader, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Pane loadDisplayArticle(Article article){
+        try {
+            DisplayArticleController displayArticleController = new DisplayArticleController(article);
             FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/displayArticle.fxml"));
             loader.setController(displayArticleController);
             Pane root = loader.load();
@@ -59,6 +80,21 @@ public class ControllerUtils {
 
         return null;
     }
+
+    public static Pane loadArticlePanier(Article article, int qte){
+        try {
+            ArticlePanierController articlePanierController = new ArticlePanierController(article, qte);
+            FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/ArticlePanier.fxml"));
+            loader.setController(articlePanierController);
+            Pane root = loader.load();
+            return root;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 
     public static void loadDashBoard(int userId, int indexComboBox) {
         try {
