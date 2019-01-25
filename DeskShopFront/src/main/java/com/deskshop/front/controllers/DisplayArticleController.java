@@ -1,4 +1,7 @@
 package com.deskshop.front.controllers;
+import com.deskshop.common.metier.Article;
+import com.deskshop.common.metier.Magasin;
+import com.deskshop.front.util.ControllerUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +13,8 @@ import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static com.deskshop.front.controllers.DashboardController.articleHashMap;
 
 public class DisplayArticleController implements Initializable {
 
@@ -29,26 +34,24 @@ public class DisplayArticleController implements Initializable {
     @FXML
     private Hyperlink linkAjouterPanier;
 
-    private String image;
-    private String nomProduit;
-    private String prix;
+    private Article article;
 
-    public DisplayArticleController(String image, String nomProduit, String prix) {
-        this.image = image;
-        this.nomProduit = nomProduit;
-        this.prix = prix;
+    public DisplayArticleController(Article article) {
+        this.article = article;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //this.imgProduit.setImage(new Image(this.image));
         this.imgProduit.setImage(new Image("images/deskshop-logo.png"));
-        this.lbNomProduit.setText(this.nomProduit);
-        this.lbPrix.setText(this.prix);
+        this.lbNomProduit.setText(this.article.getName());
+        this.lbPrix.setText(this.article.getPrice() + "Ø");
     }
 
     @FXML
     void linkAjouterPanierClick(ActionEvent event) {
         // Ajoute au panier
+        //articleHashMap.put(this.article, 1);
+        ControllerUtils.loadPopupArticle(article);
     }
 }

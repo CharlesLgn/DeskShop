@@ -10,28 +10,31 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<HBox fx:id="hbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="600.0" spacing="40.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="hbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="800.0" spacing="40.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane alignment="CENTER" HBox.hgrow="ALWAYS">
          <HBox.margin>
             <Insets left="5.0" />
          </HBox.margin>
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" percentWidth="35.0" prefWidth="190.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="262.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="154.0" minWidth="10.0" prefWidth="154.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" percentWidth="25.0" prefWidth="190.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" percentWidth="55.0" prefWidth="262.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="154.0" minWidth="10.0" percentWidth="20.0" prefWidth="154.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <ImageView fx:id="imgImageArticle" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="lbNomArticle" text="Ceci est le nom d'un produit qui se révèle beaucoup trop longue pour s'afficher sur une simple ligne dans cette boîte de dialogue" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+            <VBox alignment="TOP_CENTER" spacing="30.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets left="5.0" top="10.0" />
                </GridPane.margin>
-            </Label>
+               <children>
+                  <Label fx:id="lbNomArticle" text="Ceci est le nom d'un produit qui se révèle beaucoup trop longue pour s'afficher sur une simple ligne dans cette boîte de dialogue" wrapText="true" VBox.vgrow="ALWAYS" />
+                  <Label fx:id="lbDesc" prefHeight="17.0" prefWidth="977.0" text="desc" wrapText="true" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
             <VBox alignment="TOP_CENTER" spacing="50.0" GridPane.columnIndex="2">
                <children>
                   <Label fx:id="lbPrixArticle" text="Prix" wrapText="true">

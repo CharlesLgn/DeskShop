@@ -17,7 +17,7 @@
             <Insets top="10.0" />
          </VBox.margin>
       </Label>
-      <JFXComboBox fx:id="comboBoxChoix" prefWidth="200.0" />
+      <JFXComboBox fx:id="comboBoxChoix" prefHeight="25.0" prefWidth="304.0" />
       <JFXButton fx:id="btSelection" onAction="#btSelectionClick" prefHeight="32.0" prefWidth="175.0" text="Sélectionner">
          <VBox.margin>
             <Insets />
