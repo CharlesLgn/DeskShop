@@ -7,6 +7,7 @@ import com.deskshop.common.metier.Compte;
 import com.deskshop.common.metier.Magasin;
 import com.deskshop.common.metier.Person;
 import com.deskshop.serv.manager.ArticleManager;
+import com.deskshop.serv.manager.CompteManager;
 import com.deskshop.serv.manager.MagasinManager;
 import com.deskshop.serv.manager.PersonManager;
 import com.deskshop.utils.MailUtil;
@@ -162,4 +163,9 @@ public class ServerImpl extends Observable implements ServerInterface {
         }).start();
     }
 
+    @Override
+    public List<Compte> findAllCompte() {
+        CompteManager compteManager = new CompteManager();
+        return compteManager.findAllCompte();
+    }
 }
