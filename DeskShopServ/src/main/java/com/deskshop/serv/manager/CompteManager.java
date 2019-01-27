@@ -12,6 +12,16 @@ public class CompteManager extends HibernateFactory<Compte> {
         super(Compte.class);
     }
 
+    public Compte getCompteByPersonne(Person person) {
+        Session session = getSession();
+        Query query = session.createQuery("from Compte as compte where compte.client = :person ");
+        query.setParameter("person", person);
+        List<Compte> list = query.list();
+        for (Compte compte : list) {
+            return compte;
+        }
+        return null;
+    }
 
     public List<Compte> findAllCompte() {
         Session session = getSession();

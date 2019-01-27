@@ -2,6 +2,8 @@ package com.deskshop.serv.impl;
 
 import com.deskshop.common.link.ClientInterface;
 import com.deskshop.common.link.ServerInterface;
+import com.deskshop.common.metier.*;
+import com.deskshop.serv.manager.*;
 import com.deskshop.common.metier.Article;
 import com.deskshop.common.metier.Compte;
 import com.deskshop.common.metier.Magasin;
@@ -14,13 +16,18 @@ import com.deskshop.utils.MailUtil;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.*;
 
 public class ServerImpl extends Observable implements ServerInterface {
-    private Compte compte;
+    private ArticleManager        articleManager        = new ArticleManager();
+    private CommandeManager       commandeManager       = new CommandeManager();
+    private CompteManager         compteManager         = new CompteManager();
+    private DetailCommandeManager detailCommandeManager = new DetailCommandeManager();
+    private MagasinManager        magasinManager        = new MagasinManager();
+    private MovementManager       movementManager       = new MovementManager();
+    private PersonManager         personManager         = new PersonManager();
 
     private class WrappedObserver implements Observer, Serializable {
 
@@ -54,7 +61,6 @@ public class ServerImpl extends Observable implements ServerInterface {
     //__________________________ Manage user __________________________
     @Override
     public int login(String mail, String psw) {
-        PersonManager personManager = new PersonManager();
         return personManager.Connect(mail, psw);
     }
 
@@ -62,8 +68,7 @@ public class ServerImpl extends Observable implements ServerInterface {
     public int createUser(Person user) {
         try {
             //create user
-            PersonManager manager = new PersonManager();
-            user = manager.create(user);
+            user = personManager.create(user);
             final Person person = user;
             new Thread(() -> MailUtil.sendWelcomeMail(person.getMel())).start();
             //get the general server
@@ -79,15 +84,13 @@ public class ServerImpl extends Observable implements ServerInterface {
     public int createShop(String name, int userId) {
         try {
             //get user
-            PersonManager personManager = new PersonManager();
             Person user = personManager.read(userId);
 
             //get magasin
-            MagasinManager manager = new MagasinManager();
             Magasin magasin = new Magasin();
             magasin.setCreator(user);
             magasin.setName(name);
-            magasin = manager.create(magasin);
+            magasin = magasinManager.create(magasin);
             setChanged();
             notifyObservers("shop");
             return magasin.getId();
@@ -100,19 +103,16 @@ public class ServerImpl extends Observable implements ServerInterface {
     @Override
     public List<Magasin> findAllMagasin(int userId) {
         Person person = getUser(userId);
-        MagasinManager magasinManager = new MagasinManager();
         return magasinManager.findAllMagasin(person);
     }
 
     @Override
     public List<Magasin> findMagasinByUser(int userId) {
         Person person = getUser(userId);
-        MagasinManager magasinManager = new MagasinManager();
         return magasinManager.findMagasinByUser(person);
     }
 
     private Person getUser(int id){
-        PersonManager personManager = new PersonManager();
         return personManager.read(id);
     }
 
@@ -124,40 +124,64 @@ public class ServerImpl extends Observable implements ServerInterface {
         article.setDesc(desc);
         article.setPrice(price);
         article.setShop(getMagasin(idMagasin));
-        ArticleManager manager = new ArticleManager();
-        manager.create(article);
+        articleManager.create(article);
+
         setChanged();
         notifyObservers("article");
     }
 
     @Override
     public List<Article> getArticleByMagasin(int id) {
-        ArticleManager manager = new ArticleManager();
-        return manager.getArticleByMagasin(getMagasin(id));
+        return articleManager.getArticleByMagasin(getMagasin(id));
     }
 
     private Magasin getMagasin(int id){
-        MagasinManager magasinManager = new MagasinManager();
         return magasinManager.read(id);
     }
 
-    @Override
-    public void paid(HashMap<Article, Integer> cadie, int idUser, int idMagasin) throws RemoteException {
+    private Person getPerson(int id){
+        return personManager.read(id);
+    }
 
+    @Override
+    public boolean paid(HashMap<Article, Integer> cadie, int idUser, int idMagasin) {
+        double sum = cadie.entrySet().stream().mapToDouble(c -> c.getKey().getPrice() * c.getValue()).sum();
+        Magasin magasin = getMagasin(idMagasin);
+        Person client = getPerson(idUser),
+               vendeur= getPerson(magasin.getCreator().getId());
+        Compte compteClient = compteManager.getCompteByPersonne(client),
+               compteVendeur= compteManager.getCompteByPersonne(vendeur);
+        try{
+            compteClient.debit(sum);
+            compteVendeur.credit(sum);
+            compteManager.update(compteClient);
+            compteManager.update(compteVendeur);
+            Timestamp date = Timestamp.from(Instant.now());
+            Commande commande = commandeManager.create(new Commande(date, client, magasin));
+            movementManager.create(new Movement(date, sum, compteVendeur),
+                                   new Movement(date, -sum, compteClient));
+            setChanged();
+            notifyObservers(Arrays.asList(client, vendeur));
+            DetailCommande detailCommande = new DetailCommande();
+            detailCommande.setCommande(commande);
+            for (Map.Entry<Article, Integer> entry : cadie.entrySet()) {
+                detailCommande.setArticle(entry.getKey());
+                detailCommande.setQuantity(entry.getValue());
+                detailCommandeManager.create(detailCommande);
+            }
+            new Thread(() ->MailUtil.sendFactureMail(client.getMel(), cadie)).start();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
     public void credit(double sum) {
         System.out.println();
-        compte.credit(sum);
-        setChanged();
-        notifyObservers(compte);
     }
 
     public ServerImpl() {
-        compte = new Compte();
-        compte.setName("compte courant");
-        compte.setAmount(1000);
         new Thread(() -> {
             while (true) setChanged();
         }).start();

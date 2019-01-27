@@ -35,14 +35,15 @@ ALTER TABLE ARTICLE
 CREATE TABLE COMMANDE (
   id          INTEGER(11) NOT NULL AUTO_INCREMENT,
   date_achat  DATETIME    DEFAULT CURRENT_TIMESTAMP(),
-  qtt_cmde    INTEGER(5)  NOT NULL,
   id_personne INTEGER(11) NOT NULL,
   id_magasin  INTEGER(11) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1;
 ALTER TABLE COMMANDE
-  ADD CONSTRAINT FK_command_person FOREIGN KEY (id_personne) REFERENCES PERSONNE(id) on delete cascade,
   ADD CONSTRAINT FK_command_shop FOREIGN KEY (id_magasin) REFERENCES MAGASIN(id) on delete cascade;
+ALTER TABLE COMMANDE
+  ADD CONSTRAINT FK_command_person FOREIGN KEY (id_personne) REFERENCES PERSONNE(id) on delete cascade;
+
 
 -- table compte
 CREATE TABLE COMPTE (
@@ -74,5 +75,18 @@ CREATE TABLE ADMINISTRE (
                          PRIMARY KEY (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1;
 alter table ADMINISTRE
-  ADD CONSTRAINT FK_administre_compte FOREIGN KEY (id_compte) REFERENCES COMPTE(id) on delete cascade,
+  ADD CONSTRAINT FK_administre_compte FOREIGN KEY (id_compte) REFERENCES COMPTE(id) on delete cascade;
+alter table ADMINISTRE
   ADD CONSTRAINT FK_administre_person FOREIGN KEY (id_admin) REFERENCES PERSONNE(id) on delete cascade;
+
+-- table detail commande
+CREATE TABLE DETAIL_COMMANDE (
+  id_commande INTEGER(11) NOT NULL,
+  id_article  INTEGER(11) NOT NULL,
+  qtt_cmde    INTEGER(5)  NOT NULL,
+  PRIMARY KEY (id_commande, id_article)
+) ENGINE=InnoDB AUTO_INCREMENT=1;
+ALTER TABLE DETAIL_COMMANDE
+  ADD CONSTRAINT FK_detail_article FOREIGN KEY (id_article) REFERENCES ARTICLE(id) on delete cascade;
+ALTER TABLE DETAIL_COMMANDE
+  ADD CONSTRAINT FK_detail_command FOREIGN KEY (id_commande) REFERENCES COMMANDE(id) on delete cascade;

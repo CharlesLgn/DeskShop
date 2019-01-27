@@ -27,7 +27,7 @@ public interface ServerInterface extends Remote {
     List<Article> getArticleByMagasin(int id) throws RemoteException;
 
     //_________________________ Go Shopping ___________________________
-    void paid(HashMap<Article, Integer> cadie, int idUser, int idMagasin) throws RemoteException;
+    boolean paid(HashMap<Article, Integer> cadie, int idUser, int idMagasin) throws RemoteException;
 
     //______________________ Manage Bank Acount _______________________
     void credit(double sum) throws RemoteException;

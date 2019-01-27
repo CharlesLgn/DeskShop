@@ -15,3 +15,10 @@ INSERT INTO COMPTE(nom, solde, id_personne) VALUES ('compte courant', 1000, 1),
 INSERT INTO ADMINISTRE(id_compte, id_admin) VALUES (1,1),
                                                    (2,1),
                                                    (3,1);
+
+INSERT INTO commande(date_achat, id_personne, id_magasin) VALUES (NOW(), 3, 1);
+
+INSERT INTO detail_commande(id_commande, id_article, qtt_cmde) VALUES (5,1,10),
+                                                                      (5,2,2);
+
+
