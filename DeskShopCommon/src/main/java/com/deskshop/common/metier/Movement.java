@@ -24,6 +24,8 @@ public class Movement implements Serializable {
         this.id = -1;
     }
 
+
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

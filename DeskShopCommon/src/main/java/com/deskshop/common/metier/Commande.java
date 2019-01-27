@@ -10,7 +10,6 @@ import java.util.Objects;
 public class Commande implements Serializable {
     private int id;
     private Timestamp date;
-    private int quantity;
     private Person client;
     private Magasin shop;
 
@@ -18,10 +17,9 @@ public class Commande implements Serializable {
         this.id = -1;
     }
 
-    public Commande(Timestamp date, int quantity, Person client, Magasin shop) {
+    public Commande(Timestamp date, Person client, Magasin shop) {
         this.id = -1;
         this.date = date;
-        this.quantity = quantity;
         this.client = client;
         this.shop = shop;
     }
@@ -46,14 +44,7 @@ public class Commande implements Serializable {
         this.date = date;
     }
 
-    @Column(name = "qtt_cmde")
-    public int getQuantity() {
-        return quantity;
-    }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_personne")
@@ -80,11 +71,11 @@ public class Commande implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Commande commande = (Commande) o;
-        return id == commande.id && quantity == commande.quantity && Objects.equals(date, commande.date) && Objects.equals(client, commande.client) && Objects.equals(shop, commande.shop);
+        return id == commande.id && Objects.equals(date, commande.date) && Objects.equals(client, commande.client) && Objects.equals(shop, commande.shop);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, date, quantity, client, shop);
+        return Objects.hash(id, date, client, shop);
     }
 }

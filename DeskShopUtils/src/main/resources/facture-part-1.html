@@ -1,7 +1,7 @@
 <head>
     <meta name="viewport" content="width=device-width"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Simple Transactional Email</title>
+    <title>Facture</title>
     <style>
         /* -------------------------------------
             GLOBAL RESETS
@@ -13,20 +13,6 @@
             border: none;
             -ms-interpolation-mode: bicubic;
             max-width: 100%;
-        }
-
-        body {
-            background-color: LightCyan;
-            background-image: url("https://wallpapercave.com/wp/wp2445808.png");
-            font-family: sans-serif;
-            -webkit-font-smoothing: antialiased;
-            font-size: 14px;
-            line-height: 1.4;
-            padding: 0;
-            -ms-text-size-adjust: 100%;
-            -webkit-text-size-adjust: 100%;
-            margin-left: 20%;
-            margin-right: 20%;
         }
 
         table {
@@ -48,7 +34,7 @@
         ------------------------------------- */
 
         .body {
-            background-color: LightCyan;
+            background-color: rgba(11, 232, 129, 0.33);
             width: 100%;
         }
 
@@ -147,7 +133,7 @@
         }
 
         .title{
-            background-color: lightblue;
+            background-color: #05c46b;
             text-align: center;
         }
 
@@ -251,6 +237,34 @@
             }
         }
 
+        .facture{
+            width: 100%;
+            text-align: right;
+            border-collapse: collapse;
+        }
+        .desc{
+            border-bottom: 2px solid #05c46b;
+        }
+
+        .total{
+            font-size: 18px;
+            font-weight: bold;
+            color: red;
+        }
+
+        .article{
+            text-align: left;
+        }
+        .qqte{
+            text-align: center;
+        }
+        .prix{
+            text-align: right;
+        }
+        .end{
+            border-top: 2px solid #05c46b;
+        }
+
     </style>
 </head>
 <body class="">
@@ -259,12 +273,10 @@
         <td class="container">
             <div class="content">
 
-                <!-- START CENTERED WHITE CONTAINER -->
-                <span class="preheader">This is preheader text. Some clients will show this text as a preview.</span>
                 <table role="presentation" class="main">
                     <tr>
                         <td class ="title">
-                            <h1>Bienvenu sur DeskShop !</h1>
+                            <h1>Merci d'avoir acheté chez nous !</h1>
                         </td>
                     </tr>
                     <!-- START MAIN CONTENT AREA -->
@@ -274,42 +286,12 @@
                                 <tr>
                                     <td>
                                         <p>Bonjour,</p>
-                                        <p>Merci de vous être inscrit sur DeskShop. Votre confiance pour faire vos
-                                            achats nous importe.</p>
+                                        <p>Merci d'avoir acheté sur DeskShop. voici votre facture :</p>
                                         <br/>
-                                        <p>Nous esperons que notre site répondra à vos attente. En cas de besoin
-                                            n'hesitez pas à nous contacter.</p>
-                                        <p>Achetez ! On s'occupe du reste.</p>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
 
-                    <!-- END MAIN CONTENT AREA -->
-                </table>
-
-                <!-- START FOOTER -->
-                <div class="footer">
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="content-block">
-                                <span class="apple-link">Økya S.A.S,
-                                    <br/>3 rue Dieu, 75010 Paris</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="https://trello-logos.s3.amazonaws.com/d5006953a5248c91021d158d9822eac6/170.png" width="75px"/>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <!-- END FOOTER -->
-
-                <!-- END CENTERED WHITE CONTAINER -->
-            </div>
-        </td>
-    </tr>
-</table>
-</body>
+                                            <table class="facture">
+                                                <tr>
+                                                    <td class="desc article">Article</td>
+                                                    <td class="desc qqte">Quantité</td>
+                                                    <td class="desc prix">Prix</td>
+                                                </tr>

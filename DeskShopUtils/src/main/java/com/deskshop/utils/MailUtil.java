@@ -1,5 +1,7 @@
 package com.deskshop.utils;
 
+import com.deskshop.common.metier.Article;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -9,6 +11,9 @@ import javax.mail.internet.MimeMessage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 public class MailUtil {
@@ -17,6 +22,30 @@ public class MailUtil {
         String body = getMail("welcome-message");
 
         sendMail(recipent, subject, body);
+    }
+
+    public static void sendFactureMail(String recipent, HashMap<Article, Integer> detail) {
+        String subject = "Votre Facture";
+        StringBuilder body = new StringBuilder();
+        body.append(getMail("facture-part-1"));
+
+        DecimalFormat df = new DecimalFormat("#.00");
+
+        for (Map.Entry<Article, Integer> entry : detail.entrySet()) {
+            body.append("<tr><td class=\"article\">")
+                    .append(entry.getKey().getName())
+                    .append("</td><td class=\"qqte\">")
+                    .append(entry.getValue())
+                    .append("</td><td class=\"prix\">")
+                    .append(df.format(entry.getKey().getPrice() * entry.getValue()))
+                    .append(" Ø</td></tr>");
+        }
+        double sum = detail.entrySet().stream().mapToDouble(c -> c.getKey().getPrice() * c.getValue()).sum();
+        body.append("<tr class=\"total\"><td class=\"end\"></td><td class=\"end\">total</td><td class=\"end\">")
+                .append(df.format(sum))
+                .append(" Ø</td></tr>")
+                .append(getMail("facture-part-2"));
+        sendMail(recipent, subject, body.toString());
     }
 
     private static void sendMail(String recipent, String subject, String body) {
