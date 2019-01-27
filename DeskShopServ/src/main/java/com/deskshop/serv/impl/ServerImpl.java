@@ -169,6 +169,7 @@ public class ServerImpl extends Observable implements ServerInterface {
                 detailCommande.setQuantity(entry.getValue());
                 detailCommandeManager.create(detailCommande);
             }
+            new Thread(() ->MailUtil.sendFactureMail(client.getMel(), cadie)).start();
             return true;
         } catch (Exception e) {
             return false;
