@@ -3,6 +3,7 @@ package com.deskshop.front.controllers;
 import com.deskshop.common.constant.ServerConstant;
 import com.deskshop.common.link.ClientInterface;
 import com.deskshop.common.metier.Article;
+import com.deskshop.common.metier.Compte;
 import com.deskshop.common.metier.Magasin;
 import com.deskshop.front.util.ControllerUtils;
 import com.deskshop.front.util.MoveUtils;
@@ -64,6 +65,8 @@ public class DashboardController implements Initializable {
     private int indexComboBox;
     public static HashMap<Article, Integer> articleHashMap = new HashMap<>();
 
+
+
     public DashboardController(int nbUser, int indexComboBox) {
         this.nbUser = nbUser;
         this.indexComboBox = indexComboBox;
@@ -89,7 +92,7 @@ public class DashboardController implements Initializable {
         pnPrincipal.getStylesheets().add(getClass().getResource("/gui/css/main-orange.css").toExternalForm());
 
         obtenirContexte(indexComboBox);
-    }
+}
 
     /**
      * Affiche le panier
@@ -101,6 +104,7 @@ public class DashboardController implements Initializable {
     }
 
     private void obtenirContexte(int indexComboBox) {
+
         switch (indexComboBox) {
             case 0:
                 // Consulter les magasins
@@ -114,8 +118,29 @@ public class DashboardController implements Initializable {
                 // Gérer mes comptes
                 break;
             case 3:
+                addAllAccounts();
                 // Consulter les comptes clients
                 break;
+        }
+    }
+
+    private void addAllAccounts(){
+        try {
+            List<Compte> comptes = ServerConstant.SERVER.findAllCompte();
+            fadeout(pnZoneTravail);
+            pnZoneTravail.setFitToHeight(true);
+            pnZoneTravail.setFitToWidth(true);
+            FlowPane flowPane = new FlowPane();
+            flowPane.setHgap(30);
+            flowPane.setVgap(50);
+            flowPane.setAlignment(Pos.CENTER);
+            for (Compte compte : comptes) {
+                Pane carteCompte = ControllerUtils.loadDisplayCompte(compte);
+                flowPane.getChildren().add(carteCompte);
+            }
+            fadeout(pnZoneTravail);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 

@@ -1,6 +1,7 @@
 package com.deskshop.common.link;
 
 import com.deskshop.common.metier.Article;
+import com.deskshop.common.metier.Compte;
 import com.deskshop.common.metier.Magasin;
 import com.deskshop.common.metier.Person;
 
@@ -30,5 +31,5 @@ public interface ServerInterface extends Remote {
 
     //______________________ Manage Bank Acount _______________________
     void credit(double sum) throws RemoteException;
-
+    List<Compte> findAllCompte() throws RemoteException;
 }

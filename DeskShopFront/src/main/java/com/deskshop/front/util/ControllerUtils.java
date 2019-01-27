@@ -1,6 +1,7 @@
 package com.deskshop.front.util;
 
 import com.deskshop.common.metier.Article;
+import com.deskshop.common.metier.Compte;
 import com.deskshop.front.controllers.*;
 import com.deskshop.front.start.Start;
 import com.deskshop.utils.ResizeHelper;
@@ -72,6 +73,20 @@ public class ControllerUtils {
             DisplayArticleController displayArticleController = new DisplayArticleController(article);
             FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/displayArticle.fxml"));
             loader.setController(displayArticleController);
+            Pane root = loader.load();
+            return root;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static Pane loadDisplayCompte(Compte compte) {
+        try {
+            DisplayCompteController displayCompteController = new DisplayCompteController(compte);
+            FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/displayCompte.fxml"));
+            loader.setController(displayCompteController);
             Pane root = loader.load();
             return root;
         } catch (Exception e) {

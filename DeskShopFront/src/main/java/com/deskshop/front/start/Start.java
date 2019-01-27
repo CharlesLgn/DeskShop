@@ -3,6 +3,7 @@ package com.deskshop.front.start;
 import com.deskshop.front.util.ControllerUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 public class Start extends Application {
