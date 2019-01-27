@@ -115,6 +115,7 @@ public class DashboardController implements Initializable {
                 addMyShop();
                 break;
             case 2:
+                addMyAccounts();
                 // Gérer mes comptes
                 break;
             case 3:
@@ -124,8 +125,32 @@ public class DashboardController implements Initializable {
         }
     }
 
+    private void addMyAccounts(){
+        try {
+            this.btPanier.setVisible(false);
+            List<Compte> comptes = ServerConstant.SERVER.findAllCompteByUser(nbUser);
+            fadeout(pnZoneTravail);
+            pnZoneTravail.setFitToHeight(true);
+            pnZoneTravail.setFitToWidth(true);
+            FlowPane flowPane = new FlowPane();
+            flowPane.setHgap(30);
+            flowPane.setVgap(50);
+            flowPane.setAlignment(Pos.CENTER);
+            for (Compte compte : comptes) {
+                Pane carteCompte = ControllerUtils.loadDisplayCompteUser(compte, comptes);
+                flowPane.getChildren().add(carteCompte);
+            }
+
+            pnZoneTravail.setContent(flowPane);
+            fadeout(pnZoneTravail);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private void addAllAccounts(){
         try {
+            this.btPanier.setVisible(false);
             List<Compte> comptes = ServerConstant.SERVER.findAllCompte();
             fadeout(pnZoneTravail);
             pnZoneTravail.setFitToHeight(true);
@@ -138,6 +163,8 @@ public class DashboardController implements Initializable {
                 Pane carteCompte = ControllerUtils.loadDisplayCompte(compte);
                 flowPane.getChildren().add(carteCompte);
             }
+
+            pnZoneTravail.setContent(flowPane);
             fadeout(pnZoneTravail);
         } catch (Exception ex) {
             ex.printStackTrace();

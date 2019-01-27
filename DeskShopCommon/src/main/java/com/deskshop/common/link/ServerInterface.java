@@ -32,4 +32,5 @@ public interface ServerInterface extends Remote {
     //______________________ Manage Bank Acount _______________________
     void credit(double sum) throws RemoteException;
     List<Compte> findAllCompte() throws RemoteException;
+    List<Compte> findAllCompteByUser(int userId) throws RemoteException;
 }

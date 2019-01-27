@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * all function used in the IRC controller but which could be use somewhere else
@@ -87,6 +88,20 @@ public class ControllerUtils {
             DisplayCompteController displayCompteController = new DisplayCompteController(compte);
             FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/displayCompte.fxml"));
             loader.setController(displayCompteController);
+            Pane root = loader.load();
+            return root;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static Pane loadDisplayCompteUser(Compte compte, List<Compte> comptes) {
+        try {
+            DisplayCompteUserController displayCompteUserController = new DisplayCompteUserController(compte, comptes);
+            FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/displayCompteUser.fxml"));
+            loader.setController(displayCompteUserController);
             Pane root = loader.load();
             return root;
         } catch (Exception e) {

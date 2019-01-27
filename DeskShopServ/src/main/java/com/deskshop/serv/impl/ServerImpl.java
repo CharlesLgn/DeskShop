@@ -168,4 +168,11 @@ public class ServerImpl extends Observable implements ServerInterface {
         CompteManager compteManager = new CompteManager();
         return compteManager.findAllCompte();
     }
+
+    @Override
+    public List<Compte> findAllCompteByUser(int userId) {
+        Person person = getUser(userId);
+        CompteManager compteManager = new CompteManager();
+        return compteManager.findAllCompteByUser(person);
+    }
 }
