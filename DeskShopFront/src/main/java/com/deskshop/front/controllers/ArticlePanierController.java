@@ -48,6 +48,6 @@ public class ArticlePanierController implements Initializable {
         this.lbNomArticle.setText(this.article.getName());
         this.lbPrixArticle.setText(this.article.getPrice()+"Ø");
         this.lbDesc.setText(this.article.getDesc());
-        this.spinnerQuantite.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,Integer.MAX_VALUE, qte,1));
+        this.spinnerQuantite.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1,Integer.MAX_VALUE, qte,1));
     }
 }

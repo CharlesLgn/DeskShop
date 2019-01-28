@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.deskshop.front.start.Start.getPrimaryStage;
+
 /**
  * all function used in the IRC controller but which could be use somewhere else
  */
@@ -146,6 +148,8 @@ public class ControllerUtils {
         try {
             Pane root = loader.load();
             Stage stage = new Stage();
+            stage.initModality(Modality.NONE);
+            //stage.initOwner(getPrimaryStage());
             stage.initStyle(StageStyle.UNDECORATED);
             assert root != null;
             Scene scene = new Scene(root);
@@ -159,7 +163,7 @@ public class ControllerUtils {
 
             windowsBehavior(index);
 
-            ResizeHelper.addResizeListener(Start.getPrimaryStage());
+            ResizeHelper.addResizeListener(getPrimaryStage());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -192,7 +196,7 @@ public class ControllerUtils {
     public static Stage createStage(){
         Stage st = new Stage();
         st.initModality(Modality.WINDOW_MODAL);
-        st.initOwner(Start.getPrimaryStage().getScene().getWindow());
+        st.initOwner(getPrimaryStage().getScene().getWindow());
         st.initStyle(StageStyle.UNDECORATED);
         return st;
     }

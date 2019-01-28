@@ -6,6 +6,7 @@ import com.deskshop.common.metier.DetailCommande;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class DetailCommandeManager extends HibernateFactory<DetailCommande> {
@@ -19,5 +20,15 @@ public class DetailCommandeManager extends HibernateFactory<DetailCommande> {
         Query query = session.createQuery("from DetailCommande as detail where detail.commande = :command ");
         query.setParameter("command", commande);
         return query.list();
+    }
+
+    @Override
+    public DetailCommande create(DetailCommande t) {
+        Session session = getSession();
+        session.beginTransaction();
+        t = (DetailCommande)session.save(t);
+        session.getTransaction().commit();
+        session.close();
+        return t;
     }
 }

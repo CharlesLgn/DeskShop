@@ -158,8 +158,9 @@ public class ServerImpl extends Observable implements ServerInterface {
             compteManager.update(compteVendeur);
             Timestamp date = Timestamp.from(Instant.now());
             Commande commande = commandeManager.create(new Commande(date, client, magasin));
-            movementManager.create(new Movement(date, sum, compteVendeur),
-                                   new Movement(date, -sum, compteClient));
+            movementManager.create(new Movement(date, sum, compteVendeur));
+            movementManager.create(new Movement(date, -sum, compteClient));
+
             setChanged();
             notifyObservers(Arrays.asList(client, vendeur));
             DetailCommande detailCommande = new DetailCommande();
@@ -172,6 +173,7 @@ public class ServerImpl extends Observable implements ServerInterface {
             new Thread(() ->MailUtil.sendFactureMail(client.getMel(), cadie)).start();
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
@@ -199,4 +201,11 @@ public class ServerImpl extends Observable implements ServerInterface {
         CompteManager compteManager = new CompteManager();
         return compteManager.findAllCompteByUser(person);
     }
+
+    @Override
+    public List<Movement> findMovementByCompte(Compte compte){
+        MovementManager movementManager = new MovementManager();
+        return movementManager.findMovementByCompte(compte);
+    }
+
 }

@@ -39,12 +39,6 @@ public abstract class HibernateFactory<T> {
         return read(id);
     }
 
-    public void create(T... t) {
-        for (T t1 : t){
-            create(t);
-        }
-    }
-
     public T read(int id) {
         Session session = getSession();
         T t = session.get(tType, id);

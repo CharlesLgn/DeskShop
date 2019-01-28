@@ -51,10 +51,10 @@ public class PopupArticleController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.lbNomProduit.setText(this.article.getName());
-        this.lb_Prix.setText(this.article.getPrice()+"");
+        this.lb_Prix.setText(this.article.getPrice() + "");
         this.lb_desc.setText(this.article.getDesc());
         this.imgProduit.setImage(new Image("images/deskshop-logo.png"));
-        spinnerQte.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,Integer.MAX_VALUE, 1,1));
+        spinnerQte.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Integer.MAX_VALUE, 1, 1));
     }
 
     public PopupArticleController(Article article, HashMap<Article, Integer> panier) {
@@ -74,7 +74,7 @@ public class PopupArticleController implements Initializable {
 
     @FXML
     void linkAddPanierClick(ActionEvent event) {
-        panier.put(article, this.spinnerQte.getValue());
+        panier.put(article, (panier.get(article) == null ?  0:panier.get(article)) + this.spinnerQte.getValue());
     }
 
 

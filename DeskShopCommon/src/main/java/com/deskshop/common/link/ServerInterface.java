@@ -1,9 +1,6 @@
 package com.deskshop.common.link;
 
-import com.deskshop.common.metier.Article;
-import com.deskshop.common.metier.Compte;
-import com.deskshop.common.metier.Magasin;
-import com.deskshop.common.metier.Person;
+import com.deskshop.common.metier.*;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -33,4 +30,7 @@ public interface ServerInterface extends Remote {
     void credit(double sum) throws RemoteException;
     List<Compte> findAllCompte() throws RemoteException;
     List<Compte> findAllCompteByUser(int userId) throws RemoteException;
+
+    //______________________ Manage Movement _______________________
+    List<Movement> findMovementByCompte(Compte compte) throws RemoteException;
 }
