@@ -1,6 +1,6 @@
 package com.deskshop.front.controllers;
+
 import com.deskshop.common.metier.Article;
-import com.deskshop.common.metier.Magasin;
 import com.deskshop.front.util.ControllerUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,9 +12,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
-
-import static com.deskshop.front.controllers.DashboardController.articleHashMap;
 
 public class DisplayArticleController implements Initializable {
 
@@ -35,9 +34,11 @@ public class DisplayArticleController implements Initializable {
     private Hyperlink linkAjouterPanier;
 
     private Article article;
+    private HashMap<Article, Integer> panier;
 
-    public DisplayArticleController(Article article) {
+    public DisplayArticleController(Article article, HashMap<Article, Integer> panier) {
         this.article = article;
+        this.panier = panier;
     }
 
     @Override
@@ -52,6 +53,6 @@ public class DisplayArticleController implements Initializable {
     void linkAjouterPanierClick(ActionEvent event) {
         // Ajoute au panier
         //articleHashMap.put(this.article, 1);
-        ControllerUtils.loadPopupArticle(article);
+        ControllerUtils.loadPopupArticle(article, panier);
     }
 }

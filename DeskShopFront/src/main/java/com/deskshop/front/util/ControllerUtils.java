@@ -2,6 +2,7 @@ package com.deskshop.front.util;
 
 import com.deskshop.common.metier.Article;
 import com.deskshop.common.metier.Compte;
+import com.deskshop.common.metier.Magasin;
 import com.deskshop.front.controllers.*;
 import com.deskshop.front.start.Start;
 import com.deskshop.utils.ResizeHelper;
@@ -21,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -47,9 +49,9 @@ public class ControllerUtils {
         }
     }
 
-    public static void loadPopupArticle(Article article){
+    public static void loadPopupArticle(Article article, HashMap<Article, Integer> panier){
         try {
-            PopupArticleController displayArticleController = new PopupArticleController(article);
+            PopupArticleController displayArticleController = new PopupArticleController(article, panier);
             FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/popupArticle.fxml"));
             loader.setController(displayArticleController);
             loadFX(loader, 1);
@@ -58,9 +60,9 @@ public class ControllerUtils {
         }
     }
 
-    public static void loadPanier(){
+    public static void loadPanier(HashMap<Article, Integer> panier, int nbUser, Magasin shop){
         try {
-            PanierController panierController = new PanierController();
+            PanierController panierController = new PanierController(panier, nbUser, shop);
             FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/panier.fxml"));
             loader.setController(panierController);
             loadFX(loader, 1);
@@ -69,9 +71,9 @@ public class ControllerUtils {
         }
     }
 
-    public static Pane loadDisplayArticle(Article article){
+    public static Pane loadDisplayArticle(Article article, HashMap<Article, Integer> panier){
         try {
-            DisplayArticleController displayArticleController = new DisplayArticleController(article);
+            DisplayArticleController displayArticleController = new DisplayArticleController(article, panier);
             FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/displayArticle.fxml"));
             loader.setController(displayArticleController);
             Pane root = loader.load();

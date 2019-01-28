@@ -39,7 +39,7 @@ public class ChoixTypeCompteController implements Initializable {
         try {
             MoveUtils.moveEvent(vbox);
             List<String> actions = new ArrayList<>();
-            actions.add("Consulter mes magasins");
+            actions.add("Consulter les magasins");
             actions.add("Gérer mes magasins");
             actions.add("Gérer mes comptes");
             actions.add("Gérer mes comptes client");

@@ -1,6 +1,8 @@
 package com.deskshop.front.controllers;
 
+import com.deskshop.common.constant.ServerConstant;
 import com.deskshop.common.metier.Article;
+import com.deskshop.common.metier.Magasin;
 import com.deskshop.front.util.ControllerUtils;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
@@ -14,11 +16,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-
-import static com.deskshop.front.controllers.DashboardController.articleHashMap;
 
 public class PanierController implements Initializable {
 
@@ -34,6 +34,15 @@ public class PanierController implements Initializable {
     @FXML
     private ScrollPane scrollpane;
 
+    private int nbUser;
+    private Magasin magasin;
+    private HashMap<Article, Integer> panier;
+
+    public PanierController(HashMap<Article, Integer> panier, int nbUser, Magasin magasin) {
+        this.nbUser = nbUser;
+        this.magasin = magasin;
+        this.panier = panier;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -42,13 +51,10 @@ public class PanierController implements Initializable {
         FlowPane flowPane = new FlowPane();
         flowPane.setAlignment(Pos.CENTER);
         flowPane.setVgap(30);
-        Iterator it = articleHashMap.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-            System.out.println(pair.getKey() + " = " + pair.getValue());
-            Pane pane = ControllerUtils.loadArticlePanier(((Article) pair.getKey()), ((int) pair.getValue()));
+        for (Map.Entry<Article, Integer> entry:panier.entrySet()){
+            System.out.println(entry.getKey() + " = " + entry.getValue());
+            Pane pane = ControllerUtils.loadArticlePanier(((Article) entry.getKey()), ((int) entry.getValue()));
             flowPane.getChildren().add(pane);
-            it.remove(); // avoids a ConcurrentModificationException
         }
 
         scrollpane.setContent(flowPane);
@@ -62,5 +68,10 @@ public class PanierController implements Initializable {
     @FXML
     void bt_commanderClick(ActionEvent event) {
         // Commander les articles sélectionnés
+        try {
+            ServerConstant.SERVER.paid(panier, nbUser, magasin.getId());
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 }

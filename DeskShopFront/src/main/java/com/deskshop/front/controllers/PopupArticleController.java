@@ -16,9 +16,8 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
-
-import static com.deskshop.front.controllers.DashboardController.articleHashMap;
 
 public class PopupArticleController implements Initializable {
 
@@ -47,6 +46,7 @@ public class PopupArticleController implements Initializable {
     private Spinner<Integer> spinnerQte;
 
     private Article article;
+    HashMap<Article, Integer> panier;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -57,8 +57,9 @@ public class PopupArticleController implements Initializable {
         spinnerQte.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,Integer.MAX_VALUE, 1,1));
     }
 
-    public PopupArticleController(Article article) {
+    public PopupArticleController(Article article, HashMap<Article, Integer> panier) {
         this.article = article;
+        this.panier = panier;
     }
 
     @FXML
@@ -73,7 +74,7 @@ public class PopupArticleController implements Initializable {
 
     @FXML
     void linkAddPanierClick(ActionEvent event) {
-        articleHashMap.put(article, this.spinnerQte.getValue());
+        panier.put(article, this.spinnerQte.getValue());
     }
 
 

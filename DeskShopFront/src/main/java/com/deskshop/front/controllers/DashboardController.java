@@ -24,7 +24,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -63,7 +62,8 @@ public class DashboardController implements Initializable {
 
     private int nbUser;
     private int indexComboBox;
-    public static HashMap<Article, Integer> articleHashMap = new HashMap<>();
+    private Magasin actualShop;
+    private HashMap<Article, Integer> panier = new HashMap<>();
 
 
 
@@ -100,7 +100,7 @@ public class DashboardController implements Initializable {
      */
     @FXML
     void btPanierClick(ActionEvent event) {
-        ControllerUtils.loadPanier();
+        ControllerUtils.loadPanier(panier, nbUser, actualShop);
     }
 
     private void obtenirContexte(int indexComboBox) {
@@ -115,11 +115,11 @@ public class DashboardController implements Initializable {
                 addMyShop();
                 break;
             case 2:
-                addMyAccounts();
+                addMyAccountsdraw();
                 // Gérer mes comptes
                 break;
             case 3:
-                addAllAccounts();
+                addAllAccountsdraw();
                 // Consulter les comptes clients
                 break;
         }
@@ -148,10 +148,8 @@ public class DashboardController implements Initializable {
         }
     }
 
-    private void addAllAccounts(){
+    private void addAllAccounts(Compte compte, boolean allOrMy, List<Compte> comptes){
         try {
-            this.btPanier.setVisible(false);
-            List<Compte> comptes = ServerConstant.SERVER.findAllCompte();
             fadeout(pnZoneTravail);
             pnZoneTravail.setFitToHeight(true);
             pnZoneTravail.setFitToWidth(true);
@@ -159,10 +157,13 @@ public class DashboardController implements Initializable {
             flowPane.setHgap(30);
             flowPane.setVgap(50);
             flowPane.setAlignment(Pos.CENTER);
-            for (Compte compte : comptes) {
-                Pane carteCompte = ControllerUtils.loadDisplayCompte(compte);
-                flowPane.getChildren().add(carteCompte);
+            Pane carteCompte = null;
+            if(!allOrMy) {
+                carteCompte = ControllerUtils.loadDisplayCompte(compte);
+            }else{
+                carteCompte = ControllerUtils.loadDisplayCompteUser(compte, comptes);
             }
+            flowPane.getChildren().add(carteCompte);
 
             pnZoneTravail.setContent(flowPane);
             fadeout(pnZoneTravail);
@@ -170,6 +171,54 @@ public class DashboardController implements Initializable {
             ex.printStackTrace();
         }
     }
+
+    private void addMyAccountsdraw(){
+        try{
+            this.btPanier.setVisible(false);
+            addAccountsToDrawer(ServerConstant.SERVER.findAllCompteByUser(nbUser), true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void addAllAccountsdraw(){
+        try{
+            this.btPanier.setVisible(false);
+        addAccountsToDrawer(ServerConstant.SERVER.findAllCompte(), false);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void addAccountsToDrawer(List<Compte> comptes, boolean allOrMy) {
+        VBox vBox = ControllerUtils.createVBox();
+        for (Compte compte : comptes) {
+            JFXButton jfxButton = new JFXButton(compte.getName() + "\n" + compte.getClient().getMel());
+            jfxButton.getStyleClass().add("button");
+            jfxButton.setPrefSize(Double.MAX_VALUE, 80);
+            jfxButton.setOnAction(event -> {
+                // Vérifier à l'aide d'une requête la connexion au serveur
+                addAllAccounts(compte, allOrMy, comptes);
+            lbTitre.setText(compte.getName());
+            });
+
+            vBox.getChildren().add(jfxButton);
+        }
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.getStyleClass().add("menu-bar-2");
+        scrollPane.setFitToWidth(true);
+        scrollPane.setContent(vBox);
+
+        VBox slider = ControllerUtils.createVBox();
+
+        //slider.getChildren().add(iw);
+        slider.getChildren().add(scrollPane);
+
+        //drawer.setSidePane(scrollPane);
+        drawer.setSidePane(slider);
+    }
+
 
     private void addAllShop() {
         try {
@@ -189,13 +238,6 @@ public class DashboardController implements Initializable {
 
     private void addShop(List<Magasin> magasinList) {
         VBox vBox = ControllerUtils.createVBox();
-
-            /*ImageView iw = new ImageView();
-            Image logo = new Image("image/logov4.png", true);
-            iw.setImage(logo);
-            iw.setFitHeight(34.5);
-            iw.setFitWidth(150);
-*/
         for (Magasin magasin : magasinList) {
             JFXButton jfxButton = new JFXButton(magasin.getName());
             jfxButton.getStyleClass().add("button");
@@ -203,6 +245,7 @@ public class DashboardController implements Initializable {
             jfxButton.setOnAction(event -> {
                 // Vérifier à l'aide d'une requête la connexion au serveur
                 showShop(magasin);
+                actualShop = magasin;
                 lbTitre.setText(magasin.getName());
             });
 
@@ -266,7 +309,7 @@ public class DashboardController implements Initializable {
     private void showShop(Magasin magasin) {
         try {
             // Les articles dans le panier sont retirés
-            articleHashMap.clear();
+            panier.clear();
             fadeout(pnZoneTravail);
             pnZoneTravail.setFitToHeight(true);
             pnZoneTravail.setFitToWidth(true);
@@ -276,7 +319,7 @@ public class DashboardController implements Initializable {
             flowPane.setVgap(50);
             flowPane.setAlignment(Pos.CENTER);
             for (Article article: articles) {
-                Pane carteArticle = ControllerUtils.loadDisplayArticle(article);
+                Pane carteArticle = ControllerUtils.loadDisplayArticle(article, panier);
                 flowPane.getChildren().add(carteArticle);
             }
 
