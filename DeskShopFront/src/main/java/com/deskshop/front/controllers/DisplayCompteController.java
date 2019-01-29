@@ -4,6 +4,7 @@ import com.deskshop.common.constant.ServerConstant;
 import com.deskshop.common.metier.Compte;
 import com.deskshop.common.metier.Movement;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.sun.security.ntlm.Server;
 import javafx.beans.value.ChangeListener;
@@ -11,7 +12,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -24,6 +27,9 @@ public class DisplayCompteController implements Initializable {
 
     @FXML
     private VBox vbox;
+
+    @FXML
+    private VBox vBox;
 
     @FXML
     private Label accountName;
@@ -62,6 +68,10 @@ public class DisplayCompteController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        buildcard();
+    }
+
+    public void buildcard(){
         try {
             this.accountName.setText(this.compte.getName());
             this.nom.setText(this.compte.getClient().getName());
@@ -78,13 +88,11 @@ public class DisplayCompteController implements Initializable {
                 }
             });
 
-            VBox vBox = new VBox();
-            vBox.setFillWidth(true);
-            vBox.setSpacing(15);
+            vBox.setSpacing(20);
             List<Movement> movementList = ServerConstant.SERVER.findMovementByCompte(this.compte);
             for (Movement mov:movementList) {
                 HBox hBox = new HBox();
-                hbox.setSpacing(10);
+                hBox.setSpacing(40);
                 Label labeldate = new Label("Date :");
                 Label labeldatedisplay = new Label(mov.getDate()+"");
                 Label labelmontant = new Label("Montant :");
@@ -94,14 +102,13 @@ public class DisplayCompteController implements Initializable {
                 }else{
                     labelmontantdisplay.setTextFill(Color.LIGHTGREEN);
                 }
-                hbox.getChildren().add(labeldate);
-                hbox.getChildren().add(labeldatedisplay);
-                hbox.getChildren().add(labelmontant);
-                hbox.getChildren().add(labelmontantdisplay);
-                vBox.getChildren().add(hbox);
+                hBox.getChildren().add(labeldate);
+                hBox.getChildren().add(labeldatedisplay);
+                hBox.getChildren().add(labelmontant);
+                hBox.getChildren().add(labelmontantdisplay);
+                hBox.setMargin(labeldate, new Insets(0,0,0,20));
+                this.vBox.getChildren().add(hBox);
             }
-
-            vbox.getChildren().add(vBox);
         }catch (Exception ex){
             ex.printStackTrace();
         }
@@ -128,6 +135,7 @@ public class DisplayCompteController implements Initializable {
         // Valide le changement
         if(this.solde.getText().matches("[0-9]+(\\.[0-9]{1,2})?")){
             // la forme est bonne
+
         }
     }
 

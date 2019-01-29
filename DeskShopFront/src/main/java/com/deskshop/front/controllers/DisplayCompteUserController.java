@@ -1,18 +1,26 @@
 package com.deskshop.front.controllers;
 
+import com.deskshop.common.constant.ServerConstant;
 import com.deskshop.common.metier.Compte;
+import com.deskshop.common.metier.Movement;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.xml.internal.bind.v2.TODO;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -25,28 +33,31 @@ public class DisplayCompteUserController implements Initializable {
     private Label accountName;
 
     @FXML
+    private Label nom;
+
+    @FXML
+    private Label prenom;
+
+    @FXML
+    private Label mail;
+
+    @FXML
     private HBox hbox;
 
     @FXML
     private JFXTextField solde;
 
     @FXML
-    private HBox hbox1;
+    private JFXButton editsolde;
 
     @FXML
-    private JFXButton bt_transfer;
+    private JFXButton editsoldeValider;
 
     @FXML
-    private JFXTextField soldeaTransferer;
+    private JFXButton editsoldeAnnuler;
 
     @FXML
-    private JFXButton bt_Valider;
-
-    @FXML
-    private JFXButton bt_AnnulerTransf;
-
-    @FXML
-    private JFXComboBox<String> comptesUtilisateur;
+    private VBox vBox;
 
     private Compte compte;
     List<Compte> comptes;
@@ -58,25 +69,112 @@ public class DisplayCompteUserController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.accountName.setText(this.compte.getName());
-        this.solde.setText(this.compte.getAmount()+"");
-        for (Compte compte : comptes) {
-            this.comptesUtilisateur.setItems(FXCollections.observableArrayList(compte.getName()));
+        try {
+            // Que de l'interface ici
+            hbox.setSpacing(30);
+            this.accountName.setText(this.compte.getName());
+            this.nom.setText(this.compte.getClient().getName());
+            this.prenom.setText(this.compte.getClient().getFirstName());
+            this.mail.setText(this.compte.getClient().getMel());
+            this.solde.setText(this.compte.getAmount() + "");
+            // Dans cette form, on a pas besoin de l'édition du solde mais plutôt du transfert de fond
+            // On retire donc les trois boutons non désirés
+            this.hbox.getChildren().remove(this.editsolde);
+            this.hbox.getChildren().remove(this.editsoldeValider);
+            this.hbox.getChildren().remove(this.editsoldeAnnuler);
+            // Ajout des nouveaux composants pour le transfert
+            this.hbox.getChildren().add(new Label("Transfert :"));
+            JFXTextField jfxTextFieldTransfert = new JFXTextField();
+            jfxTextFieldTransfert.setPrefSize(120,30);
+            this.hbox.getChildren().add(jfxTextFieldTransfert);
+            // TODO Vérifier les input : il faut que ce soit des doubles !
+            this.hbox.getChildren().add(new Label("Vers :"));
+            JFXComboBox jfxComboBoxAutresComptes = new JFXComboBox();
+            List<Compte> compteList = new ArrayList<>(comptes);
+            jfxComboBoxAutresComptes.setItems(FXCollections.observableArrayList(MyOtherAccounts(compteList)));
+            jfxComboBoxAutresComptes.getSelectionModel().select(0);
+            this.hbox.getChildren().add(jfxComboBoxAutresComptes);
+            // TODO Rechercher les autres comptes sauf l'actuel et peupler la combobox avec ces derniers
+            JFXButton jfxButtonTransfert = new JFXButton("Transférer");
+            this.hbox.getChildren().add(jfxButtonTransfert);
+            jfxButtonTransfert.setOnAction(event -> {
+                Transfert();
+            });
+            this.solde.textProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                    String newValue) {
+                    if (!newValue.matches("[\\d.]")) {
+                        solde.setText(newValue.replaceAll("[^\\d.]", ""));
+                    }
+                }
+            });
+
+            vBox.setSpacing(20);
+            List<Movement> movementList = ServerConstant.SERVER.findMovementByCompte(this.compte);
+            for (Movement mov:movementList) {
+                HBox hBox = new HBox();
+                hBox.setSpacing(40);
+                Label labeldate = new Label("Date :");
+                Label labeldatedisplay = new Label(mov.getDate()+"");
+                Label labelmontant = new Label("Montant :");
+                Label labelmontantdisplay = new Label(mov.getAmount()+"");
+                if(mov.getAmount() < 0){
+                    labelmontantdisplay.setTextFill(Color.RED);
+                }else{
+                    labelmontantdisplay.setTextFill(Color.LIGHTGREEN);
+                }
+                hBox.getChildren().add(labeldate);
+                hBox.getChildren().add(labeldatedisplay);
+                hBox.getChildren().add(labelmontant);
+                hBox.getChildren().add(labelmontantdisplay);
+                hBox.setMargin(labeldate, new Insets(0,0,0,20));
+                this.vBox.getChildren().add(hBox);
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
         }
     }
 
-    @FXML
-    void bt_AnnulerTransfClick(ActionEvent event) {
+    /**
+     * Remove the currently used account from the list
+     * @param comptesCombo List of accounts of the user
+     * @return List of account without the one used
+     */
+    private List<Compte> MyOtherAccounts(List<Compte> comptesCombo){
+        List<Compte> newCompteList = new ArrayList<>();
+        for (Compte compte : comptesCombo) {
+            if(compte.getName() != this.accountName.getText()){
+                newCompteList.add(compte);
+            }
+        }
+
+        return newCompteList;
+    }
+
+    private void Transfert(){
+        /*
+        TODO Vérifier le chiffre entré
+        Vérifier la soustraction > 0
+        Vérfier qu'un compte est sélectionné
+         */
+
+
 
     }
 
     @FXML
-    void bt_ValiderClick(ActionEvent event) {
+    void editsoldeClick(ActionEvent event) {
 
     }
 
     @FXML
-    void bt_transferClick(ActionEvent event) {
+    void editsoldeValiderClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void editsoldeAnnulerClick(ActionEvent event) {
 
     }
 }

@@ -104,7 +104,7 @@ public class ControllerUtils {
     public static Pane loadDisplayCompteUser(Compte compte, List<Compte> comptes) {
         try {
             DisplayCompteUserController displayCompteUserController = new DisplayCompteUserController(compte, comptes);
-            FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/displayCompteUser.fxml"));
+            FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/displayCompte.fxml"));
             loader.setController(displayCompteUserController);
             Pane root = loader.load();
             return root;
