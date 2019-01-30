@@ -66,7 +66,7 @@ public class Compte implements Serializable {
 
     @Override
     public String toString() {
-        return name + " : " + amount;
+        return name;
     }
 
     public void credit(double sum){
@@ -75,5 +75,10 @@ public class Compte implements Serializable {
 
     public void debit(double sum){
         setAmount(getAmount()-sum);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Compte && ((Compte)obj).getId() == this.id ;
     }
 }

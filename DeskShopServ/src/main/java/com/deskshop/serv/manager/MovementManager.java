@@ -14,7 +14,7 @@ public class MovementManager extends HibernateFactory<Movement> {
 
     public List<Movement> findMovementByCompte(Compte compte) {
         Session session = getSession();
-        Query query = session.createQuery("from Movement as movement where movement.compte = :compte ");
+        Query query = session.createQuery("from Movement as movement where movement.compte = :compte order by movement.date desc");
         query.setParameter("compte", compte);
         return query.list();
     }

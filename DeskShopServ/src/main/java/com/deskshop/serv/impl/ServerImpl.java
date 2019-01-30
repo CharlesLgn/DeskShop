@@ -144,6 +144,39 @@ public class ServerImpl extends Observable implements ServerInterface {
     }
 
     @Override
+    public boolean transfert(double monnaie, Compte compteGiver, Compte compteReceiver) throws RemoteException {
+        try{
+            compteGiver.debit(monnaie);
+            compteReceiver.credit(monnaie);
+            compteManager.update(compteGiver);
+            compteManager.update(compteReceiver);
+            Timestamp date = Timestamp.from(Instant.now());
+            movementManager.create(new Movement(date, -monnaie, compteGiver));
+            movementManager.create(new Movement(date, monnaie, compteReceiver));
+
+            setChanged();
+            notifyObservers(Arrays.asList(compteGiver, compteReceiver));
+            return true;
+        }catch (Exception ex){
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean editSolde(double somme, Compte compteModife) throws RemoteException {
+        try{
+            compteModife.setAmount(somme);
+            compteManager.update(compteModife);
+            return true;
+        }catch (Exception ex){
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+
+    @Override
     public boolean paid(HashMap<Article, Integer> cadie, int idUser, int idMagasin) {
         double sum = cadie.entrySet().stream().mapToDouble(c -> c.getKey().getPrice() * c.getValue()).sum();
         Magasin magasin = getMagasin(idMagasin);

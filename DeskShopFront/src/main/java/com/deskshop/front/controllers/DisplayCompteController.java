@@ -1,12 +1,15 @@
 package com.deskshop.front.controllers;
 
 import com.deskshop.common.constant.ServerConstant;
+import com.deskshop.common.link.ClientInterface;
 import com.deskshop.common.metier.Compte;
 import com.deskshop.common.metier.Movement;
+import com.deskshop.front.util.ControllerUtils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.sun.security.ntlm.Server;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -19,7 +22,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+import java.io.Serializable;
 import java.net.URL;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -69,6 +75,12 @@ public class DisplayCompteController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         buildcard();
+        try {
+            ClientInterface clientInterface = new ClientImpl();
+            ServerConstant.SERVER.addObserver(clientInterface);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     public void buildcard(){
@@ -89,27 +101,17 @@ public class DisplayCompteController implements Initializable {
             });
 
             vBox.setSpacing(20);
-            List<Movement> movementList = ServerConstant.SERVER.findMovementByCompte(this.compte);
-            for (Movement mov:movementList) {
-                HBox hBox = new HBox();
-                hBox.setSpacing(40);
-                Label labeldate = new Label("Date :");
-                Label labeldatedisplay = new Label(mov.getDate()+"");
-                Label labelmontant = new Label("Montant :");
-                Label labelmontantdisplay = new Label(mov.getAmount()+"");
-                if(mov.getAmount() < 0){
-                    labelmontantdisplay.setTextFill(Color.RED);
-                }else{
-                    labelmontantdisplay.setTextFill(Color.LIGHTGREEN);
-                }
-                hBox.getChildren().add(labeldate);
-                hBox.getChildren().add(labeldatedisplay);
-                hBox.getChildren().add(labelmontant);
-                hBox.getChildren().add(labelmontantdisplay);
-                hBox.setMargin(labeldate, new Insets(0,0,0,20));
-                this.vBox.getChildren().add(hBox);
-            }
+            generateMovements();
         }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    private void generateMovements(){
+        try {
+            ControllerUtils.generateMovements(this.vBox, this.compte);
+            }
+        catch (Exception ex){
             ex.printStackTrace();
         }
     }
@@ -132,11 +134,29 @@ public class DisplayCompteController implements Initializable {
 
     @FXML
     void editsoldeValiderClick(ActionEvent event) {
-        // Valide le changement
-        if(this.solde.getText().matches("[0-9]+(\\.[0-9]{1,2})?")){
-            // la forme est bonne
-
+        try {
+            if (this.solde.getText().matches("[0-9]+(\\.[0-9]{1,2})?")) {
+                if(ServerConstant.SERVER.editSolde(Double.parseDouble(this.solde.getText()), this.compte)) {
+                    // Alert succes
+                }else{
+                    // Alert Echec
+                }
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
         }
     }
 
+    class ClientImpl extends UnicastRemoteObject implements ClientInterface, Serializable {
+        ClientImpl() throws RemoteException {
+            super();
+        }
+
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public void update(Object observable, Object updateMsg) {
+           Platform.runLater(DisplayCompteController.this::generateMovements);
+        }
+    }
 }

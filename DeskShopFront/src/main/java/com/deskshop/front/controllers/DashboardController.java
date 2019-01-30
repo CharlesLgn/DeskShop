@@ -423,17 +423,19 @@ public class DashboardController implements Initializable {
     }
 
     class ClientImpl extends UnicastRemoteObject implements ClientInterface, Serializable {
-        ClientImpl() throws RemoteException {
-            super();
-        }
+            ClientImpl() throws RemoteException {
+                super();
+            }
 
         private static final long serialVersionUID = 1L;
 
         @Override
         public void update(Object observable, Object updateMsg) {
-            if(observable.equals("shop")){
-                Platform.runLater(DashboardController.this::addAllShop);
-            }
+            Platform.runLater(()->{
+                obtenirContexte(indexComboBox);
+            });
         }
+
+
     }
 }

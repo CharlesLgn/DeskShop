@@ -1,8 +1,10 @@
 package com.deskshop.front.util;
 
+import com.deskshop.common.constant.ServerConstant;
 import com.deskshop.common.metier.Article;
 import com.deskshop.common.metier.Compte;
 import com.deskshop.common.metier.Magasin;
+import com.deskshop.common.metier.Movement;
 import com.deskshop.front.controllers.*;
 import com.deskshop.front.start.Start;
 import com.deskshop.utils.ResizeHelper;
@@ -15,6 +17,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -199,5 +203,35 @@ public class ControllerUtils {
         st.initOwner(getPrimaryStage().getScene().getWindow());
         st.initStyle(StageStyle.UNDECORATED);
         return st;
+    }
+
+    public static VBox generateMovements(VBox vBox, Compte compte){
+        try {
+            List<Movement> movementList = ServerConstant.SERVER.findMovementByCompte(compte);
+            vBox.getChildren().clear();
+            for (Movement mov : movementList) {
+                HBox movementDesc = new HBox();
+                movementDesc.setSpacing(40);
+                Label labeldate = new Label("Date :");
+                Label labeldatedisplay = new Label(mov.getDate() + "");
+                Label labelmontant = new Label("Montant :");
+                Label labelmontantdisplay = new Label(mov.getAmount() + "");
+                if (mov.getAmount() < 0) {
+                    labelmontantdisplay.getStyleClass().add("movement-neg");
+                } else {
+                    labelmontantdisplay.getStyleClass().add("movement-pos");
+                }
+                movementDesc.getChildren().add(labeldate);
+                movementDesc.getChildren().add(labeldatedisplay);
+                movementDesc.getChildren().add(labelmontant);
+                movementDesc.getChildren().add(labelmontantdisplay);
+                movementDesc.setMargin(labeldate, new Insets(0, 0, 0, 20));
+                vBox.getChildren().add(movementDesc);
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+        return vBox;
     }
 }

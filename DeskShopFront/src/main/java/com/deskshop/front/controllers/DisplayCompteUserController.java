@@ -1,12 +1,14 @@
 package com.deskshop.front.controllers;
 
 import com.deskshop.common.constant.ServerConstant;
+import com.deskshop.common.link.ClientInterface;
 import com.deskshop.common.metier.Compte;
 import com.deskshop.common.metier.Movement;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.sun.xml.internal.bind.v2.TODO;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -19,9 +21,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+import java.io.Serializable;
 import java.net.URL;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 public class DisplayCompteUserController implements Initializable {
@@ -57,6 +63,9 @@ public class DisplayCompteUserController implements Initializable {
     private JFXButton editsoldeAnnuler;
 
     @FXML
+    private JFXTextField jfxTextFieldTransfert;
+
+    @FXML
     private VBox vBox;
 
     private Compte compte;
@@ -70,6 +79,10 @@ public class DisplayCompteUserController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+
+            ClientInterface clientInterface = new ClientImpl();
+            ServerConstant.SERVER.addObserver(clientInterface);
+
             // Que de l'interface ici
             hbox.setSpacing(30);
             this.accountName.setText(this.compte.getName());
@@ -84,7 +97,7 @@ public class DisplayCompteUserController implements Initializable {
             this.hbox.getChildren().remove(this.editsoldeAnnuler);
             // Ajout des nouveaux composants pour le transfert
             this.hbox.getChildren().add(new Label("Transfert :"));
-            JFXTextField jfxTextFieldTransfert = new JFXTextField();
+            jfxTextFieldTransfert = new JFXTextField();
             jfxTextFieldTransfert.setPrefSize(120,30);
             this.hbox.getChildren().add(jfxTextFieldTransfert);
             // TODO Vérifier les input : il faut que ce soit des doubles !
@@ -98,7 +111,7 @@ public class DisplayCompteUserController implements Initializable {
             JFXButton jfxButtonTransfert = new JFXButton("Transférer");
             this.hbox.getChildren().add(jfxButtonTransfert);
             jfxButtonTransfert.setOnAction(event -> {
-                Transfert();
+                Transfert(Double.parseDouble(jfxTextFieldTransfert.getText()), this.compte, (Compte)jfxComboBoxAutresComptes.getValue());
             });
             this.solde.textProperty().addListener(new ChangeListener<String>() {
                 @Override
@@ -111,24 +124,33 @@ public class DisplayCompteUserController implements Initializable {
             });
 
             vBox.setSpacing(20);
+            generateMovements();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    private void generateMovements(){
+        try {
+            vBox.getChildren().clear();
             List<Movement> movementList = ServerConstant.SERVER.findMovementByCompte(this.compte);
-            for (Movement mov:movementList) {
+            for (Movement mov : movementList) {
                 HBox hBox = new HBox();
                 hBox.setSpacing(40);
                 Label labeldate = new Label("Date :");
-                Label labeldatedisplay = new Label(mov.getDate()+"");
+                Label labeldatedisplay = new Label(mov.getDate() + "");
                 Label labelmontant = new Label("Montant :");
-                Label labelmontantdisplay = new Label(mov.getAmount()+"");
-                if(mov.getAmount() < 0){
+                Label labelmontantdisplay = new Label(mov.getAmount() + "");
+                if (mov.getAmount() < 0) {
                     labelmontantdisplay.setTextFill(Color.RED);
-                }else{
+                } else {
                     labelmontantdisplay.setTextFill(Color.LIGHTGREEN);
                 }
                 hBox.getChildren().add(labeldate);
                 hBox.getChildren().add(labeldatedisplay);
                 hBox.getChildren().add(labelmontant);
                 hBox.getChildren().add(labelmontantdisplay);
-                hBox.setMargin(labeldate, new Insets(0,0,0,20));
+                hBox.setMargin(labeldate, new Insets(0, 0, 0, 20));
                 this.vBox.getChildren().add(hBox);
             }
         }catch (Exception ex){
@@ -152,15 +174,20 @@ public class DisplayCompteUserController implements Initializable {
         return newCompteList;
     }
 
-    private void Transfert(){
-        /*
-        TODO Vérifier le chiffre entré
-        Vérifier la soustraction > 0
-        Vérfier qu'un compte est sélectionné
-         */
+    private void Transfert(double somme, Compte compeGiver, Compte compteReceiver){
+        try {
+            if(compeGiver.getAmount() > somme) {
+                if (ServerConstant.SERVER.transfert(somme, compeGiver, compteReceiver)) {
 
-
-
+                } else {
+                    // Alert
+                }
+            }else{
+                // Alert pas assez d'argent pour le transfert
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     @FXML
@@ -176,5 +203,29 @@ public class DisplayCompteUserController implements Initializable {
     @FXML
     void editsoldeAnnulerClick(ActionEvent event) {
 
+    }
+
+    class ClientImpl extends UnicastRemoteObject implements ClientInterface, Serializable {
+        ClientImpl() throws RemoteException {
+            super();
+        }
+
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public void update(Object observable, Object updateMsg) {
+            if(updateMsg instanceof List){
+                if(((List)updateMsg).get(0) instanceof Compte){
+                    if(((List)updateMsg).contains(compte)){
+                        Platform.runLater(()->{
+                            generateMovements();
+                            List<Compte> compteList = (List<Compte>) updateMsg;
+                            compte = compteList.get(compteList.indexOf(compte));
+                            solde.setText(compte.getAmount()+"");
+                        });
+                    }
+                }
+            }
+        }
     }
 }

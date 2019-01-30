@@ -1,0 +1,7 @@
+.movement-neg{
+    -fx-text-fill: red;
+}
+
+.movement-pos{
+    -fx-text-fill: green;
+}
