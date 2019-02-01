@@ -2,7 +2,7 @@
 
 [![Ligony Charles](https://img.shields.io/badge/Charles-LinkedIn-1E90E7.svg)](https://www.linkedin.com/in/charles-ligony-893177134/)
 [![Challouatte Cyril](https://img.shields.io/badge/Cyril-LinkedIn-1E90E7.svg)](https://www.linkedin.com/in/cyril-challouatte-824021160/)  
-[![Okya project](https://img.shields.io/badge/%C3%98kya-Official-1E90E7.svg)](https://trello.com/b/V0LM2PZD/lna-20)
+[![Okya project](https://img.shields.io/badge/%C3%98kya-Official-0c2461.svg)](https://trello.com/b/V0LM2PZD/lna-20)
 
 Projet fait pour une Licence Pro GL  
 Développement d'une application desktop de e-commerce
@@ -38,5 +38,5 @@ ___Le projet se découpe en 3 partie :___
  
 ***
 
-note obtenu  :   ![Challouatte Cyril](https://img.shields.io/badge/%3f-20-00BB00.svg)
+note obtenu  :   ![Challouatte Cyril](https://img.shields.io/badge/%3f-20-00A100.svg)
 
