@@ -7,24 +7,36 @@
 Projet fait pour une Licence Pro GL  
 Développement d'une application desktop de e-commerce
 
-Le but est de déveloper une application permetant :
+***
+
+___Le but est de déveloper une application permetant :___
 
  - la création de magasin
  - l'achat dans les magasin
 
-Pour des raisons de cohérence l'application permet :  
+___Pour des raisons de cohérence l'application permet :___
 
  
  - la création de magasin
  - l'achat dans les magasin
  - la création d'un compte en banque
  - la gestion de ses compte en banque
+
+***
  
-Les règle du projet :
+___Les règle du projet :___
  - langage autorisé : `java`
  - Famework front   : `javaFX` - toute librairie autorisé 
  - Framework back   : au besoin (BDD : `Hibernate` ; outil de build : `maven`) 
  - le projet doit être fait en utilisant une architecture `RMI`
+
+___Le projet se découpe en 3 partie :___
+
+ - L'analyse et les schémas d'architecture
+ - Le développement de la base de donnée et de la logique Back
+ - Le développement du Front
+ 
+***
 
 note obtenu  :   ![Challouatte Cyril](https://img.shields.io/badge/%3f-20-00BB00.svg)
 
