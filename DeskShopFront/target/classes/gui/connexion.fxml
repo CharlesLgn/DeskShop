@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -35,7 +36,7 @@
             <VBox alignment="TOP_CENTER" spacing="30.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <children>
                   <JFXTextField fx:id="mailaddressfield" alignment="TOP_LEFT" labelFloat="true" maxWidth="-Infinity" onKeyPressed="#Enter" prefWidth="300.0" promptText="Adresse mail" />
-                  <JFXTextField fx:id="passwordfield" labelFloat="true" maxWidth="-Infinity" onKeyPressed="#Enter" prefWidth="300.0" promptText="Mot de passe" />
+                  <JFXPasswordField fx:id="passwordfield" labelFloat="true" maxWidth="-Infinity" prefWidth="300.0" promptText="Mot de passe" />
                   <JFXButton fx:id="connexionbutton" onAction="#connect" prefHeight="40.0" prefWidth="125.0" text="Connecter" />
                   <HBox alignment="CENTER">
                      <children>

@@ -4,14 +4,14 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<HBox fx:id="hbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="hbox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane HBox.hgrow="ALWAYS">
          <children>
@@ -32,33 +32,40 @@
                         <Insets left="20.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="lb_desc" text="Label" wrapText="true">
+                  <ScrollPane fitToWidth="true" prefHeight="220.0" prefWidth="337.0">
                      <VBox.margin>
-                        <Insets left="20.0" />
+                        <Insets left="20.0" right="20.0" />
                      </VBox.margin>
-                  </Label>
+                     <content>
+                        <Label fx:id="lb_desc" prefHeight="137.0" prefWidth="322.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." wrapText="true" />
+                     </content>
+                  </ScrollPane>
                   <Spinner fx:id="spinnerQte" prefHeight="25.0" prefWidth="121.0">
                      <VBox.margin>
                         <Insets left="20.0" />
                      </VBox.margin>
                   </Spinner>
-                  <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <JFXButton fx:id="btQuitter" onAction="#btQuitterClick" text="Quitter">
-                           <HBox.margin>
-                              <Insets bottom="20.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                        <Hyperlink fx:id="linkAddPanier" onAction="#linkAddPanierClick" text="Ajouter au panier">
-                           <HBox.margin>
-                              <Insets bottom="20.0" right="20.0" />
-                           </HBox.margin>
-                        </Hyperlink>
-                     </children>
+                  <VBox fx:id="vboxbottom" alignment="TOP_CENTER" spacing="5.0" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
-                  </HBox>
+                     <children>
+                        <HBox fx:id="hboxbottom" alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                           <children>
+                              <JFXButton fx:id="btQuitter" onAction="#btQuitterClick" prefHeight="25.0" prefWidth="135.0" text="Quitter">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                              <Hyperlink fx:id="linkAddPanier" onAction="#linkAddPanierClick" prefHeight="23.0" prefWidth="178.0" text="Ajouter au panier">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" right="20.0" />
+                                 </HBox.margin>
+                              </Hyperlink>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </children>

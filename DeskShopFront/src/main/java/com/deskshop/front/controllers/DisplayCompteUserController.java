@@ -4,6 +4,7 @@ import com.deskshop.common.constant.ServerConstant;
 import com.deskshop.common.link.ClientInterface;
 import com.deskshop.common.metier.Compte;
 import com.deskshop.common.metier.Movement;
+import com.deskshop.front.util.ControllerUtils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -176,16 +177,20 @@ public class DisplayCompteUserController implements Initializable {
 
     private void Transfert(double somme, Compte compeGiver, Compte compteReceiver){
         try {
-            if(compeGiver.getAmount() > somme) {
-                if (ServerConstant.SERVER.transfert(somme, compeGiver, compteReceiver)) {
-
+            YesNoDialogController yesNoDialogController = ControllerUtils.loadYesNoDialog();
+            if(yesNoDialogController.getResponse()) {
+                if (compeGiver.getAmount() > somme) {
+                    if (ServerConstant.SERVER.transfert(somme, compeGiver, compteReceiver)) {
+                        ControllerUtils.loadAlert("Transfert de fonds effectué", "Le transfert de fonds a été effectué avec succès.");
+                    } else {
+                        ControllerUtils.loadAlert("Echec du transfert de fonds", "Le transfert de fonds a échoué.");
+                    }
                 } else {
-                    // Alert
+                    ControllerUtils.loadAlert("Echec du transfert de fonds", "Le transfert de fonds a échoué car le compte débité n'a pas suffisamment de ressources.");
                 }
-            }else{
-                // Alert pas assez d'argent pour le transfert
             }
         }catch (Exception ex){
+            ControllerUtils.loadAlert("Echec du transfert de fonds", ex.toString());
             ex.printStackTrace();
         }
     }

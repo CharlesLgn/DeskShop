@@ -222,7 +222,7 @@ public class DashboardController implements Initializable {
 
     private void addAllShop() {
         try {
-            addShop(ServerConstant.SERVER.findAllMagasin(nbUser));
+            addShop(ServerConstant.SERVER.findAllMagasin(nbUser), false);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -230,13 +230,39 @@ public class DashboardController implements Initializable {
 
     private void addMyShop() {
         try {
-            addShop(ServerConstant.SERVER.findMagasinByUser(nbUser));
+            addShop(ServerConstant.SERVER.findMagasinByUser(nbUser), true);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private void addShop(List<Magasin> magasinList) {
+    private JFXButton addbutton(){
+        JFXButton addbutton = new JFXButton("+");
+        addbutton.setButtonType(JFXButton.ButtonType.RAISED);
+        addbutton.getStyleClass().add("button");
+        addbutton.setPrefSize(60, 60);
+        return  addbutton;
+    }
+
+    private JFXButton addmagasinbutton(){
+        JFXButton addnewserver = addbutton();
+        addnewserver.setOnAction(e -> addmagasin());
+        return addnewserver;
+    }
+
+    private JFXButton addarticlebutton(){
+        JFXButton addnewarticle = addbutton();
+        addnewarticle.setOnAction(e -> addarticle());
+        return addnewarticle;
+    }
+
+    private void addarticle() {ControllerUtils.loadCreateNewArticle(this.actualShop); }
+
+    private void addmagasin() {
+        ControllerUtils.loadCreateNewShop(this.nbUser);
+    }
+
+    private void addShop(List<Magasin> magasinList, boolean addmagasin) {
         VBox vBox = ControllerUtils.createVBox();
         for (Magasin magasin : magasinList) {
             JFXButton jfxButton = new JFXButton(magasin.getName());
@@ -244,12 +270,17 @@ public class DashboardController implements Initializable {
             jfxButton.setPrefSize(Double.MAX_VALUE, 60);
             jfxButton.setOnAction(event -> {
                 // Vérifier à l'aide d'une requête la connexion au serveur
-                showShop(magasin);
+                showShop(magasin, addmagasin);
                 actualShop = magasin;
                 lbTitre.setText(magasin.getName());
             });
 
             vBox.getChildren().add(jfxButton);
+        }
+
+        if(addmagasin){
+            this.btPanier.setVisible(false);
+            vBox.getChildren().add(addmagasinbutton());
         }
 
         ScrollPane scrollPane = new ScrollPane();
@@ -303,10 +334,10 @@ public class DashboardController implements Initializable {
     }
 
     /**
-     * call when we need to show an IRC
+     * call when we need to show a shop
      * Affiche les produits
      */
-    private void showShop(Magasin magasin) {
+    private void showShop(Magasin magasin, boolean addnewArticle) {
         try {
             // Les articles dans le panier sont retirés
             panier.clear();
@@ -319,8 +350,12 @@ public class DashboardController implements Initializable {
             flowPane.setVgap(50);
             flowPane.setAlignment(Pos.CENTER);
             for (Article article: articles) {
-                Pane carteArticle = ControllerUtils.loadDisplayArticle(article, panier);
+                Pane carteArticle = ControllerUtils.loadDisplayArticle(article, panier, addnewArticle);
                 flowPane.getChildren().add(carteArticle);
+            }
+
+            if(addnewArticle){
+            flowPane.getChildren().add(addarticlebutton());
             }
 
             pnZoneTravail.setContent(flowPane);

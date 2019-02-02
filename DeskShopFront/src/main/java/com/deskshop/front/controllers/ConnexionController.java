@@ -6,6 +6,7 @@ import com.deskshop.front.util.MoveUtils;
 import com.deskshop.utils.HashPassword;
 import com.deskshop.utils.XMLDataFinder;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -29,7 +30,7 @@ public class ConnexionController implements Initializable {
     private JFXTextField mailaddressfield;
 
     @FXML
-    private JFXTextField passwordfield;
+    private JFXPasswordField passwordfield;
 
     @FXML
     private JFXButton connexionbutton;

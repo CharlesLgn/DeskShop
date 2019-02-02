@@ -69,9 +69,16 @@ public class PanierController implements Initializable {
     void bt_commanderClick(ActionEvent event) {
         // Commander les articles sélectionnés
         try {
-            ServerConstant.SERVER.paid(panier, nbUser, magasin.getId());
+            YesNoDialogController yesNoDialogController = ControllerUtils.loadYesNoDialog();
+            if(yesNoDialogController.getResponse()) {
+                ServerConstant.SERVER.paid(panier, nbUser, magasin.getId());
+                ControllerUtils.loadAlert("Commande effectuée", "Votre commande a été effectuée avec succès.");
+            }
         }catch (Exception ex){
+            ControllerUtils.loadAlert("Echec de la commande", ex.toString());
             ex.printStackTrace();
         }
+
+        bt_closeClick(event);
     }
 }

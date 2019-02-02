@@ -35,10 +35,11 @@ public class DisplayArticleController implements Initializable {
 
     private Article article;
     private HashMap<Article, Integer> panier;
-
-    public DisplayArticleController(Article article, HashMap<Article, Integer> panier) {
+    private boolean modifyArticle;
+    public DisplayArticleController(Article article, HashMap<Article, Integer> panier, boolean modifyArticle) {
         this.article = article;
         this.panier = panier;
+        this.modifyArticle = modifyArticle;
     }
 
     @Override
@@ -51,8 +52,6 @@ public class DisplayArticleController implements Initializable {
 
     @FXML
     void linkAjouterPanierClick(ActionEvent event) {
-        // Ajoute au panier
-        //articleHashMap.put(this.article, 1);
-        ControllerUtils.loadPopupArticle(article, panier);
+        ControllerUtils.loadPopupArticle(article, panier, this.modifyArticle);
     }
 }

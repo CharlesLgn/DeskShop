@@ -21,6 +21,8 @@ public interface ServerInterface extends Remote {
 
     //_________________________ Manage a Shop _________________________
     void addArticle(int idMagasin, String name, String desc, double price) throws RemoteException;
+    void deleteArticle(Article article) throws RemoteException;
+    void updateArticle(Article article, String name, String desc, double price) throws RemoteException;
     List<Article> getArticleByMagasin(int id) throws RemoteException;
 
     //_________________________ Go Shopping ___________________________

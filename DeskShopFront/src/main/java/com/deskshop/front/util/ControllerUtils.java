@@ -55,9 +55,61 @@ public class ControllerUtils {
         }
     }
 
-    public static void loadPopupArticle(Article article, HashMap<Article, Integer> panier){
+    public static void loadCreateNewShop(int userId){
         try {
-            PopupArticleController displayArticleController = new PopupArticleController(article, panier);
+            CreateNewShopController createNewShopController = new CreateNewShopController(userId);
+            FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/createNewShop.fxml"));
+            loader.setController(createNewShopController);
+            loadFX(loader, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadAlert(String titre, String message){
+        try {
+            AlertController alertController = new AlertController(titre, message);
+            FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/genericAlert.fxml"));
+            loader.setController(alertController);
+            loadFX(loader, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static YesNoDialogController loadYesNoDialog(){
+            YesNoDialogController yesNoDialogController = new YesNoDialogController();
+            FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/yesNoDialog.fxml"));
+            loader.setController(yesNoDialogController);
+            loadFXwait(loader, 1);
+            return yesNoDialogController;
+    }
+
+    public static void loadCreateNewArticle(Magasin magasin){
+        try {
+            CreateNewArticleController createNewArticleController = new CreateNewArticleController(magasin);
+            FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/createNewArticle.fxml"));
+            loader.setController(createNewArticleController);
+            loadFX(loader, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadCreateNewArticle(Article article){
+        try {
+            CreateNewArticleController createNewArticleController = new CreateNewArticleController(article);
+            FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/createNewArticle.fxml"));
+            loader.setController(createNewArticleController);
+            loadFX(loader, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadPopupArticle(Article article, HashMap<Article, Integer> panier, boolean modifyArticle){
+        try {
+            PopupArticleController displayArticleController = new PopupArticleController(article, panier, modifyArticle);
             FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/popupArticle.fxml"));
             loader.setController(displayArticleController);
             loadFX(loader, 1);
@@ -77,9 +129,9 @@ public class ControllerUtils {
         }
     }
 
-    public static Pane loadDisplayArticle(Article article, HashMap<Article, Integer> panier){
+    public static Pane loadDisplayArticle(Article article, HashMap<Article, Integer> panier, boolean modifyArticle){
         try {
-            DisplayArticleController displayArticleController = new DisplayArticleController(article, panier);
+            DisplayArticleController displayArticleController = new DisplayArticleController(article, panier, modifyArticle);
             FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/displayArticle.fxml"));
             loader.setController(displayArticleController);
             Pane root = loader.load();
@@ -163,6 +215,35 @@ public class ControllerUtils {
             scene.getStylesheets().add("gui/css/main-" + XMLDataFinder.getTheme() + ".css");
             stage.setResizable(true);
             stage.show();
+            Start.setPrimaryStage(stage);
+
+            windowsBehavior(index);
+
+            ResizeHelper.addResizeListener(getPrimaryStage());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * to load an fxml
+     */
+    private static void loadFXwait(FXMLLoader loader, int index) {
+        try {
+            Pane root = loader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.NONE);
+            //stage.initOwner(getPrimaryStage());
+            stage.initStyle(StageStyle.UNDECORATED);
+            assert root != null;
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("DeskShop");
+            //stage.getIcons().add(new Image("image/ediome.png"));
+            scene.getStylesheets().add("gui/css/main-" + XMLDataFinder.getTheme() + ".css");
+            stage.setResizable(true);
+            stage.showAndWait();
             Start.setPrimaryStage(stage);
 
             windowsBehavior(index);

@@ -131,6 +131,24 @@ public class ServerImpl extends Observable implements ServerInterface {
     }
 
     @Override
+    public void updateArticle(Article article, String name, String desc, double price) {
+        article.setName(name);
+        article.setDesc(desc);
+        article.setPrice(price);
+        articleManager.update(article);
+
+        setChanged();
+        notifyObservers("article");
+    }
+
+    @Override
+    public void deleteArticle(Article article) {
+        articleManager.delete(article);
+        setChanged();
+        notifyObservers("article");
+    }
+
+    @Override
     public List<Article> getArticleByMagasin(int id) {
         return articleManager.getArticleByMagasin(getMagasin(id));
     }

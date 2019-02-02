@@ -135,14 +135,18 @@ public class DisplayCompteController implements Initializable {
     @FXML
     void editsoldeValiderClick(ActionEvent event) {
         try {
-            if (this.solde.getText().matches("[0-9]+(\\.[0-9]{1,2})?")) {
-                if(ServerConstant.SERVER.editSolde(Double.parseDouble(this.solde.getText()), this.compte)) {
-                    // Alert succes
-                }else{
-                    // Alert Echec
+            YesNoDialogController yesNoDialogController = ControllerUtils.loadYesNoDialog();
+            if(yesNoDialogController.getResponse()) {
+                if (this.solde.getText().matches("[0-9]+(\\.[0-9]{1,2})?")) {
+                    if (ServerConstant.SERVER.editSolde(Double.parseDouble(this.solde.getText()), this.compte)) {
+                        ControllerUtils.loadAlert("Mise à jour du solde", "Le solde a été mis à jour");
+                    } else {
+                        ControllerUtils.loadAlert("Echec de la mise à jour du solde", "Veuillez entrer un chiffre cohérent");
+                    }
                 }
             }
         }catch (Exception ex){
+            ControllerUtils.loadAlert("Echec de la mise à jour du solde", ex.toString());
             ex.printStackTrace();
         }
     }
