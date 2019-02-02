@@ -1,6 +1,7 @@
 package com.deskshop.front.start;
 
 import com.deskshop.common.link.ServerInterface;
+import com.sun.security.ntlm.Server;
 
 import java.rmi.Naming;
 
@@ -9,8 +10,7 @@ public class Main {
         try {
 
             ServerInterface remoteService = (ServerInterface) Naming.lookup("//localhost:4000/serverInterface");
-
-            remoteService.createShop("Rue du commerce !!", 2);
+            //remoteService.createShop("Rue du commerce !!", 2);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -259,4 +259,18 @@ public class ServerImpl extends Observable implements ServerInterface {
         return movementManager.findMovementByCompte(compte);
     }
 
+    @Override
+    public void createCompte(String nom, double amount, int userId) {
+        Person user = personManager.read(userId);
+        Compte compte = new Compte();
+        compte.setName(nom);
+        compte.setAmount(amount);
+        compte.setClient(user);
+        compteManager.create(compte);
+
+        setChanged();
+        notifyObservers("compte");
+    }
+
+
 }

@@ -205,6 +205,9 @@ public class DashboardController implements Initializable {
             vBox.getChildren().add(jfxButton);
         }
 
+        if(allOrMy) {
+            vBox.getChildren().add(addcomptebutton());
+        }
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.getStyleClass().add("menu-bar-2");
         scrollPane.setFitToWidth(true);
@@ -255,6 +258,14 @@ public class DashboardController implements Initializable {
         addnewarticle.setOnAction(e -> addarticle());
         return addnewarticle;
     }
+
+    private JFXButton addcomptebutton(){
+        JFXButton addCompte = addbutton();
+        addCompte.setOnAction(e -> addcompte());
+        return addCompte;
+    }
+
+    private void addcompte() { ControllerUtils.loadCreateNewCompte(this.nbUser); }
 
     private void addarticle() {ControllerUtils.loadCreateNewArticle(this.actualShop); }
 

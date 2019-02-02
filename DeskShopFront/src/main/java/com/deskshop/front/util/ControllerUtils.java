@@ -107,6 +107,17 @@ public class ControllerUtils {
         }
     }
 
+    public static void loadCreateNewCompte(int nbUser){
+        try {
+            CreateNewCompteController createNewCompteController = new CreateNewCompteController(nbUser);
+            FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/createNewCompte.fxml"));
+            loader.setController(createNewCompteController);
+            loadFX(loader, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void loadPopupArticle(Article article, HashMap<Article, Integer> panier, boolean modifyArticle){
         try {
             PopupArticleController displayArticleController = new PopupArticleController(article, panier, modifyArticle);
