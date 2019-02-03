@@ -1,6 +1,8 @@
 package com.deskshop.front.controllers;
 
+import com.deskshop.common.constant.ServerConstant;
 import com.deskshop.common.metier.Article;
+import com.deskshop.front.util.ControllerUtils;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -43,10 +46,17 @@ public class PopupArticleController implements Initializable {
     private Hyperlink linkAddPanier;
 
     @FXML
+    private HBox hboxbottom;
+
+    @FXML
+    private VBox vboxbottom;
+
+    @FXML
     private Spinner<Integer> spinnerQte;
 
     private Article article;
     HashMap<Article, Integer> panier;
+    private boolean modifyArticle;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -55,11 +65,23 @@ public class PopupArticleController implements Initializable {
         this.lb_desc.setText(this.article.getDesc());
         this.imgProduit.setImage(new Image("images/deskshop-logo.png"));
         spinnerQte.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Integer.MAX_VALUE, 1, 1));
+        if(modifyArticle){
+            // Modifier l'article
+            this.spinnerQte.setVisible(false);
+            Hyperlink deleteArticle = new Hyperlink("Supprimer l'article");
+            deleteArticle.setOnAction(event -> {
+                deleteArticle(this.article);
+            });
+
+            this.vboxbottom.getChildren().add(deleteArticle);
+            this.linkAddPanier.setText("Modifier l'article");
+        }
     }
 
-    public PopupArticleController(Article article, HashMap<Article, Integer> panier) {
+    public PopupArticleController(Article article, HashMap<Article, Integer> panier, boolean modifyArticle) {
         this.article = article;
         this.panier = panier;
+        this.modifyArticle = modifyArticle;
     }
 
     @FXML
@@ -72,12 +94,28 @@ public class PopupArticleController implements Initializable {
 
     }
 
-    @FXML
-    void linkAddPanierClick(ActionEvent event) {
-        panier.put(article, (panier.get(article) == null ?  0:panier.get(article)) + this.spinnerQte.getValue());
+    void deleteArticle(Article article){
+        try {
+            YesNoDialogController yesNoDialogController = ControllerUtils.loadYesNoDialog();
+            if(yesNoDialogController.getResponse()) {
+                ServerConstant.SERVER.deleteArticle(article);
+                ControllerUtils.loadAlert("Article supprimé", "L'article a été supprimé avec succès.");
+            }
+        }catch (Exception ex){
+            ControllerUtils.loadAlert("Echec de la suppression de l'article", ex.toString());
+        }
         ((Stage) hbox.getScene().getWindow()).close();
     }
 
+    @FXML
+    void linkAddPanierClick(ActionEvent event) {
+        if(modifyArticle){
+            ControllerUtils.loadCreateNewArticle(this.article);
+            btQuitterClick(event);
+        }else{
+            panier.put(article, (panier.get(article) == null ?  0:panier.get(article)) + this.spinnerQte.getValue());
+        }
+    }
 
     @FXML
     void btQuitterClick(ActionEvent event) {

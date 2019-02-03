@@ -35,4 +35,10 @@ public class PersonManager extends HibernateFactory<Person> {
         query.setParameter("person", person);
         return !query.list().isEmpty();
     }
+
+    public List<Person> findAllUsers(){
+        Session session = getSession();
+        Query query = session.createQuery("from Person as person");
+        return query.list();
+    }
 }

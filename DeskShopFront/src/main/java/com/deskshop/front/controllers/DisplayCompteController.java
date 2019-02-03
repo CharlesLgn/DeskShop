@@ -59,12 +59,10 @@ public class DisplayCompteController implements Initializable {
     private JFXButton editsoldeValider;
 
     private Compte compte;
-    private double soldeMemoire = 0;
 
     public DisplayCompteController(Compte compte) {
         this.compte = compte;
     }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -73,7 +71,7 @@ public class DisplayCompteController implements Initializable {
             ClientInterface clientInterface = new ClientImpl();
             ServerConstant.SERVER.addObserver(clientInterface);
         }catch (Exception ex){
-            ex.printStackTrace();
+            ControllerUtils.loadAlert("Erreur générale", ex.toString());
         }
     }
 
@@ -96,7 +94,7 @@ public class DisplayCompteController implements Initializable {
             vBox.setSpacing(20);
             generateMovements();
         }catch (Exception ex){
-            ex.printStackTrace();
+            ControllerUtils.loadAlert("Erreur générale", ex.toString());
         }
     }
 
@@ -105,13 +103,12 @@ public class DisplayCompteController implements Initializable {
             ControllerUtils.generateMovements(this.vBox, this.compte);
             }
         catch (Exception ex){
-            ex.printStackTrace();
+            ControllerUtils.loadAlert("Erreur générale", ex.toString());
         }
     }
 
     @FXML
     void editsoldeClick(ActionEvent event) {
-            soldeMemoire = Double.parseDouble(this.solde.getText());
             this.solde.setDisable(false);
             this.editsoldeValider.setVisible(true);
     }
@@ -119,17 +116,23 @@ public class DisplayCompteController implements Initializable {
     @FXML
     void editsoldeValiderClick(ActionEvent event) {
         try {
-            if (this.solde.getText().matches("[0-9]+(\\.[0-9]{1,2})?")) {
-                if(ServerConstant.SERVER.editSolde(Double.parseDouble(this.solde.getText()), this.compte)) {
-                    // Alert succes
-                    this.solde.setDisable(true);
-                    this.editsoldeValider.setVisible(false);
+            // Ici non plus Oui/non marche pas...
+            //YesNoDialogController yesNoDialogController = ControllerUtils.loadYesNoDialog();
+            //if(yesNoDialogController.getResponse()) {
+                if (this.solde.getText().matches("[0-9]+(\\.[0-9]{1,2})?")) {
+                    if (ServerConstant.SERVER.editSolde(Double.parseDouble(this.solde.getText()), this.compte)) {
+                        ControllerUtils.loadAlert("Mise à jour du solde", "Le solde a été mis à jour");
+                        this.solde.setDisable(true);
+                        this.editsoldeValider.setVisible(false);
+                    } else {
+                        ControllerUtils.loadAlert("Echec de la mise à jour du solde", "Veuillez entrer un chiffre cohérent");
+                    }
                 }else{
-                    // Alert Echec
+                    ControllerUtils.loadAlert("Echec de la mise à jour du solde", "Veuillez entrer un nombre cohérent");
                 }
-            }
+            //}
         }catch (Exception ex){
-            ex.printStackTrace();
+            ControllerUtils.loadAlert("Echec de la mise à jour du solde", ex.toString());
         }
     }
 

@@ -62,7 +62,7 @@ public class ChoixTypeCompteController implements Initializable {
             ControllerUtils.loadDashBoard(nbUser, this.comboBoxChoix.getSelectionModel().getSelectedIndex());
             ((Stage) vbox.getScene().getWindow()).close();
         }catch (Exception ex){
-            ex.printStackTrace();
+            ControllerUtils.loadAlert("Erreur générale", ex.toString());
         }
     }
 

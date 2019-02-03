@@ -4,10 +4,10 @@ import com.deskshop.common.constant.ServerConstant;
 import com.deskshop.common.link.ClientInterface;
 import com.deskshop.common.metier.Compte;
 import com.deskshop.common.metier.Movement;
+import com.deskshop.front.util.ControllerUtils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import com.sun.xml.internal.bind.v2.TODO;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -27,7 +27,6 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
 public class DisplayCompteUserController implements Initializable {
@@ -122,7 +121,7 @@ public class DisplayCompteUserController implements Initializable {
             vBox.setSpacing(20);
             generateMovements();
         }catch (Exception ex){
-            ex.printStackTrace();
+            ControllerUtils.loadAlert("Erreur générale", ex.toString());
         }
     }
 
@@ -138,9 +137,9 @@ public class DisplayCompteUserController implements Initializable {
                 Label labelmontant = new Label("Montant :");
                 Label labelmontantdisplay = new Label(mov.getAmount() + "");
                 if (mov.getAmount() < 0) {
-                    labelmontantdisplay.setTextFill(Color.RED);
+                    labelmontantdisplay.getStyleClass().add("movement-neg");
                 } else {
-                    labelmontantdisplay.setTextFill(Color.LIGHTGREEN);
+                    labelmontantdisplay.getStyleClass().add("movement-pos");
                 }
                 hBox.getChildren().add(labeldate);
                 hBox.getChildren().add(labeldatedisplay);
@@ -150,7 +149,7 @@ public class DisplayCompteUserController implements Initializable {
                 this.vBox.getChildren().add(hBox);
             }
         }catch (Exception ex){
-            ex.printStackTrace();
+            ControllerUtils.loadAlert("Erreur générale", ex.toString());
         }
     }
 
@@ -172,17 +171,29 @@ public class DisplayCompteUserController implements Initializable {
 
     private void Transfert(double somme, Compte compeGiver, Compte compteReceiver){
         try {
-            if(compeGiver.getAmount() > somme) {
-                if (ServerConstant.SERVER.transfert(somme, compeGiver, compteReceiver)) {
-
+            // Je sais pas pourquoi mais Oui/Non ne marche pas ici...
+            //YesNoDialogController yesNoDialogController = ControllerUtils.loadYesNoDialog();
+            //if(yesNoDialogController.getResponse()) {
+            if (compteReceiver != null){
+                if (this.jfxTextFieldTransfert.getText().matches("[0-9]+(\\.[0-9]{1,2})?")) {
+                    if (compeGiver.getAmount() > somme) {
+                        if (ServerConstant.SERVER.transfert(somme, compeGiver, compteReceiver)) {
+                            ControllerUtils.loadAlert("Transfert de fonds effectué", "Le transfert de fonds a été effectué avec succès.");
+                        } else {
+                            ControllerUtils.loadAlert("Echec du transfert de fonds", "Le transfert de fonds a échoué.");
+                        }
+                    } else {
+                        ControllerUtils.loadAlert("Echec du transfert de fonds", "Le transfert de fonds a échoué car le compte débité n'a pas suffisamment de ressources.");
+                    }
                 } else {
-                    // Alert
+                    ControllerUtils.loadAlert("Echec du transfert de fonds", "Entrez un nombre cohérent.");
                 }
             }else{
-                // Alert pas assez d'argent pour le transfert
+                ControllerUtils.loadAlert("Echec du transfert de fonds", "Veuillez sélectionner un compte pour le transfert.");
             }
+            //}
         }catch (Exception ex){
-            ex.printStackTrace();
+            ControllerUtils.loadAlert("Echec du transfert de fonds", ex.toString());
         }
     }
 

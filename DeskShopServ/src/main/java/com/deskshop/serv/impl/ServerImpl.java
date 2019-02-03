@@ -80,6 +80,10 @@ public class ServerImpl extends Observable implements ServerInterface {
         }
     }
 
+    public List<Person> findAllUsers(){
+        return personManager.findAllUsers();
+    }
+
     //_______________________ Shop on DashBoard _______________________
     @Override
     public int createShop(String name, int userId) {
@@ -127,6 +131,24 @@ public class ServerImpl extends Observable implements ServerInterface {
         article.setShop(getMagasin(idMagasin));
         articleManager.create(article);
 
+        setChanged();
+        notifyObservers("article");
+    }
+
+    @Override
+    public void updateArticle(Article article, String name, String desc, double price) {
+        article.setName(name);
+        article.setDesc(desc);
+        article.setPrice(price);
+        articleManager.update(article);
+
+        setChanged();
+        notifyObservers("article");
+    }
+
+    @Override
+    public void deleteArticle(Article article) {
+        articleManager.delete(article);
         setChanged();
         notifyObservers("article");
     }
@@ -251,4 +273,15 @@ public class ServerImpl extends Observable implements ServerInterface {
         return administreManager.getComptesByAdmin(getPerson(userId));
     }
 
+    public void createCompte(String nom, double amount, int userId) {
+        Person user = personManager.read(userId);
+        Compte compte = new Compte();
+        compte.setName(nom);
+        compte.setAmount(amount);
+        compte.setClient(user);
+        compteManager.create(compte);
+
+        setChanged();
+        notifyObservers("compte");
+    }
 }

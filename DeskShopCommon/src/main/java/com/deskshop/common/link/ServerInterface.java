@@ -13,7 +13,7 @@ public interface ServerInterface extends Remote {
     //__________________________ Manage user __________________________
     int login(String mail, String psw) throws RemoteException;
     int createUser(Person user) throws RemoteException;
-
+    List<Person> findAllUsers() throws RemoteException;
     //_______________________ Shop on DashBoard _______________________
     int createShop(String name, int userId) throws RemoteException;
     List<Magasin> findAllMagasin(int userId) throws RemoteException;
@@ -21,6 +21,8 @@ public interface ServerInterface extends Remote {
 
     //_________________________ Manage a Shop _________________________
     void addArticle(int idMagasin, String name, String desc, double price) throws RemoteException;
+    void deleteArticle(Article article) throws RemoteException;
+    void updateArticle(Article article, String name, String desc, double price) throws RemoteException;
     List<Article> getArticleByMagasin(int id) throws RemoteException;
 
     //_________________________ Go Shopping ___________________________
@@ -35,7 +37,7 @@ public interface ServerInterface extends Remote {
     boolean isBanker(int userId) throws RemoteException;
     List<Compte> getComptesByAdmin(int userId) throws RemoteException;
     List<Compte> findAllCompte() throws RemoteException;
-
+    void createCompte(String nom, double amount, int client) throws  RemoteException;
     //______________________ Manage Movement _______________________
     List<Movement> findMovementByCompte(Compte compte) throws RemoteException;
 }
