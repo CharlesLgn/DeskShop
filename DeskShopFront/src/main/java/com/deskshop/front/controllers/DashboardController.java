@@ -65,8 +65,6 @@ public class DashboardController implements Initializable {
     private Magasin actualShop;
     private HashMap<Article, Integer> panier = new HashMap<>();
 
-
-
     public DashboardController(int nbUser, int indexComboBox) {
         this.nbUser = nbUser;
         this.indexComboBox = indexComboBox;
@@ -205,9 +203,9 @@ public class DashboardController implements Initializable {
             vBox.getChildren().add(jfxButton);
         }
 
-        if(allOrMy) {
-            vBox.getChildren().add(addcomptebutton());
-        }
+        vBox.getChildren().add(addcomptebutton(allOrMy));
+
+
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.getStyleClass().add("menu-bar-2");
         scrollPane.setFitToWidth(true);
@@ -259,13 +257,13 @@ public class DashboardController implements Initializable {
         return addnewarticle;
     }
 
-    private JFXButton addcomptebutton(){
+    private JFXButton addcomptebutton(boolean allOrMy){
         JFXButton addCompte = addbutton();
-        addCompte.setOnAction(e -> addcompte());
+        addCompte.setOnAction(e -> addcompte(allOrMy));
         return addCompte;
     }
 
-    private void addcompte() { ControllerUtils.loadCreateNewCompte(this.nbUser); }
+    private void addcompte(boolean allOrMy) { ControllerUtils.loadCreateNewCompte(this.nbUser, allOrMy); }
 
     private void addarticle() {ControllerUtils.loadCreateNewArticle(this.actualShop); }
 

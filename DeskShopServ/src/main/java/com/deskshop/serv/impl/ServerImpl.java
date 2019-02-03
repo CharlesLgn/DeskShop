@@ -79,6 +79,10 @@ public class ServerImpl extends Observable implements ServerInterface {
         }
     }
 
+    public List<Person> findAllUsers(){
+        return personManager.findAllUsers();
+    }
+
     //_______________________ Shop on DashBoard _______________________
     @Override
     public int createShop(String name, int userId) {

@@ -13,7 +13,7 @@ public interface ServerInterface extends Remote {
     //__________________________ Manage user __________________________
     int login(String mail, String psw) throws RemoteException;
     int createUser(Person user) throws RemoteException;
-
+    List<Person> findAllUsers() throws RemoteException;
     //_______________________ Shop on DashBoard _______________________
     int createShop(String name, int userId) throws RemoteException;
     List<Magasin> findAllMagasin(int userId) throws RemoteException;
