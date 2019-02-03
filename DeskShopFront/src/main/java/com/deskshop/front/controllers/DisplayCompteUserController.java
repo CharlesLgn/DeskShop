@@ -42,9 +42,6 @@ public class DisplayCompteUserController implements Initializable {
     private Label nom;
 
     @FXML
-    private Label prenom;
-
-    @FXML
     private Label mail;
 
     @FXML
@@ -86,8 +83,7 @@ public class DisplayCompteUserController implements Initializable {
             // Que de l'interface ici
             hbox.setSpacing(30);
             this.accountName.setText(this.compte.getName());
-            this.nom.setText(this.compte.getClient().getName());
-            this.prenom.setText(this.compte.getClient().getFirstName());
+            this.nom.setText(this.compte.getClient().getName() + " " + this.compte.getClient().getFirstName());
             this.mail.setText(this.compte.getClient().getMel());
             this.solde.setText(this.compte.getAmount() + "");
             // Dans cette form, on a pas besoin de l'édition du solde mais plutôt du transfert de fond
@@ -225,6 +221,9 @@ public class DisplayCompteUserController implements Initializable {
                         });
                     }
                 }
+            } else if (updateMsg.equals(compte)){
+                compte = (Compte)updateMsg;
+                solde.setText(compte.getAmount()+"");
             }
         }
     }

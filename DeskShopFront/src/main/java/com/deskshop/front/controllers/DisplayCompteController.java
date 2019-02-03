@@ -44,9 +44,6 @@ public class DisplayCompteController implements Initializable {
     private Label nom;
 
     @FXML
-    private Label prenom;
-
-    @FXML
     private Label mail;
 
     @FXML
@@ -60,9 +57,6 @@ public class DisplayCompteController implements Initializable {
 
     @FXML
     private JFXButton editsoldeValider;
-
-    @FXML
-    private JFXButton editsoldeAnnuler;
 
     private Compte compte;
     private double soldeMemoire = 0;
@@ -86,8 +80,7 @@ public class DisplayCompteController implements Initializable {
     public void buildcard(){
         try {
             this.accountName.setText(this.compte.getName());
-            this.nom.setText(this.compte.getClient().getName());
-            this.prenom.setText(this.compte.getClient().getFirstName());
+            this.nom.setText(this.compte.getClient().getName() + " " + this.compte.getClient().getFirstName());
             this.mail.setText(this.compte.getClient().getMel());
             this.solde.setText(this.compte.getAmount() + "");
             this.solde.textProperty().addListener(new ChangeListener<String>() {
@@ -117,19 +110,10 @@ public class DisplayCompteController implements Initializable {
     }
 
     @FXML
-    void editsoldeAnnulerClick(ActionEvent event) {
-        this.solde.setDisable(true);
-        this.editsoldeValider.setVisible(false);
-        this.editsoldeAnnuler.setVisible(false);
-        this.solde.setText(soldeMemoire+"");
-    }
-
-    @FXML
     void editsoldeClick(ActionEvent event) {
             soldeMemoire = Double.parseDouble(this.solde.getText());
             this.solde.setDisable(false);
             this.editsoldeValider.setVisible(true);
-            this.editsoldeAnnuler.setVisible(true);
     }
 
     @FXML
@@ -138,6 +122,8 @@ public class DisplayCompteController implements Initializable {
             if (this.solde.getText().matches("[0-9]+(\\.[0-9]{1,2})?")) {
                 if(ServerConstant.SERVER.editSolde(Double.parseDouble(this.solde.getText()), this.compte)) {
                     // Alert succes
+                    this.solde.setDisable(true);
+                    this.editsoldeValider.setVisible(false);
                 }else{
                     // Alert Echec
                 }
@@ -156,7 +142,18 @@ public class DisplayCompteController implements Initializable {
 
         @Override
         public void update(Object observable, Object updateMsg) {
-           Platform.runLater(DisplayCompteController.this::generateMovements);
+            if(updateMsg instanceof List){
+                if(((List)updateMsg).get(0) instanceof Compte){
+                    if(((List)updateMsg).contains(compte)){
+                        Platform.runLater(()->{
+                            generateMovements();
+                            List<Compte> compteList = (List<Compte>) updateMsg;
+                            compte = compteList.get(compteList.indexOf(compte));
+                            solde.setText(compte.getAmount()+"");
+                        });
+                    }
+                }
+            }
         }
     }
 }

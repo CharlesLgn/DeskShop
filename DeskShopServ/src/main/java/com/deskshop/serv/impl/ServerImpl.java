@@ -21,6 +21,7 @@ import java.time.Instant;
 import java.util.*;
 
 public class ServerImpl extends Observable implements ServerInterface {
+    private AdministreManager     administreManager     = new AdministreManager();
     private ArticleManager        articleManager        = new ArticleManager();
     private CommandeManager       commandeManager       = new CommandeManager();
     private CompteManager         compteManager         = new CompteManager();
@@ -168,6 +169,8 @@ public class ServerImpl extends Observable implements ServerInterface {
         try{
             compteModife.setAmount(somme);
             compteManager.update(compteModife);
+            setChanged();
+            notifyObservers(compteModife);
             return true;
         }catch (Exception ex){
             ex.printStackTrace();
@@ -224,21 +227,28 @@ public class ServerImpl extends Observable implements ServerInterface {
 
     @Override
     public List<Compte> findAllCompte() {
-        CompteManager compteManager = new CompteManager();
         return compteManager.findAllCompte();
     }
 
     @Override
     public List<Compte> findAllCompteByUser(int userId) {
         Person person = getUser(userId);
-        CompteManager compteManager = new CompteManager();
         return compteManager.findAllCompteByUser(person);
     }
 
     @Override
     public List<Movement> findMovementByCompte(Compte compte){
-        MovementManager movementManager = new MovementManager();
         return movementManager.findMovementByCompte(compte);
+    }
+
+    @Override
+    public boolean isBanker(int userId) {
+        return personManager.isBanker(getPerson(userId));
+    }
+
+    @Override
+    public List<Compte> getComptesByAdmin(int userId) {
+        return administreManager.getComptesByAdmin(getPerson(userId));
     }
 
 }

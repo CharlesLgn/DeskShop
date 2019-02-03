@@ -13,7 +13,7 @@ public class PersonManager extends HibernateFactory<Person> {
 
     public int Connect(String mail, String psw){
         Session session = getSession();
-        Query query = session.createQuery("select user from Person as user where mel = :mail and psw = :mdp");
+        Query query = session.createQuery("from Person as user where mel = :mail and psw = :mdp");
         query.setParameter("mail", mail);
         query.setParameter("mdp", psw);
         List users = query.list();
@@ -27,5 +27,12 @@ public class PersonManager extends HibernateFactory<Person> {
             }
         }
         return -1;
+    }
+
+    public boolean isBanker(Person person) {
+        Session session = getSession();
+        Query query = session.createQuery("from Administre as admin where admin.getionar=:person");
+        query.setParameter("person", person);
+        return !query.list().isEmpty();
     }
 }

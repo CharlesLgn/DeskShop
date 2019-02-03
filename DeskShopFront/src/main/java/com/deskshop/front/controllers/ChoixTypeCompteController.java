@@ -1,9 +1,11 @@
 package com.deskshop.front.controllers;
 
+import com.deskshop.common.constant.ServerConstant;
 import com.deskshop.front.util.ControllerUtils;
 import com.deskshop.front.util.MoveUtils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.sun.security.ntlm.Server;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,7 +44,10 @@ public class ChoixTypeCompteController implements Initializable {
             actions.add("Consulter les magasins");
             actions.add("Gérer mes magasins");
             actions.add("Gérer mes comptes");
-            actions.add("Gérer mes comptes client");
+            if(ServerConstant.SERVER.isBanker(this.nbUser)){
+                actions.add("Gérer mes comptes client");
+            }
+
             this.comboBoxChoix.setItems(FXCollections.observableArrayList(actions));
             this.comboBoxChoix.getSelectionModel().select(0);
         }

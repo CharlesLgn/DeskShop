@@ -28,10 +28,13 @@ public interface ServerInterface extends Remote {
 
     //______________________ Manage Bank Acount _______________________
     void credit(double sum) throws RemoteException;
-    List<Compte> findAllCompte() throws RemoteException;
     List<Compte> findAllCompteByUser(int userId) throws RemoteException;
     boolean transfert(double somme, Compte compteGiver, Compte compteReceiver) throws RemoteException;
+
     boolean editSolde(double somme, Compte compteModife) throws RemoteException;
+    boolean isBanker(int userId) throws RemoteException;
+    List<Compte> getComptesByAdmin(int userId) throws RemoteException;
+    List<Compte> findAllCompte() throws RemoteException;
 
     //______________________ Manage Movement _______________________
     List<Movement> findMovementByCompte(Compte compte) throws RemoteException;

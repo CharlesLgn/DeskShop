@@ -75,6 +75,7 @@ public class PopupArticleController implements Initializable {
     @FXML
     void linkAddPanierClick(ActionEvent event) {
         panier.put(article, (panier.get(article) == null ?  0:panier.get(article)) + this.spinnerQte.getValue());
+        ((Stage) hbox.getScene().getWindow()).close();
     }
 
 

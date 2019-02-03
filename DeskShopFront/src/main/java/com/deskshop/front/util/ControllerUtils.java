@@ -18,6 +18,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -91,12 +92,12 @@ public class ControllerUtils {
         return null;
     }
 
-    public static Pane loadDisplayCompte(Compte compte) {
+    public static AnchorPane loadDisplayCompte(Compte compte) {
         try {
             DisplayCompteController displayCompteController = new DisplayCompteController(compte);
             FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/displayCompte.fxml"));
             loader.setController(displayCompteController);
-            Pane root = loader.load();
+            AnchorPane root = loader.load();
             return root;
         } catch (Exception e) {
             e.printStackTrace();
@@ -105,12 +106,12 @@ public class ControllerUtils {
         return null;
     }
 
-    public static Pane loadDisplayCompteUser(Compte compte, List<Compte> comptes) {
+    public static AnchorPane loadDisplayCompteUser(Compte compte, List<Compte> comptes) {
         try {
             DisplayCompteUserController displayCompteUserController = new DisplayCompteUserController(compte, comptes);
             FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/displayCompte.fxml"));
             loader.setController(displayCompteUserController);
-            Pane root = loader.load();
+            AnchorPane  root = loader.load();
             return root;
         } catch (Exception e) {
             e.printStackTrace();
