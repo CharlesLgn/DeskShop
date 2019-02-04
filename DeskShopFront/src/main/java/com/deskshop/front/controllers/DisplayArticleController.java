@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -44,10 +45,19 @@ public class DisplayArticleController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //this.imgProduit.setImage(new Image(this.image));
-        this.imgProduit.setImage(new Image("images/deskshop-logo.png"));
-        this.lbNomProduit.setText(this.article.getName());
-        this.lbPrix.setText(this.article.getPrice() + "Ø");
+        try {
+            //this.imgProduit.setImage(new Image(this.image));
+            //this.imgProduit.setImage(new Image("images/deskshop-logo.png"));
+            try {
+                this.imgProduit.setImage(new Image(Paths.get(this.article.getPicture()).toUri().toURL().toExternalForm()));
+            }catch (Exception ignore){
+                this.imgProduit.setImage(new Image("images/deskshop-logo.png"));
+            }
+            this.lbNomProduit.setText(this.article.getName());
+            this.lbPrix.setText(this.article.getPrice() + "Ø");
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     @FXML

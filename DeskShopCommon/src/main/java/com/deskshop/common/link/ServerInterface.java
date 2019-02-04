@@ -20,10 +20,11 @@ public interface ServerInterface extends Remote {
     List<Magasin> findMagasinByUser(int userId) throws RemoteException;
 
     //_________________________ Manage a Shop _________________________
-    void addArticle(int idMagasin, String name, String desc, double price) throws RemoteException;
+    void addArticle(int idMagasin, String name, String desc, double price, String image) throws RemoteException;
     void deleteArticle(Article article) throws RemoteException;
     void updateArticle(Article article, String name, String desc, double price) throws RemoteException;
     List<Article> getArticleByMagasin(int id) throws RemoteException;
+    void uploadFile(Article article, byte[] data, String name) throws RemoteException;
 
     //_________________________ Go Shopping ___________________________
     boolean paid(HashMap<Article, Integer> cadie, int idUser, int idMagasin) throws RemoteException;

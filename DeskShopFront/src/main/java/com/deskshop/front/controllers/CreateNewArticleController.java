@@ -3,6 +3,8 @@ package com.deskshop.front.controllers;
 import com.deskshop.common.constant.ServerConstant;
 import com.deskshop.common.metier.Article;
 import com.deskshop.common.metier.Magasin;
+import com.deskshop.front.start.Main;
+import com.deskshop.front.start.Start;
 import com.deskshop.front.util.ControllerUtils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
@@ -12,8 +14,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -45,6 +51,7 @@ public class CreateNewArticleController implements Initializable {
 
     private Magasin magasin;
     private Article article;
+    private String image;
     public CreateNewArticleController(Magasin magasin){
         this.magasin = magasin;
     }
@@ -67,6 +74,17 @@ public class CreateNewArticleController implements Initializable {
     @FXML
     void imgArticleClick(ActionEvent event) {
         // Ouvrir la popup pour demander l'image
+        try {
+            FileChooser fileChooser = new FileChooser();
+            File file = fileChooser.showOpenDialog(Start.getPrimaryStage());
+            if(file != null) {
+                byte[] data = FileUtils.readFileToByteArray(file);
+                ServerConstant.SERVER.uploadFile(this.article, data, file.getName());
+                image = file.getAbsolutePath();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -78,7 +96,7 @@ public class CreateNewArticleController implements Initializable {
                     if (this.prixArticle.getText().matches("[0-9]+(\\.[0-9]{1,2})?")) {
                         YesNoDialogController yesNoDialogController = ControllerUtils.loadYesNoDialog();
                         if (yesNoDialogController.getResponse()) {
-                            ServerConstant.SERVER.addArticle(this.magasin.getId(), this.nomArticle.getText(), this.DescArticle.getText(), Double.parseDouble(this.prixArticle.getText()));
+                            ServerConstant.SERVER.addArticle(this.magasin.getId(), this.nomArticle.getText(), this.DescArticle.getText(), Double.parseDouble(this.prixArticle.getText()), this.image);
                             ControllerUtils.loadAlert("Créer un nouvel article", "Votre article a été créé avec succès");
                         }
                     } else {

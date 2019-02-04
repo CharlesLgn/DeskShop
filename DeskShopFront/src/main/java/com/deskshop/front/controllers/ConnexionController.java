@@ -88,7 +88,7 @@ public class ConnexionController implements Initializable {
 
             int res = ServerConstant.SERVER.login(mail, HashPassword.hash(pass));
             if (res == -1) {
-                //lblEror.setVisible(true);
+                ControllerUtils.loadAlert("Impossible de se connecter", "Vérifiez vos identifiants");
             } else {
                 XMLDataFinder.setMail(mail);
                 XMLDataFinder.setPassword(HashPassword.hash(pass));
@@ -100,7 +100,8 @@ public class ConnexionController implements Initializable {
     }
 
     private void loadIRC(int userId) {
-        ControllerUtils.loadChoix(userId);
+        //ControllerUtils.loadChoix(userId);
+        ControllerUtils.loadChoix2(userId);
         ((Stage) vbox.getScene().getWindow()).close();
     }
 

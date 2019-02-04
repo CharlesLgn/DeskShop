@@ -56,6 +56,17 @@ public class ControllerUtils {
         }
     }
 
+    public static void loadChoix2(int userId){
+        try {
+            ChoixController choixController = new ChoixController(userId);
+            FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/choixtypecompte2.fxml"));
+            loader.setController(choixController);
+            loadFX(loader, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void loadCreateNewShop(int userId){
         try {
             CreateNewShopController createNewShopController = new CreateNewShopController(userId);

@@ -13,7 +13,10 @@ import com.deskshop.serv.manager.CompteManager;
 import com.deskshop.serv.manager.MagasinManager;
 import com.deskshop.serv.manager.PersonManager;
 import com.deskshop.utils.MailUtil;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.sql.Timestamp;
@@ -123,11 +126,12 @@ public class ServerImpl extends Observable implements ServerInterface {
 
     //_________________________ Manage a Shop _________________________
     @Override
-    public void addArticle(int idMagasin, String name, String desc, double price) {
+    public void addArticle(int idMagasin, String name, String desc, double price, String image) {
         Article article = new Article();
         article.setName(name);
         article.setDesc(desc);
         article.setPrice(price);
+        article.setPicture(image);
         article.setShop(getMagasin(idMagasin));
         articleManager.create(article);
 
@@ -151,6 +155,20 @@ public class ServerImpl extends Observable implements ServerInterface {
         articleManager.delete(article);
         setChanged();
         notifyObservers("article");
+    }
+
+    @Override
+    public void uploadFile(Article article, byte[] data, String filename){
+        try {
+            filename = filename.replaceAll(" ", "_");
+            File file = new File("../../data/" + filename);
+            System.out.println(file.getAbsolutePath().replace(" ", "?"));
+            FileUtils.writeByteArrayToFile(file, data);
+            String path = file.getPath();
+            System.out.println(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -60,21 +61,31 @@ public class PopupArticleController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.lbNomProduit.setText(this.article.getName());
-        this.lb_Prix.setText(this.article.getPrice() + "");
-        this.lb_desc.setText(this.article.getDesc());
-        this.imgProduit.setImage(new Image("images/deskshop-logo.png"));
-        spinnerQte.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Integer.MAX_VALUE, 1, 1));
-        if(modifyArticle){
-            // Modifier l'article
-            this.spinnerQte.setVisible(false);
-            Hyperlink deleteArticle = new Hyperlink("Supprimer l'article");
-            deleteArticle.setOnAction(event -> {
-                deleteArticle(this.article);
-            });
+        try {
+            this.lbNomProduit.setText(this.article.getName());
+            this.lb_Prix.setText(this.article.getPrice() + "");
+            this.lb_desc.setText(this.article.getDesc());
+            //this.imgProduit.setImage(new Image("images/deskshop-logo.png"));
+            try {
+                this.imgProduit.setImage(new Image(Paths.get(this.article.getPicture()).toUri().toURL().toExternalForm()));
+            }catch (Exception ignore){
+                this.imgProduit.setImage(new Image("images/deskshop-logo.png"));
+            }
+            //this.imgProduit.setImage(new Image(Paths.get(this.article.getPicture()).toUri().toURL().toExternalForm()));
+            spinnerQte.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Integer.MAX_VALUE, 1, 1));
+            if (modifyArticle) {
+                // Modifier l'article
+                this.spinnerQte.setVisible(false);
+                Hyperlink deleteArticle = new Hyperlink("Supprimer l'article");
+                deleteArticle.setOnAction(event -> {
+                    deleteArticle(this.article);
+                });
 
-            this.vboxbottom.getChildren().add(deleteArticle);
-            this.linkAddPanier.setText("Modifier l'article");
+                this.vboxbottom.getChildren().add(deleteArticle);
+                this.linkAddPanier.setText("Modifier l'article");
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
         }
     }
 

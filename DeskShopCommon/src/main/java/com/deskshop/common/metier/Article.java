@@ -1,5 +1,4 @@
 package com.deskshop.common.metier;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
