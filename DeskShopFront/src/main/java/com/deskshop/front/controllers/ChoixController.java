@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ChoixController implements Initializable {
 
@@ -84,5 +86,62 @@ public class ChoixController implements Initializable {
         }catch (Exception ex){
             ControllerUtils.loadAlert("Erreur générale", ex.toString());
         }
+    }
+
+    @FXML
+    void shopEnter(MouseEvent event) {
+        animation(shop, true);
+    }
+
+    @FXML
+    void shopExit(MouseEvent event) {
+        animation(shop, false);
+    }
+
+    @FXML
+    void manageshopEnter(MouseEvent event) {
+        animation(manageshop, true);
+    }
+
+    @FXML
+    void manageshopExit(MouseEvent event) {
+        animation(manageshop, false);
+    }
+
+    @FXML
+    void compteEnter(MouseEvent event) {
+        animation(compte, true);
+    }
+
+    @FXML
+    void compteExit(MouseEvent event) {
+        animation(compte, false);
+    }
+
+    @FXML
+    void bankEnter(MouseEvent event) {
+        animation(bank, true);
+    }
+
+    @FXML
+    void bankExit(MouseEvent event) {
+        animation(bank, false);
+    }
+
+    private void animation(ImageView imgToAnimate, boolean expand){
+        Timer animTimer = new Timer();
+        animTimer.scheduleAtFixedRate(new TimerTask() {
+            int i = 0;
+            @Override
+            public void run() {
+                if(i<15){
+                    imgToAnimate.setFitHeight(expand ? imgToAnimate.getFitHeight() + 1 : imgToAnimate.getFitHeight() - 1);
+                    imgToAnimate.setFitWidth(expand ? imgToAnimate.getFitWidth() + 1 : imgToAnimate.getFitWidth() - 1);
+                }else{
+                    this.cancel();
+                }
+                i++;
+            }
+        }, 0,10);
     }
 }
