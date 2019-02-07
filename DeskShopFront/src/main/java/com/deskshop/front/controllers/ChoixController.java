@@ -4,9 +4,11 @@ import com.deskshop.common.constant.ServerConstant;
 import com.deskshop.front.util.ControllerUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -46,6 +48,13 @@ public class ChoixController implements Initializable {
         }catch (Exception ex){
             ControllerUtils.loadAlert("Erreur générale", ex.toString());
         }
+    }
+
+
+    @FXML
+    void vboxEnter(MouseEvent event) {
+        Scene sc = vbox.getScene();
+        sc.setFill(Color.TRANSPARENT);
     }
 
     @FXML
@@ -134,7 +143,7 @@ public class ChoixController implements Initializable {
             int i = 0;
             @Override
             public void run() {
-                if(i<15){
+                if(i<25){
                     imgToAnimate.setFitHeight(expand ? imgToAnimate.getFitHeight() + 1 : imgToAnimate.getFitHeight() - 1);
                     imgToAnimate.setFitWidth(expand ? imgToAnimate.getFitWidth() + 1 : imgToAnimate.getFitWidth() - 1);
                 }else{
@@ -142,6 +151,6 @@ public class ChoixController implements Initializable {
                 }
                 i++;
             }
-        }, 0,10);
+        }, 0,5);
     }
 }

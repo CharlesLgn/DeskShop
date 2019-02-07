@@ -37,11 +37,13 @@ public class PanierController implements Initializable {
     private int nbUser;
     private Magasin magasin;
     private HashMap<Article, Integer> panier;
+    private DashboardController dashboardController;
 
-    public PanierController(HashMap<Article, Integer> panier, int nbUser, Magasin magasin) {
+    public PanierController(HashMap<Article, Integer> panier, int nbUser, Magasin magasin, DashboardController dashboardController) {
         this.nbUser = nbUser;
         this.magasin = magasin;
         this.panier = panier;
+        this.dashboardController = dashboardController;
     }
 
     @Override
@@ -71,8 +73,13 @@ public class PanierController implements Initializable {
         try {
             YesNoDialogController yesNoDialogController = ControllerUtils.loadYesNoDialog();
             if(yesNoDialogController.getResponse()) {
+                if (panier.entrySet().stream().allMatch(c -> c.getKey().getStock() > c.getValue())){
                 ServerConstant.SERVER.paid(panier, nbUser, magasin.getId());
                 ControllerUtils.loadAlert("Commande effectuée", "Votre commande a été effectuée avec succès.");
+                dashboardController.viderPanier();
+                }else{
+                    ControllerUtils.loadAlert("La commande ne peut pas s'effectuer", "Le stock n'est pas suffisante pour honorer la demande");
+                }
             }
         }catch (Exception ex){
             ControllerUtils.loadAlert("Echec de la commande", ex.toString());

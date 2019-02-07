@@ -12,18 +12,20 @@ public class Article implements Serializable {
     private String desc;
     private double price;
     private Magasin shop;
+    private int stock;
 
     public Article() {
         this.id = -1;
     }
 
-    public Article(String name, String picture, String desc, double price, Magasin shop) {
+    public Article(String name, String picture, String desc, double price, Magasin shop, int stock) {
         this.id = -1;
         this.name = name;
         this.picture = picture;
         this.desc = desc;
         this.price = price;
         this.shop = shop;
+        this.stock = stock;
     }
 
     @Id
@@ -71,6 +73,15 @@ public class Article implements Serializable {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Column(name = "stock")
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     @OneToOne(fetch = FetchType.EAGER)

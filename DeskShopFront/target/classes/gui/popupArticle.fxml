@@ -15,7 +15,7 @@
    <children>
       <AnchorPane HBox.hgrow="ALWAYS">
          <children>
-            <ImageView fx:id="imgProduit" fitHeight="400.0" fitWidth="326.0" onMouseEntered="#imgProduitEnter" onMouseExited="#imgProduitExited" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-1.0" />
+            <ImageView fx:id="imgProduit" fitHeight="400.0" fitWidth="400.0" onMouseClicked="#imgProduitClick" onMouseEntered="#imgProduitEnter" onMouseExited="#imgProduitExited" pickOnBounds="true" preserveRatio="true" styleClass="ImageView" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
          </children>
       </AnchorPane>
       <AnchorPane HBox.hgrow="ALWAYS">

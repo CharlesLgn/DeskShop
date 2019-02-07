@@ -18,6 +18,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.io.File;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -65,17 +67,20 @@ public class PopupArticleController implements Initializable {
             this.lbNomProduit.setText(this.article.getName());
             this.lb_Prix.setText(this.article.getPrice() + "");
             this.lb_desc.setText(this.article.getDesc());
-            //this.imgProduit.setImage(new Image("images/deskshop-logo.png"));
+            int stock = this.article.getStock();
+            spinnerQte.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 1, 1));
+            this.spinnerQte.setEditable(false);
             try {
                 this.imgProduit.setImage(new Image(Paths.get(this.article.getPicture()).toUri().toURL().toExternalForm()));
             }catch (Exception ignore){
                 this.imgProduit.setImage(new Image("images/deskshop-logo.png"));
             }
-            //this.imgProduit.setImage(new Image(Paths.get(this.article.getPicture()).toUri().toURL().toExternalForm()));
-            spinnerQte.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Integer.MAX_VALUE, 1, 1));
+            //spinnerQte.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Integer.MAX_VALUE, 1, 1));
             if (modifyArticle) {
                 // Modifier l'article
-                this.spinnerQte.setVisible(false);
+                //this.spinnerQte.setVisible(false);
+                spinnerQte.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, stock, 0));
+                this.spinnerQte.setEditable(true);
                 Hyperlink deleteArticle = new Hyperlink("Supprimer l'article");
                 deleteArticle.setOnAction(event -> {
                     deleteArticle(this.article);
@@ -131,5 +136,14 @@ public class PopupArticleController implements Initializable {
     @FXML
     void btQuitterClick(ActionEvent event) {
         ((Stage) hbox.getScene().getWindow()).close();
+    }
+
+    @FXML
+    void imgProduitClick(MouseEvent event) {
+        try {
+            String path = article.getPicture();
+            Runtime.getRuntime().exec("C:\\WINDOWS\\system32\\mspaint.exe "+path);
+        }catch (Exception ex){
+        }
     }
 }

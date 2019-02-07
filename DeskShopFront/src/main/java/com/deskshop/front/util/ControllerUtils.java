@@ -141,9 +141,9 @@ public class ControllerUtils {
         }
     }
 
-    public static void loadPanier(HashMap<Article, Integer> panier, int nbUser, Magasin shop){
+    public static void loadPanier(HashMap<Article, Integer> panier, int nbUser, Magasin shop, DashboardController dashboardController){
         try {
-            PanierController panierController = new PanierController(panier, nbUser, shop);
+            PanierController panierController = new PanierController(panier, nbUser, shop, dashboardController);
             FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/panier.fxml"));
             loader.setController(panierController);
             loadFX(loader, 1);

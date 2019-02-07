@@ -126,13 +126,14 @@ public class ServerImpl extends Observable implements ServerInterface {
 
     //_________________________ Manage a Shop _________________________
     @Override
-    public void addArticle(int idMagasin, String name, String desc, double price, String image) {
+    public void addArticle(int idMagasin, String name, String desc, double price, String image, int stock) {
         Article article = new Article();
         article.setName(name);
         article.setDesc(desc);
         article.setPrice(price);
         article.setPicture(image);
         article.setShop(getMagasin(idMagasin));
+        article.setStock(stock);
         articleManager.create(article);
 
         setChanged();
@@ -140,10 +141,11 @@ public class ServerImpl extends Observable implements ServerInterface {
     }
 
     @Override
-    public void updateArticle(Article article, String name, String desc, double price) {
+    public void updateArticle(Article article, String name, String desc, double price, int stock) {
         article.setName(name);
         article.setDesc(desc);
         article.setPrice(price);
+        article.setStock(stock);
         articleManager.update(article);
 
         setChanged();
@@ -246,6 +248,11 @@ public class ServerImpl extends Observable implements ServerInterface {
                 detailCommande.setQuantity(entry.getValue());
                 detailCommandeManager.create(detailCommande);
             }
+
+            cadie.forEach((Article, Integer) ->
+                    updateArticle(Article, Article.getName(), Article.getDesc(),
+                            Article.getPrice(), Article.getStock() - Integer.intValue()));
+
             new Thread(() ->MailUtil.sendFactureMail(client.getMel(), cadie)).start();
             return true;
         } catch (Exception e) {

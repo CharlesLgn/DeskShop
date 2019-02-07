@@ -13,6 +13,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -49,6 +51,10 @@ public class CreateNewArticleController implements Initializable {
     @FXML
     private JFXButton close;
 
+    @FXML
+    private Spinner<Integer> spinnerQte;
+
+
     private Magasin magasin;
     private Article article;
     private String image;
@@ -62,12 +68,14 @@ public class CreateNewArticleController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        spinnerQte.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1));
         if(this.article != null){
             this.lbNom.setText("Modifier l'article");
             this.validerArticle.setText("Modifier");
             this.nomArticle.setText(this.article.getName());
             this.DescArticle.setText(this.article.getDesc());
             this.prixArticle.setText(this.article.getPrice()+"");
+            this.spinnerQte.getValueFactory().setValue(this.article.getStock());
         }
     }
 
@@ -96,7 +104,7 @@ public class CreateNewArticleController implements Initializable {
                     if (this.prixArticle.getText().matches("[0-9]+(\\.[0-9]{1,2})?")) {
                         YesNoDialogController yesNoDialogController = ControllerUtils.loadYesNoDialog();
                         if (yesNoDialogController.getResponse()) {
-                            ServerConstant.SERVER.addArticle(this.magasin.getId(), this.nomArticle.getText(), this.DescArticle.getText(), Double.parseDouble(this.prixArticle.getText()), this.image);
+                            ServerConstant.SERVER.addArticle(this.magasin.getId(), this.nomArticle.getText(), this.DescArticle.getText(), Double.parseDouble(this.prixArticle.getText()), this.image, this.spinnerQte.getValue());
                             ControllerUtils.loadAlert("Créer un nouvel article", "Votre article a été créé avec succès");
                         }
                     } else {
@@ -108,7 +116,7 @@ public class CreateNewArticleController implements Initializable {
             }
 
             if(this.article != null){
-                ServerConstant.SERVER.updateArticle(this.article, this.nomArticle.getText(), this.DescArticle.getText(), Double.parseDouble(this.prixArticle.getText()));
+                ServerConstant.SERVER.updateArticle(this.article, this.nomArticle.getText(), this.DescArticle.getText(), Double.parseDouble(this.prixArticle.getText()), this.spinnerQte.getValue());
                 ControllerUtils.loadAlert("Modification d'article", "Votre article a été modifié avec succès");
             }
             closeClick(event);

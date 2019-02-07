@@ -98,7 +98,7 @@ public class DashboardController implements Initializable {
      */
     @FXML
     void btPanierClick(ActionEvent event) {
-        ControllerUtils.loadPanier(panier, nbUser, actualShop);
+        ControllerUtils.loadPanier(panier, nbUser, actualShop, this);
     }
 
     private void obtenirContexte(int indexComboBox) {
@@ -479,7 +479,9 @@ public class DashboardController implements Initializable {
                 obtenirContexte(indexComboBox);
             });
         }
+    }
 
-
+    public void viderPanier(){
+        this.panier.clear();
     }
 }

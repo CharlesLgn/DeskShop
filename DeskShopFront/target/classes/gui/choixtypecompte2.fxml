@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="vbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" spacing="30.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="vbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" spacing="30.0" style="-fx-background-color: rgba(255, 255, 255, 0);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane VBox.vgrow="ALWAYS">
         <columnConstraints>
@@ -19,22 +19,22 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fx:id="shop" fitHeight="175.0" fitWidth="175.0" onMouseClicked="#shopClick" onMouseEntered="#shopEnter" onMouseExited="#shopExit" pickOnBounds="true" preserveRatio="true" styleClass="ImageView" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <ImageView fx:id="shop" fitHeight="175.0" fitWidth="175.0" onMouseClicked="#shopClick" onMouseEntered="#shopEnter" onMouseExited="#shopExit" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../images/shopImage.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="manageshop" fitHeight="175.0" fitWidth="175.0" onMouseClicked="#manageshopClick" onMouseEntered="#manageshopEnter" onMouseExited="#manageshopExit" pickOnBounds="true" preserveRatio="true" styleClass="ImageView" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <ImageView fx:id="manageshop" fitHeight="175.0" fitWidth="175.0" onMouseClicked="#manageshopClick" onMouseEntered="#manageshopEnter" onMouseExited="#manageshopExit" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../images/shopmod.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="compte" fitHeight="175.0" fitWidth="175.0" onMouseClicked="#compteClick" onMouseEntered="#compteEnter" onMouseExited="#compteExit" pickOnBounds="true" preserveRatio="true" styleClass="ImageView" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fx:id="compte" fitHeight="175.0" fitWidth="175.0" onMouseClicked="#compteClick" onMouseEntered="#compteEnter" onMouseExited="#compteExit" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../images/compte.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="bank" fitHeight="175.0" fitWidth="175.0" onMouseClicked="#bankClick" onMouseEntered="#bankEnter" onMouseExited="#bankExit" pickOnBounds="true" preserveRatio="true" styleClass="ImageView" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fx:id="bank" fitHeight="175.0" fitWidth="175.0" onMouseClicked="#bankClick" onMouseEntered="#bankEnter" onMouseExited="#bankExit" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../images/bank.png" />
                </image>
