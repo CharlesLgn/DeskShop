@@ -8,6 +8,6 @@ public class Iban {
             iban = "0" + iban;
         }
         iban = "FR" + iban;
-        return iban
+        return iban;
     }
 }
