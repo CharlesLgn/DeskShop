@@ -2,28 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="36077c7e-bf66-46b8-af48-6cf74ecb3889" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/controllers/IbanDialogController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DeskShopFront/src/main/resources/gui/ibanDialog.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DeskShopUtils/src/main/java/com/deskshop/utils/Iban.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeskShop.iml" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShop.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/link/ServerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/link/ServerInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/metier/Compte.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/metier/Compte.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/metier/Magasin.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/metier/Magasin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeskShopFront/deskShop-front.iml" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopFront/deskShop-front.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/controllers/CreateNewShopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/controllers/CreateNewShopController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/controllers/PanierController.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/controllers/PanierController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/util/ControllerUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/util/ControllerUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeskShopFront/src/main/resources/gui/createNewShop.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopFront/src/main/resources/gui/createNewShop.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeskShopFront/target/classes/gui/createNewShop.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopFront/target/classes/gui/createNewShop.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/impl/ServerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/impl/ServerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/manager/CompteManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/manager/CompteManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/start/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/start/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeskShopServ/src/main/resources/sql/201901201900_initTable.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopServ/src/main/resources/sql/201901201900_initTable.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeskShopServ/src/main/resources/sql/201901202000_initData.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopServ/src/main/resources/sql/201901202000_initData.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeskShopServ/target/classes/sql/201901201900_initTable.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopServ/target/classes/sql/201901201900_initTable.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeskShopServ/target/classes/sql/201901202000_initData.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DeskShopServ/target/classes/sql/201901202000_initData.sql" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/DeskShopFront/target/" />
     <ignored path="$PROJECT_DIR$/DeskShopCommon/target/" />
@@ -70,11 +50,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/impl/ServerImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="490">
-              <caret line="131" column="4" lean-forward="true" selection-start-line="131" selection-start-column="4" selection-end-line="131" selection-end-column="71" />
+            <state relative-caret-position="303">
+              <caret line="240" column="8" selection-start-line="240" selection-start-column="8" selection-end-line="240" selection-end-column="8" />
               <folding>
                 <element signature="e#4240#4241#0" expanded="true" />
                 <element signature="e#4285#4286#0" expanded="true" />
@@ -83,40 +63,13 @@
                 <element signature="e#6095#6096#0" expanded="true" />
                 <element signature="e#6134#6135#0" expanded="true" />
                 <element signature="e#6179#6180#0" expanded="true" />
-                <element signature="e#9325#9326#0" expanded="true" />
-                <element signature="e#9553#9554#0" expanded="true" />
-                <element signature="e#9811#9812#0" expanded="true" />
-                <element signature="e#9878#9879#0" expanded="true" />
-                <element signature="e#9997#9998#0" expanded="true" />
-                <element signature="e#10145#10146#0" expanded="true" />
+                <element signature="e#9418#9419#0" expanded="true" />
+                <element signature="e#9646#9647#0" expanded="true" />
+                <element signature="e#9868#9869#0" expanded="true" />
+                <element signature="e#9935#9936#0" expanded="true" />
+                <element signature="e#10090#10091#0" expanded="true" />
+                <element signature="e#10238#10239#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/controllers/CreateNewShopController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="28" column="4" selection-start-line="28" selection-start-column="4" selection-end-line="29" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/controllers/PanierController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="81" column="109" selection-start-line="81" selection-start-column="109" selection-end-line="81" selection-end-column="109" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/link/ServerInterface.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -128,22 +81,6 @@
               <caret line="343" column="87" selection-start-line="343" selection-start-column="87" selection-end-line="343" selection-end-column="87" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DeskShopFront/src/main/resources/gui/yesNoDialog.fxml">
-          <provider editor-type-id="text-editor" />
-          <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DeskShopFront/src/main/resources/gui/ibanDialog.fxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="24" column="103" lean-forward="true" selection-start-line="24" selection-start-column="103" selection-end-line="24" selection-end-column="103" />
-            </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -214,7 +151,6 @@
         <option value="$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/manager/CompteManager.java" />
         <option value="$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/metier/Magasin.java" />
         <option value="$PROJECT_DIR$/DeskShopServ/src/main/resources/sql/201901201900_initTable.sql" />
-        <option value="$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/impl/ServerImpl.java" />
         <option value="$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/link/ServerInterface.java" />
         <option value="$PROJECT_DIR$/DeskShopServ/src/main/resources/sql/201901202000_initData.sql" />
         <option value="$PROJECT_DIR$/DeskShopFront/src/main/resources/gui/createNewShop.fxml" />
@@ -223,6 +159,7 @@
         <option value="$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/controllers/IbanDialogController.java" />
         <option value="$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/util/ControllerUtils.java" />
         <option value="$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/controllers/PanierController.java" />
+        <option value="$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/impl/ServerImpl.java" />
       </list>
     </option>
   </component>
@@ -234,8 +171,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-35" />
-    <option name="y" value="-19" />
+    <option name="x" value="1422" />
+    <option name="y" value="-7" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -552,18 +489,18 @@
       <workItem from="1548579469900" duration="26891000" />
       <workItem from="1548886033046" duration="146000" />
       <workItem from="1551885602848" duration="3000" />
-      <workItem from="1551885649094" duration="5482000" />
+      <workItem from="1551885649094" duration="6004000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38181000" />
+    <option name="totallyTimeSpent" value="38703000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="1912" y="-7" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23773988" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17110874" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Persistence" order="3" side_tool="true" />
@@ -578,14 +515,14 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32936078" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Java Enterprise" order="10" />
       <window_info anchor="bottom" id="Database Changes" order="11" />
       <window_info anchor="bottom" id="Version Control" order="12" />
       <window_info anchor="bottom" id="Database Console" order="13" weight="0.17551462" />
-      <window_info anchor="bottom" id="Messages" order="14" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Messages" order="14" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -1025,32 +962,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/impl/ServerImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="131" column="4" lean-forward="true" selection-start-line="131" selection-start-column="4" selection-end-line="131" selection-end-column="71" />
-          <folding>
-            <element signature="e#4240#4241#0" expanded="true" />
-            <element signature="e#4285#4286#0" expanded="true" />
-            <element signature="e#6006#6007#0" expanded="true" />
-            <element signature="e#6049#6050#0" expanded="true" />
-            <element signature="e#6095#6096#0" expanded="true" />
-            <element signature="e#6134#6135#0" expanded="true" />
-            <element signature="e#6179#6180#0" expanded="true" />
-            <element signature="e#9325#9326#0" expanded="true" />
-            <element signature="e#9553#9554#0" expanded="true" />
-            <element signature="e#9811#9812#0" expanded="true" />
-            <element signature="e#9878#9879#0" expanded="true" />
-            <element signature="e#9997#9998#0" expanded="true" />
-            <element signature="e#10145#10146#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DeskShopFront/src/main/resources/gui/yesNoDialog.fxml">
-      <provider editor-type-id="text-editor" />
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/DeskShopFront/src/main/resources/gui/createNewShop.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -1058,13 +969,6 @@
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/controllers/CreateNewShopController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="28" column="4" selection-start-line="28" selection-start-column="4" selection-end-line="29" selection-end-column="39" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DeskShopFront/src/main/resources/gui/ibanDialog.fxml">
       <provider selected="true" editor-type-id="text-editor">
@@ -1078,12 +982,30 @@
       <provider selected="true" editor-type-id="text-editor" />
       <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/controllers/IbanDialogController.java">
+    <entry file="file://$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/link/ServerInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="31" column="39" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
+        <state relative-caret-position="255">
+          <caret line="20" selection-start-line="19" selection-end-line="20" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/controllers/PanierController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="76" column="55" selection-start-line="76" selection-start-column="55" selection-end-line="76" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/controllers/CreateNewShopController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="28" column="4" selection-start-line="28" selection-start-column="4" selection-end-line="29" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DeskShopFront/src/main/resources/gui/yesNoDialog.fxml">
+      <provider editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/util/ControllerUtils.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1092,17 +1014,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DeskShopCommon/src/main/java/com/deskshop/common/link/ServerInterface.java">
+    <entry file="file://$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/controllers/IbanDialogController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
+        <state relative-caret-position="459">
+          <caret line="31" column="39" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DeskShopFront/src/main/java/com/deskshop/front/controllers/PanierController.java">
+    <entry file="file://$PROJECT_DIR$/DeskShopServ/src/main/java/com/deskshop/serv/impl/ServerImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="81" column="109" selection-start-line="81" selection-start-column="109" selection-end-line="81" selection-end-column="109" />
+        <state relative-caret-position="303">
+          <caret line="240" column="8" selection-start-line="240" selection-start-column="8" selection-end-line="240" selection-end-column="8" />
+          <folding>
+            <element signature="e#4240#4241#0" expanded="true" />
+            <element signature="e#4285#4286#0" expanded="true" />
+            <element signature="e#6006#6007#0" expanded="true" />
+            <element signature="e#6049#6050#0" expanded="true" />
+            <element signature="e#6095#6096#0" expanded="true" />
+            <element signature="e#6134#6135#0" expanded="true" />
+            <element signature="e#6179#6180#0" expanded="true" />
+            <element signature="e#9418#9419#0" expanded="true" />
+            <element signature="e#9646#9647#0" expanded="true" />
+            <element signature="e#9868#9869#0" expanded="true" />
+            <element signature="e#9935#9936#0" expanded="true" />
+            <element signature="e#10090#10091#0" expanded="true" />
+            <element signature="e#10238#10239#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
