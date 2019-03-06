@@ -53,14 +53,27 @@ public class ArticlePanierController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            this.imgImageArticle.setImage(new Image(Paths.get(this.article.getPicture()).toUri().toURL().toExternalForm()));
+            if(this.article.getPicture() != null){
+                this.imgImageArticle.setImage(new Image(Paths.get(this.article.getPicture()).toUri().toURL().toExternalForm()));
+            }else{
+                this.imgImageArticle.setImage(new Image("images/deskshop-logo.png"));
+            }
             this.lbNomArticle.setText(this.article.getName());
             this.lbPrixArticle.setText(this.article.getPrice() + "Ø");
             this.lbDesc.setText(this.article.getDesc());
             this.spinnerQuantite.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Integer.MAX_VALUE, qte, 1));
+            this.spinnerQuantite.valueProperty().addListener((observable, oldValue, newValue) -> {
+               editerQuantite(newValue);
+            });
         }catch (Exception ex){
             ControllerUtils.loadAlert("Erreur lors de la récupération des informations sur l'article", ex.toString());
         }
+    }
+
+    private void editerQuantite(int newQte){
+        HashMap<Article, Integer> panier = PanierController.getPanier();
+        panier.put(this.article, newQte);
+        PanierController.setPanier(panier);
     }
 
     @FXML
@@ -68,7 +81,6 @@ public class ArticlePanierController implements Initializable {
         HashMap<Article, Integer> panier = PanierController.getPanier();
         panier.remove(this.article);
         PanierController.setPanier(panier);
-        //((Stage) hbox.getScene().getWindow()).close();
-        hbox.getChildren().clear();
+        hbox.setVisible(false);
     }
 }

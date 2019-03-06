@@ -6,19 +6,18 @@ import com.deskshop.common.metier.Article;
 import com.deskshop.common.metier.Magasin;
 import com.deskshop.front.util.ControllerUtils;
 import com.jfoenix.controls.JFXButton;
-import javafx.beans.property.ObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.*;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -56,31 +55,6 @@ public class PanierController implements Initializable {
         this.panier = panier;
         this.dashboardController = dashboardController;
     }
-    
-    private void regeneratePanier(){
-        for (Node par: vbox.getChildren()) {
-            if(par instanceof ScrollPane) {
-                Node fp = ((ScrollPane) par).getContent();
-                if (fp instanceof FlowPane){
-                    List<Node> fpNodes = ((FlowPane) fp).getChildren();
-                    for (Node fpDetails : fpNodes) {
-                        if(fpDetails instanceof HBox){
-                            List<Node> hboxDetails = ((HBox) fpDetails).getChildren();
-                            for (Node hboxNodes: hboxDetails) {
-                                if (hboxNodes instanceof GridPane){
-                                    List<Node> gridviewDetails = ((GridPane) hboxNodes).getChildren();
-                                    for (Node gridviewNodes: gridviewDetails){
-
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
