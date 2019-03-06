@@ -1,5 +1,6 @@
 package com.deskshop.front.controllers;
 
+import com.deskshop.common.constant.EStatusPaiement;
 import com.deskshop.common.constant.ServerConstant;
 import com.deskshop.common.metier.Article;
 import com.deskshop.common.metier.Magasin;
@@ -88,7 +89,7 @@ public class PanierController implements Initializable {
         FlowPane flowPane = new FlowPane();
         flowPane.setAlignment(Pos.CENTER);
         flowPane.setVgap(30);
-        for (Map.Entry<Article, Integer> entry:panier.entrySet()){
+        for (Map.Entry<Article, Integer> entry : panier.entrySet()) {
             System.out.println(entry.getKey() + " = " + entry.getValue());
             Pane pane = ControllerUtils.loadArticlePanier(((Article) entry.getKey()), ((int) entry.getValue()));
             flowPane.getChildren().add(pane);
@@ -105,17 +106,20 @@ public class PanierController implements Initializable {
     @FXML
     void bt_commanderClick(ActionEvent event) {
         try {
-            //regeneratePanier();
             if(!panier.isEmpty()) {
                 IbanDialogController ibanDialogController = ControllerUtils.loadIbanDialog();
                 if (ibanDialogController.getResponse()) {
                     if (panier.entrySet().stream().allMatch(c -> c.getKey().getStock() > c.getValue())) {
-                        boolean paid = ServerConstant.SERVER.paid(panier, nbUser, ibanDialogController.getIban(), magasin.getId());
-                        if (paid) {
+                        EStatusPaiement paiement = ServerConstant.SERVER.paid(panier, nbUser, ibanDialogController.getIban(), magasin.getId());
+                        if (paiement.equals(EStatusPaiement.SUCCESS)) {
                             ControllerUtils.loadAlert("Commande effectuée", "Votre commande a été effectuée avec succès.");
                             dashboardController.viderPanier();
-                        } else {
+                        } else if (paiement.equals(EStatusPaiement.IBAN_ERROR)) {
                             ControllerUtils.loadAlert("La commande ne peut pas s'effectuer", "Votre Iban n'existe pas");
+                        } else if (paiement.equals(EStatusPaiement.MONEY_ERROR)) {
+                            ControllerUtils.loadAlert("La commande ne peut pas s'effectuer", "argent insuffisant");
+                        } else {
+                            ControllerUtils.loadAlert("La commande ne peut pas s'effectuer", "Erreur interne");
                         }
                     } else {
                         ControllerUtils.loadAlert("La commande ne peut pas s'effectuer", "Le stock n'est pas suffisante pour honorer la demande");
@@ -124,7 +128,7 @@ public class PanierController implements Initializable {
             }else{
                 ControllerUtils.loadAlert("La commande ne peut pas s'effectuer", "Le panier est vide.");
             }
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ControllerUtils.loadAlert("Echec de la commande", ex.toString());
         }
 

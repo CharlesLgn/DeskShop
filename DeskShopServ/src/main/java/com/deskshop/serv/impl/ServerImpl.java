@@ -1,5 +1,6 @@
 package com.deskshop.serv.impl;
 
+import com.deskshop.common.constant.EStatusPaiement;
 import com.deskshop.common.link.ClientInterface;
 import com.deskshop.common.link.ServerInterface;
 import com.deskshop.common.metier.*;
@@ -227,7 +228,7 @@ public class ServerImpl extends Observable implements ServerInterface {
 
 
     @Override
-    public boolean paid(HashMap<Article, Integer> cadie, int idUser, String iban, int idMagasin) {
+    public EStatusPaiement paid(HashMap<Article, Integer> cadie, int idUser, String iban, int idMagasin) {
         double sum = cadie.entrySet().stream().mapToDouble(c -> c.getKey().getPrice() * c.getValue()).sum();
         Magasin magasin = getMagasin(idMagasin);
         Person client = getPerson(idUser),
@@ -236,9 +237,13 @@ public class ServerImpl extends Observable implements ServerInterface {
             Compte compteClient = compteManager.getCompteByIban(iban),
                     compteVendeur= compteManager.getCompteByIban(magasin.getIban());
             if (compteClient == null) {
-                return false;
+                return EStatusPaiement.IBAN_ERROR;
             }
-            compteClient.debit(sum);
+            try {
+                compteClient.debit(sum);
+            } catch (IllegalArgumentException ignore){
+                return EStatusPaiement.MONEY_ERROR;
+            }
             compteVendeur.credit(sum);
             compteManager.update(compteClient);
             compteManager.update(compteVendeur);
@@ -262,10 +267,10 @@ public class ServerImpl extends Observable implements ServerInterface {
                             Article.getPrice(), Article.getStock() - Integer));
 
             new Thread(() ->MailUtil.sendFactureMail(client.getMel(), cadie)).start();
-            return true;
+            return EStatusPaiement.SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return EStatusPaiement.DEFAULT_ERROR;
         }
     }
 
