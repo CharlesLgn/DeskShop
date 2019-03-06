@@ -12,6 +12,7 @@ import com.deskshop.serv.manager.ArticleManager;
 import com.deskshop.serv.manager.CompteManager;
 import com.deskshop.serv.manager.MagasinManager;
 import com.deskshop.serv.manager.PersonManager;
+import com.deskshop.utils.Iban;
 import com.deskshop.utils.MailUtil;
 import org.apache.commons.io.FileUtils;
 
@@ -89,7 +90,10 @@ public class ServerImpl extends Observable implements ServerInterface {
 
     //_______________________ Shop on DashBoard _______________________
     @Override
-    public int createShop(String name, int userId) {
+    public int createShop(String name, int userId, String iban) {
+        if(compteManager.getCompteByIban(iban) == null){
+            return -1;
+        }
         try {
             //get user
             Person user = personManager.read(userId);
@@ -98,6 +102,7 @@ public class ServerImpl extends Observable implements ServerInterface {
             Magasin magasin = new Magasin();
             magasin.setCreator(user);
             magasin.setName(name);
+            magasin.setIban(iban);
             magasin = magasinManager.create(magasin);
             setChanged();
             notifyObservers("shop");
@@ -187,7 +192,7 @@ public class ServerImpl extends Observable implements ServerInterface {
     }
 
     @Override
-    public boolean transfert(double monnaie, Compte compteGiver, Compte compteReceiver) throws RemoteException {
+    public boolean transfert(double monnaie, Compte compteGiver, Compte compteReceiver) {
         try{
             compteGiver.debit(monnaie);
             compteReceiver.credit(monnaie);
@@ -207,7 +212,7 @@ public class ServerImpl extends Observable implements ServerInterface {
     }
 
     @Override
-    public boolean editSolde(double somme, Compte compteModife) throws RemoteException {
+    public boolean editSolde(double somme, Compte compteModife) {
         try{
             compteModife.setAmount(somme);
             compteManager.update(compteModife);
@@ -222,13 +227,13 @@ public class ServerImpl extends Observable implements ServerInterface {
 
 
     @Override
-    public boolean paid(HashMap<Article, Integer> cadie, int idUser, int idMagasin) {
+    public boolean paid(HashMap<Article, Integer> cadie, int idUser, String iban, int idMagasin) {
         double sum = cadie.entrySet().stream().mapToDouble(c -> c.getKey().getPrice() * c.getValue()).sum();
         Magasin magasin = getMagasin(idMagasin);
         Person client = getPerson(idUser),
                vendeur= getPerson(magasin.getCreator().getId());
-        Compte compteClient = compteManager.getCompteByPersonne(client),
-               compteVendeur= compteManager.getCompteByPersonne(vendeur);
+        Compte compteClient = compteManager.getCompteByIban(iban),
+               compteVendeur= compteManager.getCompteByIban(magasin.getIban());
         try{
             compteClient.debit(sum);
             compteVendeur.credit(sum);
@@ -251,7 +256,7 @@ public class ServerImpl extends Observable implements ServerInterface {
 
             cadie.forEach((Article, Integer) ->
                     updateArticle(Article, Article.getName(), Article.getDesc(),
-                            Article.getPrice(), Article.getStock() - Integer.intValue()));
+                            Article.getPrice(), Article.getStock() - Integer));
 
             new Thread(() ->MailUtil.sendFactureMail(client.getMel(), cadie)).start();
             return true;
@@ -304,6 +309,10 @@ public class ServerImpl extends Observable implements ServerInterface {
         compte.setName(nom);
         compte.setAmount(amount);
         compte.setClient(user);
+
+        int id = compteManager.lastId()+1;
+        compte.setIban(Iban.getIban(id));
+
         compteManager.create(compte);
 
         setChanged();

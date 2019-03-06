@@ -9,6 +9,7 @@ public class Compte implements Serializable {
     private int id;
     private String name;
     private double amount;
+    private String iban;
     private Person client;
 
     public Compte(String name, double amount, Person client) {
@@ -62,6 +63,15 @@ public class Compte implements Serializable {
 
     public void setClient(Person client) {
         this.client = client;
+    }
+
+    @Column(name = "iban")
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
     }
 
     @Override

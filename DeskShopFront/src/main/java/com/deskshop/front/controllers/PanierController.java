@@ -71,14 +71,18 @@ public class PanierController implements Initializable {
     void bt_commanderClick(ActionEvent event) {
         try {
             if(!panier.isEmpty()) {
-                YesNoDialogController yesNoDialogController = ControllerUtils.loadYesNoDialog();
-                if (yesNoDialogController.getResponse()) {
+                IbanDialogController ibanDialogController = ControllerUtils.loadIbanDialog();
+                if (ibanDialogController.getResponse()) {
                     if (panier.entrySet().stream().allMatch(c -> c.getKey().getStock() > c.getValue())) {
-                        ServerConstant.SERVER.paid(panier, nbUser, magasin.getId());
-                        ControllerUtils.loadAlert("Commande effectuée", "Votre commande a été effectuée avec succès.");
-                        dashboardController.viderPanier();
+                        boolean paid = ServerConstant.SERVER.paid(panier, nbUser, ibanDialogController.getIban(), magasin.getId());
+                        if (paid) {
+                            ControllerUtils.loadAlert("Commande effectuée", "Votre commande a été effectuée avec succès.");
+                            dashboardController.viderPanier();
+                        } else {
+                            ControllerUtils.loadAlert("La commande ne peut pas s'effectuer", "Votre Iban n'existe pas");
+                        }
                     } else {
-                        ControllerUtils.loadAlert("La commande ne peut pas s'effectuer", "Le stock n'est pas suffisant pour honorer la demande");
+                        ControllerUtils.loadAlert("La commande ne peut pas s'effectuer", "Le stock n'est pas suffisante pour honorer la demande");
                     }
                 }
             }else{

@@ -15,7 +15,7 @@ public interface ServerInterface extends Remote {
     int createUser(Person user) throws RemoteException;
     List<Person> findAllUsers() throws RemoteException;
     //_______________________ Shop on DashBoard _______________________
-    int createShop(String name, int userId) throws RemoteException;
+    int createShop(String name, int userId, String iban) throws RemoteException;
     List<Magasin> findAllMagasin(int userId) throws RemoteException;
     List<Magasin> findMagasinByUser(int userId) throws RemoteException;
 
@@ -27,7 +27,7 @@ public interface ServerInterface extends Remote {
     void uploadFile(Article article, byte[] data, String name) throws RemoteException;
 
     //_________________________ Go Shopping ___________________________
-    boolean paid(HashMap<Article, Integer> cadie, int idUser, int idMagasin) throws RemoteException;
+    boolean paid(HashMap<Article, Integer> cadie, int idUser, String iban, int idMagasin) throws RemoteException;
 
     //______________________ Manage Bank Acount _______________________
     void credit(double sum) throws RemoteException;
