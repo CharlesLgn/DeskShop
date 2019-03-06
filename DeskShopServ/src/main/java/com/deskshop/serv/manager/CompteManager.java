@@ -23,6 +23,23 @@ public class CompteManager extends HibernateFactory<Compte> {
         return null;
     }
 
+    public Compte getCompteByIban(String iban) {
+        Session session = getSession();
+        Query query = session.createQuery("from Compte as compte where compte.iban = :iban ");
+        query.setParameter("iban", iban);
+        List<Compte> list = query.list();
+        for (Compte compte : list) {
+            return compte;
+        }
+        return null;
+    }
+
+    public int lastId() {
+        Session session = getSession();
+        Query query = session.createQuery("from Compte as compte WHERE compte.id > ALL (SELECT compte.id from Compte as compte)");
+        return ((Compte)query.list().get(0)).getId();
+    }
+
     public List<Compte> findAllCompte() {
         Session session = getSession();
         Query query = session.createQuery("from Compte as compte");

@@ -9,6 +9,7 @@ import java.util.Objects;
 public class Magasin implements Serializable {
     private int id;
     private String name;
+    private String iban;
     private Person creator;
 
     public Magasin(String name, Person creator) {
@@ -38,6 +39,16 @@ public class Magasin implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    @Column(name = "iban")
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
     }
 
     @OneToOne(fetch = FetchType.EAGER)

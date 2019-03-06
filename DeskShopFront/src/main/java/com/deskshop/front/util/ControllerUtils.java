@@ -338,4 +338,12 @@ public class ControllerUtils {
 
         return vBox;
     }
+
+    public static IbanDialogController loadIbanDialog() {
+        IbanDialogController ibanDialogController = new IbanDialogController();
+        FXMLLoader loader = new FXMLLoader(ControllerUtils.class.getResource("/gui/ibanDialog.fxml"));
+        loader.setController(ibanDialogController);
+        loadFXwait(loader, 1);
+        return ibanDialogController;
+    }
 }

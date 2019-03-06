@@ -27,17 +27,25 @@ public class CreateNewShopController {
     private JFXButton bt_valider;
 
     @FXML
+    private JFXTextField textfieldIban;
+
+
+    @FXML
     void bt_validerClick(ActionEvent event) {
         try{
             YesNoDialogController yesNoDialogController = ControllerUtils.loadYesNoDialog();
             if(yesNoDialogController.getResponse()) {
-                ServerConstant.SERVER.createShop(this.textfieldNomMagasin.getText(), this.UserId);
-                ControllerUtils.loadAlert("Créer un nouveau magasin", "Votre magasin a été créé avec succès");
+                int res = ServerConstant.SERVER.createShop(this.textfieldNomMagasin.getText(), this.UserId, textfieldIban.getText());
+                if (res == -1) {
+                    ControllerUtils.loadAlert("Créer un nouveau magasin", "Votre Iban n'existe pas");
+                } else {
+                    ControllerUtils.loadAlert("Créer un nouveau magasin", "Votre magasin a été créé avec succès");
+                }
             }
         }catch(Exception ex){
             ControllerUtils.loadAlert("Echec de la création du magasin", ex.toString());
         }
-
         ((Stage) vbox.getScene().getWindow()).close();
+
     }
 }
