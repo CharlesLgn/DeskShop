@@ -3,11 +3,11 @@ package com.deskshop.utils;
 public class Iban {
 
     public static String getIban(int x){
-        StringBuilder iban = new StringBuilder(x);
-        while (iban.length()<18){
-            iban.insert(0, "0");
+        String iban = ""+x;
+        while (iban.length()<10){
+            iban = "0" + iban;
         }
-        iban.insert(0, "FR");
-        return iban.toString();
+        iban = "FR" + iban;
+        return iban
     }
 }
