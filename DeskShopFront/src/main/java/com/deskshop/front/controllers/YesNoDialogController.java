@@ -5,6 +5,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
+/**
+ * Le controller de la boite de dialogue pour
+ * payer sa commande
+ * elle est composé d'un texte pour l'iban.
+ * les rest du controlleur fonctionne comme @{@link YesNoDialogController}
+ */
 public class YesNoDialogController {
 
     @FXML

@@ -1,5 +1,6 @@
 package com.deskshop.common.link;
 
+import com.deskshop.common.constant.EStatusPaiement;
 import com.deskshop.common.metier.*;
 
 import java.rmi.Remote;
@@ -27,7 +28,7 @@ public interface ServerInterface extends Remote {
     void uploadFile(Article article, byte[] data, String name) throws RemoteException;
 
     //_________________________ Go Shopping ___________________________
-    boolean paid(HashMap<Article, Integer> cadie, int idUser, String iban, int idMagasin) throws RemoteException;
+    EStatusPaiement paid(HashMap<Article, Integer> cadie, int idUser, String iban, int idMagasin) throws RemoteException;
 
     //______________________ Manage Bank Acount _______________________
     void credit(double sum) throws RemoteException;
