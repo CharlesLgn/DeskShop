@@ -127,10 +127,11 @@ public class PopupArticleController implements Initializable {
     void linkAddPanierClick(ActionEvent event) {
         if(modifyArticle){
             ControllerUtils.loadCreateNewArticle(this.article);
-            btQuitterClick(event);
         }else{
             panier.put(article, (panier.get(article) == null ?  0:panier.get(article)) + this.spinnerQte.getValue());
         }
+
+        btQuitterClick(event);
     }
 
     @FXML

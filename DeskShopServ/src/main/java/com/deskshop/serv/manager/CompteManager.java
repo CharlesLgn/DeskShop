@@ -38,7 +38,6 @@ public class CompteManager extends HibernateFactory<Compte> {
         Session session = getSession();
         Query query = session.createQuery("from Compte as compte order by compte.id desc ");
         List<Compte> list = query.list();
-        //return ((Compte)query.list().get(0)).getId();
         return list.get(0).getId();
     }
 

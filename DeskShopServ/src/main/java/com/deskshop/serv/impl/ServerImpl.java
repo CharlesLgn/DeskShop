@@ -232,9 +232,12 @@ public class ServerImpl extends Observable implements ServerInterface {
         Magasin magasin = getMagasin(idMagasin);
         Person client = getPerson(idUser),
                vendeur= getPerson(magasin.getCreator().getId());
-        Compte compteClient = compteManager.getCompteByIban(iban),
-               compteVendeur= compteManager.getCompteByIban(magasin.getIban());
         try{
+            Compte compteClient = compteManager.getCompteByIban(iban),
+                    compteVendeur= compteManager.getCompteByIban(magasin.getIban());
+            if (compteClient == null) {
+                return false;
+            }
             compteClient.debit(sum);
             compteVendeur.credit(sum);
             compteManager.update(compteClient);

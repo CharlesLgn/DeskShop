@@ -2,6 +2,8 @@ package com.deskshop.front.controllers;
 
 import com.deskshop.common.metier.Article;
 import com.deskshop.front.util.ControllerUtils;
+import com.jfoenix.controls.JFXButton;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -10,12 +12,17 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class ArticlePanierController implements Initializable {
+
+    @FXML
+    private JFXButton jfxButtonRetirer;
 
     @FXML
     private HBox hbox;
@@ -54,5 +61,14 @@ public class ArticlePanierController implements Initializable {
         }catch (Exception ex){
             ControllerUtils.loadAlert("Erreur lors de la récupération des informations sur l'article", ex.toString());
         }
+    }
+
+    @FXML
+    void jfxButtonRetirerClick(ActionEvent event) {
+        HashMap<Article, Integer> panier = PanierController.getPanier();
+        panier.remove(this.article);
+        PanierController.setPanier(panier);
+        //((Stage) hbox.getScene().getWindow()).close();
+        hbox.getChildren().clear();
     }
 }
