@@ -59,6 +59,7 @@ public class CreateNewCompteController implements Initializable {
                 jfxComboBoxUsers.setLabelFloat(true);
                 List<Person> users = ServerConstant.SERVER.findAllUsers();
                 jfxComboBoxUsers.setItems(FXCollections.observableArrayList(users));
+                jfxComboBoxUsers.getSelectionModel().select(0);
                 vboxBody.getChildren().addAll(amount, jfxComboBoxUsers);
             }
         } catch (Exception ex) {
@@ -69,20 +70,23 @@ public class CreateNewCompteController implements Initializable {
     void bt_validerClick(ActionEvent event) {
         try{
             YesNoDialogController yesNoDialogController = ControllerUtils.loadYesNoDialog();
-            if(yesNoDialogController.getResponse()) {
-                if(allOrMy) {
+            if (yesNoDialogController.getResponse()) {
+                if (allOrMy) {
                     ServerConstant.SERVER.createCompte(this.textfieldNomCompte.getText(), 0, nbUser);
-                }else{
+                } else {
+                    if(amount.getText().matches("[0-9]+") && textfieldNomCompte.getText().matches("(.)+")) {
                     ServerConstant.SERVER.createCompte(this.textfieldNomCompte.getText(),
-                            Double.parseDouble(this.amount.getText()), ((Person)this.jfxComboBoxUsers.getValue()).getId());
+                            Double.parseDouble(this.amount.getText()), ((Person) this.jfxComboBoxUsers.getValue()).getId());
+                    }else{
+                        ControllerUtils.loadAlert("Créer un nouveau compte", "Veuillez renseigner correctement les champs.");
+                    }
                 }
                 ControllerUtils.loadAlert("Créer un nouveau compte", "Votre compte a été créé avec succès");
+                ((Stage) vbox.getScene().getWindow()).close();
             }
-        }catch(Exception ex){
+        }catch(Exception ex) {
             ControllerUtils.loadAlert("Echec de la création du compte", ex.toString());
         }
-
-        ((Stage) vbox.getScene().getWindow()).close();
     }
 
 

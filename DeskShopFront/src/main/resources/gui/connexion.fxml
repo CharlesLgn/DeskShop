@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" styleClass="pn-zone-travail" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.deskshop.front.controllers.ConnexionController">
+<VBox fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: lightgrey;" styleClass="pn-zone-travail" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.deskshop.front.controllers.ConnexionController">
    <children>
       <GridPane VBox.vgrow="ALWAYS">
         <columnConstraints>
@@ -33,24 +33,19 @@
                   <Insets left="20.0" top="20.0" />
                </GridPane.margin>
             </Label>
-            <VBox alignment="TOP_CENTER" spacing="30.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <VBox alignment="TOP_CENTER" spacing="40.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <children>
                   <JFXTextField fx:id="mailaddressfield" alignment="TOP_LEFT" labelFloat="true" maxWidth="-Infinity" onKeyPressed="#Enter" prefWidth="300.0" promptText="Adresse mail" />
                   <JFXPasswordField fx:id="passwordfield" labelFloat="true" maxWidth="-Infinity" prefWidth="300.0" promptText="Mot de passe" />
                   <JFXButton fx:id="connexionbutton" onAction="#connect" prefHeight="40.0" prefWidth="125.0" text="Connecter" />
                   <HBox alignment="CENTER">
                      <children>
-                        <Label text="Pas de compte ? Créez votre compte ">
-                           <padding>
-                              <Insets bottom="30.0" />
-                           </padding>
-                        </Label>
-                        <Hyperlink fx:id="createAccount" onAction="#createConnection" text="ici">
-                           <padding>
-                              <Insets bottom="30.0" />
-                           </padding>
-                        </Hyperlink>
+                        <Label text="Pas de compte ? Créez votre compte " />
+                        <Hyperlink fx:id="createAccount" onAction="#createConnection" text="ici" />
                      </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
                   </HBox>
                </children>
                <GridPane.margin>

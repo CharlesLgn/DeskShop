@@ -40,7 +40,7 @@
                   <JFXTextField fx:id="fieldNom" labelFloat="true" maxWidth="-Infinity" onKeyPressed="#Enter" prefWidth="175.0" promptText="Nom" />
                </children>
             </HBox>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="40.0" GridPane.rowIndex="2">
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="35.0" GridPane.rowIndex="2">
                <children>
                   <JFXTextField fx:id="fieldMail" labelFloat="true" maxWidth="-Infinity" onKeyPressed="#Enter" onKeyReleased="#validateEmail" prefWidth="375.0" promptText="Adresse mail" />
                   <JFXPasswordField fx:id="fieldMDP" labelFloat="true" layoutX="48.0" layoutY="140.0" maxWidth="-Infinity" prefWidth="375.0" promptText="Mot de passe" />
@@ -54,10 +54,13 @@
                         <Label text="Vous possédez un compte ? Connectez-vous" />
                         <Hyperlink fx:id="link" onAction="#goToConnection" text="ici" />
                      </children>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
                   </HBox>
                </children>
                <GridPane.margin>
-                  <Insets top="20.0" />
+                  <Insets top="40.0" />
                </GridPane.margin>
             </VBox>
             <Button fx:id="bt_close" mnemonicParsing="false" onAction="#bt_close_action" prefHeight="30.0" prefWidth="51.0" text="X" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />

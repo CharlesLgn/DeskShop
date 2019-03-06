@@ -69,17 +69,20 @@ public class PanierController implements Initializable {
 
     @FXML
     void bt_commanderClick(ActionEvent event) {
-        // Commander les articles sélectionnés
         try {
-            YesNoDialogController yesNoDialogController = ControllerUtils.loadYesNoDialog();
-            if(yesNoDialogController.getResponse()) {
-                if (panier.entrySet().stream().allMatch(c -> c.getKey().getStock() > c.getValue())){
-                ServerConstant.SERVER.paid(panier, nbUser, magasin.getId());
-                ControllerUtils.loadAlert("Commande effectuée", "Votre commande a été effectuée avec succès.");
-                dashboardController.viderPanier();
-                }else{
-                    ControllerUtils.loadAlert("La commande ne peut pas s'effectuer", "Le stock n'est pas suffisante pour honorer la demande");
+            if(!panier.isEmpty()) {
+                YesNoDialogController yesNoDialogController = ControllerUtils.loadYesNoDialog();
+                if (yesNoDialogController.getResponse()) {
+                    if (panier.entrySet().stream().allMatch(c -> c.getKey().getStock() > c.getValue())) {
+                        ServerConstant.SERVER.paid(panier, nbUser, magasin.getId());
+                        ControllerUtils.loadAlert("Commande effectuée", "Votre commande a été effectuée avec succès.");
+                        dashboardController.viderPanier();
+                    } else {
+                        ControllerUtils.loadAlert("La commande ne peut pas s'effectuer", "Le stock n'est pas suffisant pour honorer la demande");
+                    }
                 }
+            }else{
+                ControllerUtils.loadAlert("La commande ne peut pas s'effectuer", "Le panier est vide.");
             }
         }catch (Exception ex){
             ControllerUtils.loadAlert("Echec de la commande", ex.toString());

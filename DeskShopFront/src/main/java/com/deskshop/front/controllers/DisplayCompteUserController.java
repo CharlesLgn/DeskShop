@@ -95,18 +95,20 @@ public class DisplayCompteUserController implements Initializable {
             jfxTextFieldTransfert = new JFXTextField();
             jfxTextFieldTransfert.setPrefSize(120,30);
             this.hbox.getChildren().add(jfxTextFieldTransfert);
-            // TODO Vérifier les input : il faut que ce soit des doubles !
             this.hbox.getChildren().add(new Label("Vers :"));
             JFXComboBox jfxComboBoxAutresComptes = new JFXComboBox();
             List<Compte> compteList = new ArrayList<>(comptes);
             jfxComboBoxAutresComptes.setItems(FXCollections.observableArrayList(MyOtherAccounts(compteList)));
             jfxComboBoxAutresComptes.getSelectionModel().select(0);
             this.hbox.getChildren().add(jfxComboBoxAutresComptes);
-            // TODO Rechercher les autres comptes sauf l'actuel et peupler la combobox avec ces derniers
             JFXButton jfxButtonTransfert = new JFXButton("Transférer");
             this.hbox.getChildren().add(jfxButtonTransfert);
             jfxButtonTransfert.setOnAction(event -> {
-                Transfert(Double.parseDouble(jfxTextFieldTransfert.getText()), this.compte, (Compte)jfxComboBoxAutresComptes.getValue());
+                if (this.jfxTextFieldTransfert.getText().matches("[0-9]+(\\.[0-9]{1,2})?") && !jfxComboBoxAutresComptes.getSelectionModel().isEmpty()) {
+                    Transfert(Double.parseDouble(jfxTextFieldTransfert.getText()), this.compte, (Compte)jfxComboBoxAutresComptes.getValue());
+                } else {
+                    ControllerUtils.loadAlert("Echec du transfert de fonds", "Vérifiez que les champs sont correctement renseignés");
+                }
             });
             this.solde.textProperty().addListener(new ChangeListener<String>() {
                 @Override
@@ -175,7 +177,6 @@ public class DisplayCompteUserController implements Initializable {
             //YesNoDialogController yesNoDialogController = ControllerUtils.loadYesNoDialog();
             //if(yesNoDialogController.getResponse()) {
             if (compteReceiver != null){
-                if (this.jfxTextFieldTransfert.getText().matches("[0-9]+(\\.[0-9]{1,2})?")) {
                     if (compeGiver.getAmount() > somme) {
                         if (ServerConstant.SERVER.transfert(somme, compeGiver, compteReceiver)) {
                             ControllerUtils.loadAlert("Transfert de fonds effectué", "Le transfert de fonds a été effectué avec succès.");
@@ -185,9 +186,7 @@ public class DisplayCompteUserController implements Initializable {
                     } else {
                         ControllerUtils.loadAlert("Echec du transfert de fonds", "Le transfert de fonds a échoué car le compte débité n'a pas suffisamment de ressources.");
                     }
-                } else {
-                    ControllerUtils.loadAlert("Echec du transfert de fonds", "Entrez un nombre cohérent.");
-                }
+
             }else{
                 ControllerUtils.loadAlert("Echec du transfert de fonds", "Veuillez sélectionner un compte pour le transfert.");
             }
