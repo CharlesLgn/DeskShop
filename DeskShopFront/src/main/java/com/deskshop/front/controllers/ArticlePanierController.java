@@ -72,12 +72,20 @@ public class ArticlePanierController implements Initializable {
         }
     }
 
+    /**
+     * Met à jour la quantité de l'article dans le panier
+     * @param newQte
+     */
     private void editerQuantite(int newQte){
         HashMap<Article, Integer> panier = PanierController.getPanier();
         panier.put(this.article, newQte);
         PanierController.setPanier(panier);
     }
 
+    /**
+     * Retire l'article actuel du panier
+     * @param event
+     */
     @FXML
     void jfxButtonRetirerClick(ActionEvent event) {
         HashMap<Article, Integer> panier = PanierController.getPanier();

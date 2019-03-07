@@ -50,7 +50,6 @@ public class ChoixController implements Initializable {
         }
     }
 
-
     @FXML
     void vboxEnter(MouseEvent event) {
         Scene sc = vbox.getScene();
