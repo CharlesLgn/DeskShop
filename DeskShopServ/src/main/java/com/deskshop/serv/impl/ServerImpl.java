@@ -15,6 +15,7 @@ import com.deskshop.serv.manager.MagasinManager;
 import com.deskshop.serv.manager.PersonManager;
 import com.deskshop.utils.Iban;
 import com.deskshop.utils.MailUtil;
+import com.deskshop.utils.PayementUtils;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -229,7 +230,7 @@ public class ServerImpl extends Observable implements ServerInterface {
 
     @Override
     public EStatusPaiement paid(HashMap<Article, Integer> cadie, int idUser, String iban, int idMagasin) {
-        double sum = cadie.entrySet().stream().mapToDouble(c -> c.getKey().getPrice() * c.getValue()).sum();
+        double sum = PayementUtils.getTotal(cadie);
         Magasin magasin = getMagasin(idMagasin);
         Person client = getPerson(idUser),
                vendeur= getPerson(magasin.getCreator().getId());

@@ -58,6 +58,9 @@ public class DisplayCompteController implements Initializable {
     @FXML
     private JFXButton editsoldeValider;
 
+    @FXML
+    private Label lb_iban;
+
     private Compte compte;
 
     public DisplayCompteController(Compte compte) {
@@ -81,6 +84,7 @@ public class DisplayCompteController implements Initializable {
             this.nom.setText(this.compte.getClient().getName() + " " + this.compte.getClient().getFirstName());
             this.mail.setText(this.compte.getClient().getMel());
             this.solde.setText(this.compte.getAmount() + "");
+            this.lb_iban.setText(this.lb_iban.getText() + " " + compte.getIban());
             this.solde.textProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> observable, String oldValue,

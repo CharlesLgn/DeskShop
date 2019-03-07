@@ -59,6 +59,9 @@ public class DisplayCompteUserController implements Initializable {
     private JFXButton editsoldeAnnuler;
 
     @FXML
+    private Label lb_iban;
+
+    @FXML
     private JFXTextField jfxTextFieldTransfert;
 
     @FXML
@@ -85,6 +88,7 @@ public class DisplayCompteUserController implements Initializable {
             this.nom.setText(this.compte.getClient().getName() + " " + this.compte.getClient().getFirstName());
             this.mail.setText(this.compte.getClient().getMel());
             this.solde.setText(this.compte.getAmount() + "");
+            this.lb_iban.setText(this.lb_iban.getText() + " " + compte.getIban());
             // Dans cette form, on a pas besoin de l'édition du solde mais plutôt du transfert de fond
             // On retire donc les trois boutons non désirés
             this.hbox.getChildren().remove(this.editsolde);

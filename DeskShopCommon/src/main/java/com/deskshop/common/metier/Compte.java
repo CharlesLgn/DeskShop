@@ -12,11 +12,12 @@ public class Compte implements Serializable {
     private String iban;
     private Person client;
 
-    public Compte(String name, double amount, Person client) {
+    public Compte(String name, double amount, Person client, String iban) {
         this.id = -1;
         this.name = name;
         setAmount(amount);
         this.client = client;
+        this.iban = iban;
     }
 
     public Compte() {

@@ -5,11 +5,14 @@ import com.deskshop.common.constant.ServerConstant;
 import com.deskshop.common.metier.Article;
 import com.deskshop.common.metier.Magasin;
 import com.deskshop.front.util.ControllerUtils;
+import com.deskshop.utils.PayementUtils;
 import com.jfoenix.controls.JFXButton;
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
@@ -35,6 +38,9 @@ public class PanierController implements Initializable {
     @FXML
     private ScrollPane scrollpane;
 
+    @FXML
+    private Label lb_total;
+
     private int nbUser;
     private Magasin magasin;
 
@@ -58,18 +64,30 @@ public class PanierController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        scrollpane.setFitToHeight(true);
-        scrollpane.setFitToWidth(true);
-        FlowPane flowPane = new FlowPane();
-        flowPane.setAlignment(Pos.CENTER);
-        flowPane.setVgap(30);
-        for (Map.Entry<Article, Integer> entry : panier.entrySet()) {
-            System.out.println(entry.getKey() + " = " + entry.getValue());
-            Pane pane = ControllerUtils.loadArticlePanier(((Article) entry.getKey()), ((int) entry.getValue()));
-            flowPane.getChildren().add(pane);
+        new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                displayPanier(false);
+            }
+        }.start();
+    }
+
+    private void displayPanier(boolean b) {
+        if (scrollpane.getContent() == null || panier.entrySet().size() != ((FlowPane)scrollpane.getContent()).getChildren().size()) {
+            scrollpane.setFitToHeight(true);
+            scrollpane.setFitToWidth(true);
+            FlowPane flowPane = new FlowPane();
+            flowPane.setAlignment(Pos.CENTER);
+            flowPane.setVgap(30);
+            for (Map.Entry<Article, Integer> entry : panier.entrySet()) {
+                Pane pane = ControllerUtils.loadArticlePanier(((Article) entry.getKey()), ((int) entry.getValue()));
+                flowPane.getChildren().add(pane);
+            }
+
+            scrollpane.setContent(flowPane);
         }
 
-        scrollpane.setContent(flowPane);
+        lb_total.setText(PayementUtils.getTotal(panier) + "");
     }
 
     @FXML

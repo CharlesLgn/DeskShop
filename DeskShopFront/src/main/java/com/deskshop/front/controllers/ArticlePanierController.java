@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -17,6 +18,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ArticlePanierController implements Initializable {
@@ -81,6 +83,5 @@ public class ArticlePanierController implements Initializable {
         HashMap<Article, Integer> panier = PanierController.getPanier();
         panier.remove(this.article);
         PanierController.setPanier(panier);
-        hbox.setVisible(false);
     }
 }
